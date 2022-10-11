@@ -1,20 +1,9 @@
-#menu3 {
-    .dropDown {
-        &:hover.dropDownMenu {
-            display: flex;
-            justify-content: center;
-            position: absolute;
-            top: 100px;
-            left: 0;
-            width: 100%;
-            padding: 10px 0 30px;
-            text-align: left;
-            background-color: #333333;
+#dropMenu {
+    .dropDownMenu{
+        display: none;
+    }
 
-        }
-
-        .dropDownMenu {
-            display: none;
-        }
+    .dropDown:hover .dropDownMenu {
+        display: block; 
     }
 }

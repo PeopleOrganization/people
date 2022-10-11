@@ -15,7 +15,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-         <Menu></Menu>
+         <Menu />
 			    <Routes>
 					  <Route path="/" element={<Main />}></Route>
             <Route path="/BloodChart" element={<BloodChart />}></Route>
