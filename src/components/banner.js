@@ -19,14 +19,19 @@ const Banner = () => {
       <div className="main-wrap">
         <Swiper
           style={{
-            width: "1300px",
+            width: "800px",
             height: "300px",
-            backgroundColor: "#FFF5F1",
+            backgroundColor: "#FFFFFF",
             borderRadius: "12px",
+            overflow:"visible"
+            
           }}
-          spaceBetween={8}
+          spaceBetween={30}
           initialSlide={0}
           navigation
+          loop="true"
+          loopAdditionalSlides="1"
+
           pagination={{
             clickable: true,
           }}
