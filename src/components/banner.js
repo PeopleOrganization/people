@@ -20,7 +20,7 @@ const Banner = () => {
         <Swiper
           style={{
             width: "1300px",
-            height: "500px",
+            height: "300px",
             backgroundColor: "#FFF5F1",
             borderRadius: "12px",
           }}
@@ -30,6 +30,7 @@ const Banner = () => {
           pagination={{
             clickable: true,
           }}
+          rewind = "true"
           autoplay={{ delay: 3000 }}
         >
           <SwiperSlide>
