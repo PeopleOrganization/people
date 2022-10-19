@@ -34,16 +34,16 @@ function Register(props) {
       }
     })
       .then(res => {  
-        if(email == "") {
+        if(email === "") {
           alert("이메일을 입력해주세요.");
           return;
-        }else if(pw == "") {
+        }else if(pw === "") {
           alert("비밀번호를 입력해주세요.");
           return;
-        }else if(nickName == "") {
+        }else if(nickName === "") {
           alert("닉네임을 입력해주세요");
           return;
-        }else if(pw2 != pw) {
+        }else if(pw2 !== pw) {
           alert("비밀번호가 일치하지 않습니다.");
           return;
         }
