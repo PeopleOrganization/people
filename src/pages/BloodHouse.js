@@ -1,7 +1,9 @@
-import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { useState } from "react";
+//구글맵키 AIzaSyBIgZoVqTFMhUuZj2l0bFRkQsPoXWRVFI0
+import { useCallback, useEffect, useRef, useState } from "react";
 
-function BloodHouse() {
+
+function BloodHouse(props) {
+  const mapElement = useRef(null);
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
 
@@ -22,7 +24,51 @@ function BloodHouse() {
     console.warn("ERROR(" + err.code + "): " + err.message);
   }
 
-  navigator.geolocation.getCurrentPosition(success, error, options);
+  // 컴포넌트가 마운트될 때, 수동으로 스크립트를 넣어줍니다.
+  // ﻿이는 script가 실행되기 이전에 window.initMap이 먼저 선언되어야 하기 때문입니다.
+  const loadScript = useCallback((url) => {
+    const firstScript = window.document.getElementsByTagName("script")[0];
+    const newScript = window.document.createElement("script");
+    newScript.src = url;
+    newScript.async = true;
+    newScript.defer = true;
+    firstScript?.parentNode?.insertBefore(newScript, firstScript);
+  }, []);
+
+  // script에서 google map api를 가져온 후에 실행될 callback 함수
+  const initMap = useCallback(() => {
+    const { google } = window;
+    if (!mapElement.current || !google) return;
+
+    const location = { lat: latitude, lng: longitude };
+    const map = new google.maps.Map(mapElement.current, {
+      zoom: 17,
+      center: location,
+    });
+    new google.maps.Marker({
+      position: location,
+      map,
+    });
+  }, []);
+
+  useEffect(() => {
+    const script = window.document.getElementsByTagName("script")[0];
+    const includeCheck = script.src.startsWith(
+      "https://maps.googleapis.com/maps/api"
+    );
+
+    // script 중복 호출 방지
+    if (includeCheck) return initMap();
+
+    window.initMap = initMap;
+    loadScript(
+      "https://maps.googleapis.com/maps/api/js?key=AIzaSyBIgZoVqTFMhUuZj2l0bFRkQsPoXWRVFI0&callback=initMap&language=en"
+    );
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+  }, [initMap, loadScript]);
+
+
 
   return (
     <div className="centerContainer">
@@ -54,20 +100,7 @@ function BloodHouse() {
             </div>
           </div>
         </div>
-        <div className="others"></div>
-        <Map
-          center={{ lat: latitude, lng: longitude }}
-          style={{
-            width: "70%",
-            marginLeft: "250px",
-            marginTop: "100px",
-            height: "500px",
-          }}
-        >
-          <MapMarker position={{ lat: latitude, lng: longitude }}>
-            <div style={{ color: "#000" }}>Hello World!</div>
-          </MapMarker>
-        </Map>
+        <div className="others"><div ref={mapElement} style={{ minHeight: "400px" }} /></div>
       </div>
     </div>
   );
