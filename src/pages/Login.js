@@ -30,38 +30,60 @@ function Login(props) {
     })
       .then(res => {
 
-        if(email == "") {
+        if(email === "") {
           alert("이메일을 입력해주세요.");
           return;
-        }else if(pw == "") {
+        }else if(pw === "") {
           alert("비밀번호를 입력해주세요.");
           return;
         }
 
         console.log(res.data)
-        document.location.href = '/'
-      })
+        if(res.data === 0) { // 0을 받아오면 성공했다는 알람
+          alert("로그인에 성공하셨습니다.");
+          document.location.href = '/'
+        }else { // 0이외의 값이라면 실패했다는 알람
+          alert("로그인에 실패하셨습니다.");
+        }
+      }) 
       .catch(function(error){
        console.log(error);
     })
   }
 
+
   return (
     <div className="centerContainer">
       <div className="container">
-        <div align="center">
-          <p>
-            <b>이메일: </b>
-            <input
-              name="email"
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </p>
-          <p>
-            <b>비밀번호: </b>
-            <input name="pw" onChange={(event) => setPw(event.target.value)} />
-          </p>
-          <button onClick={login2}>로그인</button>
+        <h1 className="sidebarTitle">로그인</h1><hr/>
+        <div id="box">
+        <table id="table">
+          <div align="center" id="margin">
+            <tr><span id="loginText">이메일</span>
+              <p><input type={"text"}
+                name="email"
+                
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            <br/><span id="loginText">패스워드</span><br/>
+              <input type={"password"}
+                name="pw"
+                
+                onChange={(event) => setPw(event.target.value)}
+              /></p>
+            </tr>
+            <tr>
+            <p><button id= "loginBtn"onClick={login2}>로그인</button></p>
+            </tr>
+
+            <tr>
+              <p> <a id="loginHref" href="Register" onClick={login2}>비밀번호 찾기 ꒐</a>&nbsp;
+              <a id="loginHref" href="Register" onClick={login2}>회원가입</a>&nbsp;
+              </p>
+            </tr>
+          </div>
+        </table>
+        
         </div>
       </div>
     </div>

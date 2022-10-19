@@ -4,6 +4,9 @@
   max-width: 1920;
   background: rgb(255, 81, 81);
   font-family: "GmarketSansMedium";
+}
+
+body {
   -webkit-touch-callout: none;
   user-select: none;
   -moz-user-select: none;
@@ -17,11 +20,6 @@
   width: auto;
   max-width: 1920;
   font-family: "GmarketSansMedium";
-  -webkit-touch-callout: none;
-  user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -webkit-user-select: none;
 }
 
 #wrapper {
@@ -252,4 +250,32 @@
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
   font-weight: normal;
   font-style: normal;
+}
+#table {
+  font-size: x-large;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#margin {
+  margin-top: 3%;
+}
+
+#loginBtn {
+  background: rgb(255, 81, 81);
+  color: #fff;
+  border: none;
+  border-radius: 10%;
+}
+
+#loginHref {
+  -webkit-text-decoration-line: none;
+          text-decoration-line: none;
+  color: #555;
+  font-size: large;
+}
+
+#loginText {
+  font-size: medium;
 }/*# sourceMappingURL=menu.css.map */

@@ -25,8 +25,7 @@ import BloodBank from './pages/BloodBank';
 import BloodHospital from './pages/BloodHospital';
 import MyPage from './pages/MyPage';
 
-import './menu.css';
-
+<body oncontextmenu="return false" onselectstart="return false"></body>
 function App() {
   return (
     <div id="wrapper">

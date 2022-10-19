@@ -67,6 +67,7 @@ export default function App() {
           </div>
         </div>
         <div className="others">
+        <div id="chart2">
           <BarChart
             width={1500}
             height={600}
@@ -92,6 +93,7 @@ export default function App() {
           </BarChart>
         </div>
       </div>
+    </div>
     </div>
   );
   

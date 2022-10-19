@@ -165,7 +165,7 @@ function Menu() {
           Join
         </a>
         <a id="login3" href="Mypage">
-          Mypage
+          MyPage
         </a>
       </div>
     </div>
