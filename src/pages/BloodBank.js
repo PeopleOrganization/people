@@ -1,7 +1,7 @@
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useState } from "react";
 
-function BloodHouse() {
+function BloodBank() {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
 
@@ -35,7 +35,7 @@ function BloodHouse() {
                 <ul className="sidebarList">
                   <a className="href" href="BloodHouse">
                     {" "}
-                    <li className="sidebarListItem active">헌혈의집</li>
+                    <li className="sidebarListItem">헌혈의집</li>
                   </a>
                   &nbsp;
                   <a className="href" href="BloodCafe">
@@ -43,7 +43,7 @@ function BloodHouse() {
                   </a>
                   &nbsp;
                   <a className="href" href="BloodBank">
-                    <li className="sidebarListItem">혈액원</li>
+                    <li className="sidebarListItem active">혈액원</li>
                   </a>
                   &nbsp;
                   <a className="href" href="BloodHospital">
@@ -73,4 +73,4 @@ function BloodHouse() {
   );
 }
 
-export default BloodHouse;
+export default BloodBank;

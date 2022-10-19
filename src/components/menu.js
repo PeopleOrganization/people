@@ -15,17 +15,17 @@ function Menu() {
           <li id="dropDown1">
             QnA
             <li>
-              <a id="dropList" href="BloodChart">
+              <a id="dropList" href="QnAKnowledge">
                 헌혈지식
               </a>
             </li>
             <li>
-              <a id="dropList" href="BloodChart">
+              <a id="dropList" href="QnADesignated">
                 지정헌혈이란?
               </a>
             </li>
             <li>
-              <a id="dropList" href="BloodChart">
+              <a id="dropList" href="QnAQuestion">
                 자주묻는 질문
               </a>
             </li>
@@ -72,17 +72,17 @@ function Menu() {
               </a>
             </li>
             <li>
-              <a id="dropList" href="BloodChartMonth">
+              <a id="dropList" href="BloodCafe">
                 헌혈카페 위치
               </a>
             </li>
             <li>
-              <a id="dropList" href="BloodChartAge">
+              <a id="dropList" href="BloodBank">
                 혈액원 위치
               </a>
             </li>
             <li>
-              <a id="dropList" href="BloodChartBloodType">
+              <a id="dropList" href="BloodHospital">
                 지정병원 위치
               </a>
             </li>
@@ -103,17 +103,17 @@ function Menu() {
           <li id="dropDown4">
             Board
             <li>
-              <a id="dropList" href="Post">
+              <a id="dropList" href="Board">
                 전체 게시판
               </a>
             </li>
             <li>
-              <a id="dropList" href="Post">
+              <a id="dropList" href="BoardBloodType">
                 혈액형별 게시판
               </a>
             </li>
             <li>
-              <a id="dropList" href="Post">
+              <a id="dropList" href="BoardLoc">
                 지역별 게시판
               </a>
             </li>
@@ -162,9 +162,9 @@ function Menu() {
           Login
         </a>
         <a id="login2" href="Register">
-          Logout
+          Join
         </a>
-        <a id="login3" href="Register">
+        <a id="login3" href="Mypage">
           Mypage
         </a>
       </div>

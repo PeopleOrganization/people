@@ -8,6 +8,7 @@ function Register(props) {
 
   const [email,setEmail] = useState("");
   const [pw,setPw] = useState("");
+  const [pw2,setPw2] = useState("");
   const [nickName,setNickName] = useState("");
   const [blood,setBlood] = useState("");
   const [area,setArea] = useState("");
@@ -20,6 +21,7 @@ function Register(props) {
 
   const newPosting = () => {
     console.log("회원가입 하러 옴");
+
     axios.post('http://localhost:3001/join', null, {
       params: { 
         email: email,
@@ -31,9 +33,21 @@ function Register(props) {
         push: push
       }
     })
-      .then(res => {
+      .then(res => {  
+        if(email == "") {
+          alert("이메일을 입력해주세요.");
+          return;
+        }else if(pw == "") {
+          alert("비밀번호를 입력해주세요.");
+          return;
+        }else if(nickName == "") {
+          alert("닉네임을 입력해주세요");
+          return;
+        }else if(pw2 != pw) {
+          alert("비밀번호가 일치하지 않습니다.");
+          return;
+        }
         console.log(res.data)
-        alert("회원가입이 왼료되었습니다.")
         document.location.href = '/'
       })
       .catch(function(error){
@@ -42,44 +56,84 @@ function Register(props) {
   }
 
 
+
   return (
-    <div align="center">
-      <p>
-      <Input name="email" onChange={(event) => setEmail(event.target.value)} placeholder="이메일" />
+    <div className="centerContainer">
+      <div className="container">
+        <div align="center">
+          <p>
+            <Input
+              name="email"
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="이메일"
+            />
+          </p>
+          <p>
+            <Input
+              name="pass"
+              onChange={(event) => setPw(event.target.value)}
+              placeholder="비밀번호"
+            />
+          </p>
+          <p>
+      <Input name="passCheck" onChange={(event) => setPw2(event.target.value)} placeholder="비밀번호 확인" />
       </p>
-      <p>
-      <Input name="pass" onChange={(event) => setPw(event.target.value)}  placeholder="비밀번호" />
-      </p>
-      <p>
-      <Input name="passCheck" placeholder="비밀번호 확인" />
-      </p>
-      <p>
-        <Input name="nickName" onChange={(event) => setNickName(event.target.value)} placeholder="닉네임" /> <Button>중복확인</Button>
-      </p>
-      <p>
-        <Radio onChange={(event) => setBlood(event.target.value)} value="A" name="blood" />
-        A
-        <Radio onChange={(event) => setBlood(event.target.value)} value="B"  name="blood" />
-        B
-        <Radio onChange={(event) => setBlood(event.target.value)} value="AB"  name="blood" />  
-        AB
-        <Radio onChange={(event) => setBlood(event.target.value)} value="O"  name="blood" />
-        O
-      </p>
-      <p>
-        <Check name ="rh"/>
-        Rh-혈액형
-      </p>
-      <p>
-      <Input name="area" onChange={(event) => setArea(event.target.value)}  placeholder="거주지역" />
-      </p>
-      <div>
-        <Province></Province>
+
+          <p>
+            <Input
+              name="nickName"
+              onChange={(event) => setNickName(event.target.value)}
+              placeholder="닉네임"
+            />{" "}
+            <Button>중복확인</Button>
+          </p>
+          <p>
+            <Radio
+              onChange={(event) => setBlood(event.target.value)}
+              value="A"
+              name="blood"
+            />
+            A
+            <Radio
+              onChange={(event) => setBlood(event.target.value)}
+              value="B"
+              name="blood"
+            />
+            B
+            <Radio
+              onChange={(event) => setBlood(event.target.value)}
+              value="AB"
+              name="blood"
+            />
+            AB
+            <Radio
+              onChange={(event) => setBlood(event.target.value)}
+              value="O"
+              name="blood"
+            />
+            O
+          </p>
+          <p>
+            <Check name="rh" />
+            Rh-혈액형
+          </p>
+          <p>
+            <Input
+              name="area"
+              onChange={(event) => setArea(event.target.value)}
+              placeholder="거주지역"
+            />
+          </p>
+          <div>
+            <Province></Province>
+          </div>
+          <p>
+            <Check id="agree" onChange={handleChange} />
+            카카오 채널 푸쉬알림 허용동의
+          </p>
+          <button onClick={newPosting}>회원가입</button>
         </div>
-        <p>
-        <Check id ="agree" onChange={handleChange}/>카카오 채널 푸쉬알림 허용동의
-        </p>
-      <button onClick={newPosting}>회원가입</button>
+      </div>
     </div>
   );
 }

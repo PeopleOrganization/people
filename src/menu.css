@@ -3,6 +3,49 @@
   width: auto;
   max-width: 1920;
   background: rgb(255, 81, 81);
+  font-family: "GmarketSansMedium";
+  -webkit-touch-callout: none;
+  user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+}
+
+.centerContainer {
+  display: flex;
+  flex: 1;
+  width: auto;
+  max-width: 1920;
+  font-family: "GmarketSansMedium";
+  -webkit-touch-callout: none;
+  user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#footer {
+  position: flex;
+  left: 0px;
+  bottom: 0px;
+  height: 70px;
+  width: 100%;
+  background: rgb(91, 28, 26);
+}
+
+.mainButton {
+  position: absolute;
+  top: 58%;
+  left: 33%;
+  width: 35%;
+  height: 30%;
+  opacity: 0;
 }
 
 #left {
@@ -162,17 +205,19 @@
 
 #dropList {
   color: #fff;
-  background: rgb(138, 67, 65);
+  background: rgb(91, 28, 26);
   font-size: large;
   font-weight: bold;
   padding: 5px;
   display: none;
   text-decoration: none;
+  margin-top: 1px;
+  border-radius: 5px;
   align-items: center;
   justify-content: center;
 }
 
-#dropList::after {
+#dropList:after {
   display: block;
   content: "";
   border-bottom: solid 3px rgb(255, 81, 81);
@@ -191,14 +236,20 @@
   margin-left: 30%;
 }
 
+#logo2 {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+
 .others {
   flex: 4;
 }
 
-body {
-  background-image: url(./imgs/back1.png);
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: cover;
-  background-attachment: fixed;
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }/*# sourceMappingURL=menu.css.map */

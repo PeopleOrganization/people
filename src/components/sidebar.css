@@ -1,5 +1,6 @@
 .sidebar{
     flex:1;
+    font-family: "GmarketSansMedium";
 }
 
 .sidebarWrapper{
@@ -14,10 +15,11 @@
 
 .sidebarTitle{
     margin-top: 3%;
-    margin-left: 47%;
     font-weight:800;
-    color:rgb(106, 103, 103);
-
+    color:#000;
+    align-items:center;
+    display:flex;
+    justify-content: center;
 }
 
 .sidebarList{
@@ -34,13 +36,12 @@
 
 .sidebarCircle{
     padding:15px;
-    cursor:pointer;
     display:flex;
     border-radius:100px;
     color: #555;
     font-size: large;
     font-weight: bold;
-    background:white;
+    background:#fff;
     margin-left: 25%;
     margin-right: 25%;
 }
@@ -58,7 +59,6 @@
 
 .sidebarListItem.active,
 .sidebarListItem:hover{
-    background-color: rgb(246, 152, 188);
+    background-color: #000;
     color: white;
 }
-
