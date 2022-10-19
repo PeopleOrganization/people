@@ -19,11 +19,11 @@ const Banner = () => {
       <div className="main-wrap">
         <Swiper
           style={{
-            width: "800px",
-            height: "300px",
+            width: "50%",
+            height: "350px",
             backgroundColor: "#FFFFFF",
             borderRadius: "12px",
-            overflow:"visible"
+            overflow:"visible",
             
           }}
           spaceBetween={30}
@@ -36,7 +36,7 @@ const Banner = () => {
             clickable: true,
           }}
           rewind = "true"
-          autoplay={{ delay: 3000 }}
+          autoplay={{ delay: 2500 }}
         >
           <SwiperSlide>
             <img

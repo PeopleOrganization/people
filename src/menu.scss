@@ -1,32 +1,200 @@
-#home {
+#container {
+    display: flex;
+    width: auto;
+    max-width: 1920;
+    background: rgb(255, 81, 81);
+  }
+  
+  #left {
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #center {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #right {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+#login1{
+    text-decoration-line: none;
     font-weight: bold;
     font-size: large;
-    color: black;
+    color: #fff;
+    margin-right: 8%;
 }
 
-#home:hover {
-    color: red;
-}
-
-#dropDown{
+#login2{
+    text-decoration-line: none;
     font-weight: bold;
     font-size: large;
-    color: black;
+    color: #fff;
+    margin-right: 8%;
 }
-
-#dropDown:hover {
-    color: red;
-}
-
-#wall{
-    margin-right: 20%;
-}
-
-#title{
-    margin-left:8%;
-}
-
-#dropList{
-    color: red;
+ 
+#login3{
+    text-decoration-line: none;
     font-weight: bold;
+    font-size: large;
+    color: #fff;
+    margin-right: 8%;
+}
+ #login1:hover {
+    color: #000;
+  }
+  
+  #login2:hover {
+    color: #000;
+  }
+  
+  #login3:hover {
+    color: #000;
+  }
+  
+  #dropDown1 {
+    color: #000;
+    font-weight: 900;
+    font-size: large;
+    list-style: none;
+    position: absolute;
+    z-index: 2;
+    left: 20%;
+    cursor: pointer;
+  }
+  
+  #dropDown1:hover {
+    color: rgb(248, 248, 248);
+  }
+  
+  #dropDown1:hover #dropList {
+    display: block;
+  }
+  
+  #dropDown2 {
+    color: black;
+    font-weight: 900;
+    font-size: large;
+    list-style: none;
+    position: absolute;
+    z-index: 2;
+    left: 30%;
+    cursor: pointer;
+  }
+  
+  #dropDown2:hover {
+    color: rgb(248, 248, 248);
+  }
+  
+  #dropDown2:hover #dropList {
+    display: block;
+  }
+  
+  #dropDown3 {
+    color: black;
+    font-weight: 900;
+    font-size: large;
+    list-style: none;
+    position: absolute;
+    z-index: 2;
+    left: 40%;
+    cursor: pointer;
+  }
+  
+  #dropDown3:hover {
+    color: rgb(248, 248, 248);
+  }
+  
+  #dropDown3:hover #dropList {
+    display: block;
+  }
+  
+  #dropDown4 {
+    color: black;
+    font-weight: 900;
+    font-size: large;
+    list-style: none;
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    cursor: pointer;
+  }
+  
+  #dropDown4:hover {
+    color: rgb(248, 248, 248);
+  }
+  
+  #dropDown4:hover #dropList {
+    display: block;
+  }
+  
+  #dropDown5 {
+    color: black;
+    font-weight: 900;
+    font-size: large;
+    list-style: none;
+    position: absolute;
+    z-index: 2;
+    left: 60%;
+    cursor: pointer;
+  }
+  
+  #dropDown5:hover {
+    color: rgb(248, 248, 248);
+  }
+  
+  #dropDown5:hover #dropList {
+    display: block;
+  }
+  
+  #dropList {
+    color: #fff;
+    background: rgb(138, 67, 65);
+    font-size: large;
+    font-weight: bold;
+    padding: 5px;
+    display: none;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #dropList::after{
+    display:block;
+    content:'';
+    border-bottom: solid 3px rgb(255, 81, 81);
+    transform:scaleX(0);
+    transition:transform 250ms ease-in-out;
+  }
+  
+  #dropList:hover:after {
+    transform:scaleX(1);
+  }
+  
+  #logo {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-left: 30%;
+  }
+  
+  .others {
+    flex: 4;
+  }
+  
+body{
+    background-image: url(./imgs/back1.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  background-attachment: fixed;
 }

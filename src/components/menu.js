@@ -1,60 +1,173 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import title from '../imgs/title_icon.png';
+import title from "../imgs/title_icon.png";
+import React from "react";
 
-// 헌혈자 수
-// 월별
-// 연령별
-// 지역별
-// 혈액형 별
 function Menu() {
-
   return (
-    <div id ="nav">
-      <Navbar bg="white" variant="light">
-        <Container>
-          <Navbar.Brand id='title' href="/"><img src={title} alt="title" width="300"></img></Navbar.Brand>
-          <Nav>   
-          <NavDropdown
-             title = "헌혈지식" id = "dropDown" >
-              <div>
-                <NavDropdown.Item id="dropList" href="BloodChart">헌혈의 필요성</NavDropdown.Item>
-                <NavDropdown.Item id="dropList" href="BloodChart">헌혈 종류</NavDropdown.Item>
-                <NavDropdown.Item id="dropList" href="BloodChart">오해와 진실</NavDropdown.Item>
-                </div>
-              </NavDropdown>
+    <div id="container">
+      <div id="left">
+        <a id="logo" href="/">
+          <img src={title} alt="title" width="60%"></img>
+        </a>
+      </div>
 
-            <NavDropdown
-             title = "헌혈통계" id = "dropDown" >
-              <div>
-                <NavDropdown.Item id="dropList" href="BloodChartTotal">헌혈자 수 통계</NavDropdown.Item>
-                <NavDropdown.Item id="dropList" href="BloodChartMonth">월 별 통계</NavDropdown.Item>
-                <NavDropdown.Item id="dropList" href="BloodChartAge">연령별 통계</NavDropdown.Item>
-                <NavDropdown.Item id="dropList" href="BloodChartLoc">지역별 통계</NavDropdown.Item>
-                <NavDropdown.Item id="dropList" href="BloodChartBloodType">혈액형 별 통계</NavDropdown.Item>
-                </div>
-              </NavDropdown>
-              
-            <Nav.Link id = "home" href="BloodHouse">헌혈의집</Nav.Link>
-            <Nav.Link id = "home" href="Post">게시판</Nav.Link>
-            <NavDropdown 
-             title = "관련사이트 링크" id = "dropDown">
-              <div>
-                <NavDropdown.Item id="dropList" href="https://redcross.or.kr/main/main.do" target="_blank">대한적십자사</NavDropdown.Item>
-                <NavDropdown.Item id="dropList" href="https://www.vms.or.kr/main.do" target="_blank">봉사활동</NavDropdown.Item>
-                <NavDropdown.Item id="dropList" href="https://www.bloodinfo.net/emi2/login.do?_ga=2.39216416.228213102.1665420166-706548427.1664875489" target="_blank">전자문진</NavDropdown.Item>
-                </div>
-              </NavDropdown>
-            <Nav.Link id = "home" href="Login">로그인</Nav.Link>
-            <Nav.Link id = "home" href="Register">회원가입</Nav.Link>
-          </Nav>
-        </Container>
-        <div id="wall"></div>
-      </Navbar>
-      
-      <hr />
+      <div id="center">
+        <div>
+          <li id="dropDown1">
+            QnA
+            <li>
+              <a id="dropList" href="BloodChart">
+                헌혈지식
+              </a>
+            </li>
+            <li>
+              <a id="dropList" href="BloodChart">
+                지정헌혈이란?
+              </a>
+            </li>
+            <li>
+              <a id="dropList" href="BloodChart">
+                자주묻는 질문
+              </a>
+            </li>
+          </li>
+        </div>
+
+        <div>
+          <li id="dropDown2">
+            Stats
+            <li>
+              <a id="dropList" href="BloodChartTotal">
+                인구별 통계
+              </a>
+            </li>
+            <li>
+              <a id="dropList" href="BloodChartLoc">
+                지역별 통계
+              </a>
+            </li>
+            <li>
+              <a id="dropList" href="BloodChartMonth">
+                월별 통계
+              </a>
+            </li>
+            <li>
+              <a id="dropList" href="BloodChartBloodType">
+                혈액형별 통계
+              </a>
+            </li>
+            <li>
+              <a id="dropList" href="BloodChartAge">
+                연령별 통계
+              </a>
+            </li>
+          </li>
+        </div>
+
+        <div>
+          <li id="dropDown3">
+            Loc
+            <li>
+              <a id="dropList" href="BloodHouse">
+                헌혈의집 위치
+              </a>
+            </li>
+            <li>
+              <a id="dropList" href="BloodChartMonth">
+                헌혈카페 위치
+              </a>
+            </li>
+            <li>
+              <a id="dropList" href="BloodChartAge">
+                혈액원 위치
+              </a>
+            </li>
+            <li>
+              <a id="dropList" href="BloodChartBloodType">
+                지정병원 위치
+              </a>
+            </li>
+            <li>
+              <a
+                id="dropList"
+                href="https://www.bloodinfo.net/emi2/login.do?_ga=2.39216416.228213102.1665420166-706548427.1664875489"
+                target="_blank"
+                rel="noreferrer"
+              >
+                전자문진
+              </a>
+            </li>
+          </li>
+        </div>
+
+        <div>
+          <li id="dropDown4">
+            Board
+            <li>
+              <a id="dropList" href="Post">
+                전체 게시판
+              </a>
+            </li>
+            <li>
+              <a id="dropList" href="Post">
+                혈액형별 게시판
+              </a>
+            </li>
+            <li>
+              <a id="dropList" href="Post">
+                지역별 게시판
+              </a>
+            </li>
+          </li>
+        </div>
+
+        <div>
+          <li id="dropDown5">
+            Portal
+            <li>
+              <a
+                id="dropList"
+                href="https://redcross.or.kr/main/main.do"
+                target="_blank"
+                rel="noreferrer"
+              >
+                대한적십자사
+              </a>
+            </li>
+            <li>
+              <a
+                id="dropList"
+                href="https://www.vms.or.kr/main.do"
+                target="_blank"
+                rel="noreferrer"
+              >
+                VMS
+              </a>
+            </li>
+            <li>
+              <a
+                id="dropList"
+                href="https://www.bloodnet.or.kr/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                한마음 혈액원
+              </a>
+            </li>
+          </li>
+        </div>
+      </div>
+
+      <div id="right">
+        <a id="login1" href="Login">
+          Login
+        </a>
+        <a id="login2" href="Register">
+          Logout
+        </a>
+        <a id="login3" href="Register">
+          Mypage
+        </a>
+      </div>
     </div>
   );
 }
