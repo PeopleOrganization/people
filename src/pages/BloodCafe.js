@@ -1,28 +1,105 @@
-import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { useState } from "react";
+//구글맵키 AIzaSyBIgZoVqTFMhUuZj2l0bFRkQsPoXWRVFI0
+import { useCallback, useEffect, useRef } from "react";
+import axios from "axios";
 
-function BloodCafe() {
-  const [latitude, setLatitude] = useState();
-  const [longitude, setLongitude] = useState();
+function BloodCafe(props) {
+  const mapElement = useRef(null);
 
-  var options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0,
-  };
-
-  function success(position) {
-    console.log("위도 : " + position.coords.latitude);
-    console.log("경도: " + position.coords.longitude);
-    setLatitude(position.coords.latitude);
-    setLongitude(position.coords.longitude);
+  function geo() {
+    //동기 처리로 위치정보 세팅 후 구글맵을 띄우도록 함
+    const promise = new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log("위도 : " + position.coords.latitude);
+        console.log("경도: " + position.coords.longitude);
+        const location = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        resolve(location);
+      });
+    });
+    return promise;
   }
 
-  function error(err) {
-    console.warn("ERROR(" + err.code + "): " + err.message);
-  }
+  // 컴포넌트가 마운트될 때, 수동으로 스크립트를 넣어줍니다.
+  // ﻿이는 script가 실행되기 이전에 window.initMap이 먼저 선언되어야 하기 때문입니다.
+  const loadScript = useCallback((url) => {
+    const firstScript = window.document.getElementsByTagName("script")[0];
+    const newScript = window.document.createElement("script");
+    newScript.src = url;
+    newScript.async = true;
+    newScript.defer = true;
+    firstScript?.parentNode?.insertBefore(newScript, firstScript);
+  }, []);
 
-  navigator.geolocation.getCurrentPosition(success, error, options);
+  // const locs = [
+  //   { lat: 36, lng: 127 },
+  //   { lat: 37, lng: 128 },
+  // ];
+  // script에서 google map api를 가져온 후에 실행될 callback 함수
+  const initMap = useCallback(async () => {
+    const { google } = window;
+    if (!mapElement.current || !google) return;
+    const location = await geo();
+    const map = new google.maps.Map(mapElement.current, {
+      zoom: 17,
+      center: location,
+    });
+    const marker = new google.maps.Marker({
+      position: location,
+      map,
+    });
+
+    marker.addListener("click", () => {
+      infoWindow.close();
+      infoWindow.setContent("<h3>현재위치</h3>");
+      infoWindow.open(map, marker);
+    });
+
+    const infoWindow = new google.maps.InfoWindow();
+    axios
+      .get("http://localhost:3001/bloodgeo")
+      .then((res) => {
+        let num = 1;
+        console.log(res["data"].length);
+        res["data"].forEach((loc) => {
+          try {
+            const bhmarker = new google.maps.Marker({
+              position: { lat: loc["lat"], lng: loc["long"] },
+              map,
+            });
+            bhmarker.addListener("click", () => {
+              infoWindow.close();
+              infoWindow.setContent(
+                `전화번호 : ${loc["tel"]}<br>주소 : ${loc["address"]}`
+              );
+              infoWindow.open(map, bhmarker);
+            });
+            console.log(num++);
+          } catch (err) {
+            console.log("error" + num);
+          }
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    const script = window.document.getElementsByTagName("script")[0];
+    const includeCheck = script.src.startsWith(
+      "https://maps.googleapis.com/maps/api"
+    );
+
+    // script 중복 호출 방지
+    if (includeCheck) return initMap();
+
+    window.initMap = initMap;
+    loadScript(
+      "https://maps.googleapis.com/maps/api/js?key=AIzaSyBIgZoVqTFMhUuZj2l0bFRkQsPoXWRVFI0&callback=initMap&language=en"
+    );
+  }, [initMap, loadScript]);
 
   return (
     <div className="centerContainer">
@@ -60,19 +137,7 @@ function BloodCafe() {
           </div>
         </div>
         <div className="others"></div>
-        <Map
-          center={{ lat: latitude, lng: longitude }}
-          style={{
-            width: "70%",
-            marginLeft: "250px",
-            marginTop: "100px",
-            height: "500px",
-          }}
-        >
-          <MapMarker position={{ lat: latitude, lng: longitude }}>
-            <div style={{ color: "#000" }}>Hello World!</div>
-          </MapMarker>
-        </Map>
+        <div ref={mapElement} style={{ minHeight: "400px" }} />
       </div>
     </div>
   );

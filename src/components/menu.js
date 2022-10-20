@@ -86,16 +86,6 @@ function Menu() {
                 지정병원 위치
               </a>
             </li>
-            <li>
-              <a
-                id="dropList"
-                href="https://www.bloodinfo.net/emi2/login.do?_ga=2.39216416.228213102.1665420166-706548427.1664875489"
-                target="_blank"
-                rel="noreferrer"
-              >
-                전자문진
-              </a>
-            </li>
           </li>
         </div>
 
@@ -126,11 +116,21 @@ function Menu() {
             <li>
               <a
                 id="dropList"
-                href="https://redcross.or.kr/main/main.do"
+                href="https://www.bloodinfo.net/main.do?_ga=2.130940751.1114888110.1666118959-706548427.1664875489"
                 target="_blank"
                 rel="noreferrer"
               >
-                대한적십자사
+                혈액관리본부
+              </a>
+            </li>
+            <li>
+              <a
+                id="dropList"
+                href="https://www.bloodnet.or.kr/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                한마음 혈액원
               </a>
             </li>
             <li>
@@ -146,11 +146,11 @@ function Menu() {
             <li>
               <a
                 id="dropList"
-                href="https://www.bloodnet.or.kr/"
+                href="https://www.bloodinfo.net/emi2/login.do?_ga=2.39216416.228213102.1665420166-706548427.1664875489"
                 target="_blank"
                 rel="noreferrer"
               >
-                한마음 혈액원
+                전자문진
               </a>
             </li>
           </li>

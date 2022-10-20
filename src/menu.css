@@ -4,6 +4,7 @@
   max-width: 1920;
   background: rgb(255, 81, 81);
   font-family: "GmarketSansMedium";
+  box-shadow: inset 0 0 50px rgb(91, 28, 26);
 }
 
 body {
@@ -34,7 +35,8 @@ body {
   bottom: 0px;
   height: 70px;
   width: 100%;
-  background: rgb(91, 28, 26);
+  background: #6f0000;
+  box-shadow: inset 0 0 10px #200122;
 }
 
 .mainButton {
@@ -123,6 +125,7 @@ body {
 
 #dropDown1:hover #dropList {
   display: block;
+  box-shadow: inset 0 0 20px #200122;
 }
 
 #dropDown2 {
@@ -142,6 +145,7 @@ body {
 
 #dropDown2:hover #dropList {
   display: block;
+  box-shadow: inset 0 0 20px #200122;
 }
 
 #dropDown3 {
@@ -161,6 +165,7 @@ body {
 
 #dropDown3:hover #dropList {
   display: block;
+  box-shadow: inset 0 0 20px #200122;
 }
 
 #dropDown4 {
@@ -180,6 +185,7 @@ body {
 
 #dropDown4:hover #dropList {
   display: block;
+  box-shadow: inset 0 0 20px #200122;
 }
 
 #dropDown5 {
@@ -199,11 +205,12 @@ body {
 
 #dropDown5:hover #dropList {
   display: block;
+  box-shadow: inset 0 0 20px #200122;
 }
 
 #dropList {
   color: #fff;
-  background: rgb(91, 28, 26);
+  background: #6f0000;
   font-size: large;
   font-weight: bold;
   padding: 5px;
@@ -260,18 +267,18 @@ body {
 
 #loginBtn {
   background: rgb(255, 81, 81);
+  box-shadow: inset 0 0 10px rgb(91, 28, 26);
   color: #fff;
   border: none;
-  border-radius: 10%;
   width: 20%;
   font-size: large;
 }
 
 #loginBtn:hover {
-  background: rgb(91, 28, 26);
+  background: #6f0000;
+  box-shadow: inset 0 0 10px #200122;
   color: #fff;
   border: none;
-  border-radius: 10%;
 }
 
 #loginHref {
@@ -297,4 +304,29 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+#qnaTable {
+  background-color: #e6687d;
+  color: #fff;
+  margin-bottom: 3%;
+}
+
+#qnaTr {
+  width: 30%;
+  background-color: #eaa063;
+}
+
+#qnaTitle {
+  color: #555;
+}
+
+#qnaHr {
+  width: 100%;
+  height: 5px;
+}
+
+#qnaTd {
+  width: 33%;
+  margin-left: 5%;
 }/*# sourceMappingURL=menu.css.map */

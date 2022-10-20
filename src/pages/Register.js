@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from "styled-components";
-import Province from "./province";
 import Province2 from "./province2";
 import axios from 'axios'
 import { useState } from "react";
+import Checkbox from '@mui/material/Checkbox';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 function Register(props) {
   var mailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
@@ -15,7 +17,6 @@ function Register(props) {
   const [nickName,setNickName] = useState("");
   const [blood,setBlood] = useState("");
   const [area,setArea] = useState("");
-  const [interLoc,setInterLoc] = useState("");
   const [push,setPush] = useState(false);
   const handleChange = () => { 
     setPush(!push); 
@@ -53,7 +54,6 @@ function Register(props) {
         nickName : nickName,
         blood: blood,
         area: area,
-        interLoc: interLoc,
         push: push
       }
     })
@@ -134,87 +134,101 @@ function Register(props) {
         <hr />
         <div align="center">
           <p>
-            <Input3
-              name="email"
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="이메일"
-            />{" "}
-            <Button onClick={emailOverlap}>중복확인</Button>
-          </p>
-          <p>
-            <Input2
-              name="pass"
-              onChange={(event) => setPw(event.target.value)}
-              placeholder="비밀번호"
-            />{" "}
-          </p>
-          <p>
-            <Input2
-              name="passCheck"
-              onChange={(event) => setPw2(event.target.value)}
-              placeholder="비밀번호 확인"
-            />
-          </p>
-          <p>
-            <Input
-              name="nickName"
-              onChange={(event) => setNickName(event.target.value)}
-              placeholder="닉네임"
-            />{" "}
-            <Button onClick={overlap}>중복확인</Button>
+            <Box 
+              component="form"
+              sx={{
+                "& > :not(style)": { m: 1, width: "25ch" },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="outlined-basic"
+                label="이메일"
+                variant="outlined"
+                onChange={(event) => setEmail(event.target.value)}
+              /><br></br><Button onClick={emailOverlap}>중복확인</Button><br/>
+              <TextField
+                id="outlined-basic"
+                label="비밀번호"
+                type="password"
+                variant="outlined"
+                onChange={(event) => setPw(event.target.value)}
+              /><br></br>
+              <TextField
+                id="outlined-basic"
+                label="비밀번호 확인"
+                variant="outlined"
+                onChange={(event) => setPw2(event.target.value)}
+              /><br></br>
+              <TextField
+                id="outlined-basic"
+                label="닉네임"
+                variant="outlined"
+                onChange={(event) => setNickName(event.target.value)}
+              /><br></br><Button onClick={overlap}>중복확인</Button><br/>
+            </Box>
+            
           </p>
           <br></br>------------ (본인의 혈액형을 선택해주세요.) ------------
           <br />
-          <p>
-            <Radio
-              onChange={(event) => setBlood(event.target.value)}
-              value="A"
-              name="blood"
-            />
-            A형
-            <Radio
-              onChange={(event) => setBlood(event.target.value)}
-              value="B"
-              name="blood"
-            />
-            B형
-            <Radio
-              onChange={(event) => setBlood(event.target.value)}
-              value="AB"
-              name="blood"
-            />
-            AB형
-            <Radio
-              onChange={(event) => setBlood(event.target.value)}
-              value="O"
-              name="blood"
-            />
-            O형 &nbsp;꒐
-            <Check name="rh" />
-            Rh-혈액형
-          </p>
+          <fieldset>
+            <label>
+              <Radio
+                onChange={(event) => setBlood(event.target.value)}
+                value="A"
+                name="blood"
+              />
+              A형&nbsp;&nbsp;
+            </label>
+
+            <label>
+              <Radio
+                onChange={(event) => setBlood(event.target.value)}
+                value="B"
+                name="blood"
+              />
+              B형&nbsp;&nbsp;
+            </label>
+
+            <label>
+              <Radio
+                onChange={(event) => setBlood(event.target.value)}
+                value="AB"
+                name="blood"
+              />
+              AB형&nbsp;&nbsp;
+            </label>
+
+            <label>
+              <Radio
+                onChange={(event) => setBlood(event.target.value)}
+                value="O"
+                name="blood"
+              />
+              O형&nbsp;&nbsp; &nbsp;꒐
+              <Checkbox style={{ color: "#e6687d" }} defaultChecked />
+              Rh-혈액형
+            </label>
+          </fieldset>
           <br></br>
           <p>
             --------------- (거주지역을 선택해주세요.) ---------------
             <br />
-            <Province2>
+            <Province2
               onChange={(event) => setArea(event.target.value)}
               name="area"
-            </Province2>
+            ></Province2>
           </p>
           <br></br>
-          <div>
-            --------------- (관심지역을 선택해주세요.) ---------------
-            <br />
-            <Province>
-              onChange={(event) => setInterLoc(event.target.value)}
-              name="interLoc"
-            </Province>
-          </div>
-          <br />
           <p>
-            <Check id="agree" onChange={handleChange} />
-            카카오 채널 푸쉬알림 허용동의
+            <Checkbox
+              style={{ color: "#e6687d" }}
+              defaultChecked
+              id="agree"
+              onChange={handleChange}
+            />
+            이메일 수신 동의
           </p>
           <Button2 onClick={join}>회원가입</Button2>
         </div>
@@ -244,29 +258,30 @@ const Input3 = styled.input.attrs((props) => ({
 
 const Button = styled.button`
 &:hover{
-  background: rgb(91, 28, 26);
+  background: #6f0000;
+  box-shadow: inset 0 0 10px #200122;
   color: #fff;
   border: none;
-  border-radius: 10%;
 }
 background: rgb(255, 81, 81);
+box-shadow: inset 0 0 10px rgb(91, 28, 26);
 color: #fff;
 border: none;
-border-radius: 10%;
 font-size: medium;
 `;
 
+
 const Button2 = styled.button`
 &:hover{
-  background: rgb(91, 28, 26);
+  background: #6f0000;
+  box-shadow: inset 0 0 10px #200122;
   color: #fff;
   border: none;
-  border-radius: 10%;
 }
 background: rgb(255, 81, 81);
+box-shadow: inset 0 0 10px rgb(91, 28, 26);
 color: #fff;
 border: none;
-border-radius: 10%;
 font-size: large;
 margin-bottom:6%;
 `;
@@ -275,15 +290,8 @@ const Radio = styled.input.attrs((props) => ({
   type: "radio",
   size: props.size || "1em",
 }))`
-  margin-left: 1%;
-`;
-
-const Check = styled.input.attrs((props) => ({
-  type: "checkbox",
-  size: props.size || "1em",
-}))`
   
-  margin-left: 1%;
-  margin-right: 0.3%;
+  width:1.25em;
+  height:1.25em;
+  
 `;
-

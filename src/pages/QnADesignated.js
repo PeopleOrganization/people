@@ -36,7 +36,7 @@ function QnADesignated(props) {
           <div className="others"></div>
 
           <h3 align="center"></h3>
-        </div>ㄴ
+        </div>
       </div>
     );
 }

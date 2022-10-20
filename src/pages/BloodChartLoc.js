@@ -40,7 +40,7 @@ export default function App() {
             <div className="sidebarMenu">
               <h1 className="sidebarTitle">알아볼까요?</h1>
               <span align="center" className="hello">
-              작년까지의 지역별 헌혈 통계 데이터 현황을 확인 할 수 있습니다.
+              작년의 지역별 헌혈 통계 데이터 현황을 확인 할 수 있습니다.
                 </span>
                 <hr />
               <ui className="sidebarCircle">
