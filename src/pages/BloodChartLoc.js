@@ -38,7 +38,11 @@ export default function App() {
         <div className="sidebar">
           <div className="sidebarWrapper">
             <div className="sidebarMenu">
-              <h1 className="sidebarTitle">통계</h1>
+              <h1 className="sidebarTitle">알아볼까요?</h1>
+              <span align="center" className="hello">
+              작년까지의 지역별 헌혈 통계 데이터 현황을 확인 할 수 있습니다.
+                </span>
+                <hr />
               <ui className="sidebarCircle">
                 <ul className="sidebarList">
                   <a className="href" href="BloodChartTotal">
@@ -67,7 +71,6 @@ export default function App() {
           </div>
         </div>
         <div className="others">
-        <div id="chart2">
           <BarChart
             width={1500}
             height={600}
@@ -93,7 +96,6 @@ export default function App() {
           </BarChart>
         </div>
       </div>
-    </div>
     </div>
   );
   

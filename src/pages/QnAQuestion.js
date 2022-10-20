@@ -8,6 +8,10 @@ function QnAQuestion(props) {
             <div className="sidebarWrapper">
               <div className="sidebarMenu">
                 <h1 className="sidebarTitle">궁금해요!</h1>
+                <span align="center" className="hello">
+                모두가 궁금해하는 질문들을 모았습니다.
+                </span>
+                <hr />
                 <ui className="sidebarCircle">
                   <ul className="sidebarList">
                     <a className="href" href="QnAKnowledge">
@@ -29,7 +33,7 @@ function QnAQuestion(props) {
           </div>
           <div className="others"></div>
 
-          <h3 align="center">나는 자주묻는 질문이야</h3>
+          <h3 align="center"></h3>
         </div>
       </div>
     );

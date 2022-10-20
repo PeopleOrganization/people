@@ -55,14 +55,18 @@ function Login(props) {
   return (
     <div className="centerContainer">
       <div className="container">
-        <h1 className="sidebarTitle">로그인</h1><hr/>
+        <h1 className="sidebarTitle">로그인</h1>
+        <span align="center" className="hello">
+          피플은 고객님의 정보를 소중하게 생각합니다.
+          <br></br>일부 서비스는 로그인 이후 이용 가능합니다.
+        </span><hr/>
+        
         <div id="box">
         <table id="table">
           <div align="center" id="margin">
             <tr><span id="loginText">이메일</span>
               <p><input type={"text"}
                 name="email"
-                
                 onChange={(event) => setEmail(event.target.value)}
               />
             <br/><span id="loginText">패스워드</span><br/>

@@ -212,7 +212,7 @@ body{
   #dropList:after{
     display:block;
     content:'';
-    border-bottom: solid 3px rgb(255, 81, 81);
+    border-bottom: solid 3px white;
     transform:scaleX(0);
     transition:transform 250ms ease-in-out;
   }
@@ -255,16 +255,20 @@ body{
   
 }
 
-#margin{
-  margin-top: 3%;
-}
-
 #loginBtn{
   background: rgb(255, 81, 81);
   color: #fff;
   border: none;
   border-radius: 10%;
-  
+  width: 20%;
+  font-size: large;
+}
+
+#loginBtn:hover{
+  background: rgb(91, 28, 26);
+  color: #fff;
+  border: none;
+  border-radius: 10%;
 }
 
 #loginHref{
@@ -273,6 +277,20 @@ body{
   font-size: large;
 }
 
+
+#loginHref:hover{
+  text-decoration-line: none;
+  color: #000;
+  font-weight: bold;
+}
+
 #loginText{
   font-size: medium;
+}
+
+.hello{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }

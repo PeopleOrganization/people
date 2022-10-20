@@ -25,7 +25,6 @@ function Province(props) {
           </option>
         ))}
       </select>
-
       <District prov={value}></District>
     </div>
   );

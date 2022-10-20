@@ -13,7 +13,7 @@ function Menu() {
       <div id="center">
         <div>
           <li id="dropDown1">
-            QnA
+            Q&A
             <li>
               <a id="dropList" href="QnAKnowledge">
                 헌혈지식

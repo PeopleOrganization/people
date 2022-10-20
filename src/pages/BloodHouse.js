@@ -1,27 +1,23 @@
 //구글맵키 AIzaSyBIgZoVqTFMhUuZj2l0bFRkQsPoXWRVFI0
 import { useCallback, useEffect, useRef, useState } from "react";
 
-
 function BloodHouse(props) {
   const mapElement = useRef(null);
-  const [latitude, setLatitude] = useState();
-  const [longitude, setLongitude] = useState();
 
-  var options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0,
-  };
-
-  function success(position) {
-    console.log("위도 : " + position.coords.latitude);
-    console.log("경도: " + position.coords.longitude);
-    setLatitude(position.coords.latitude);
-    setLongitude(position.coords.longitude);
-  }
-
-  function error(err) {
-    console.warn("ERROR(" + err.code + "): " + err.message);
+  function geo() {
+    //동기 처리로 위치정보 세팅 후 구글맵을 띄우도록 함
+    const promise = new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log("위도 : " + position.coords.latitude);
+        console.log("경도: " + position.coords.longitude);
+        const location = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        resolve(location);
+      });
+    });
+    return promise;
   }
 
   // 컴포넌트가 마운트될 때, 수동으로 스크립트를 넣어줍니다.
@@ -36,11 +32,10 @@ function BloodHouse(props) {
   }, []);
 
   // script에서 google map api를 가져온 후에 실행될 callback 함수
-  const initMap = useCallback(() => {
+  const initMap = useCallback(async () => {
     const { google } = window;
     if (!mapElement.current || !google) return;
-
-    const location = { lat: latitude, lng: longitude };
+    const location = await geo();
     const map = new google.maps.Map(mapElement.current, {
       zoom: 17,
       center: location,
@@ -64,9 +59,8 @@ function BloodHouse(props) {
     loadScript(
       "https://maps.googleapis.com/maps/api/js?key=AIzaSyBIgZoVqTFMhUuZj2l0bFRkQsPoXWRVFI0&callback=initMap&language=en"
     );
-
-    navigator.geolocation.getCurrentPosition(success, error, options);
   }, [initMap, loadScript]);
+
 
 
 
@@ -76,7 +70,12 @@ function BloodHouse(props) {
         <div className="sidebar">
           <div className="sidebarWrapper">
             <div className="sidebarMenu">
-              <h1 className="sidebarTitle">지도</h1>
+              <h1 className="sidebarTitle">찾아보아요!</h1>
+              <span align="center" className="hello">
+                  피플은 고객님의 정보를 소중하게 생각합니다.
+                  <br></br>일부 서비스는 로그인 이후 이용 가능합니다.
+                </span>
+                <hr />
               <ui className="sidebarCircle">
                 <ul className="sidebarList">
                   <a className="href" href="BloodHouse">

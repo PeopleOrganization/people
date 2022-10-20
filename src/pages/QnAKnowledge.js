@@ -8,6 +8,11 @@ function QnAKnowledge(props) {
             <div className="sidebarWrapper">
               <div className="sidebarMenu">
                 <h1 className="sidebarTitle">궁금해요!</h1>
+                <span align="center" className="hello">
+                  생명이 위태로운 다른 사람에게 자신의 혈액을 기증하는
+                  <br></br>사랑의 실천이자 생명을 나누는 고귀한 행위입니다.
+                </span>
+                <hr />
                 <ui className="sidebarCircle">
                   <ul className="sidebarList">
                     <a className="href" href="QnAKnowledge">
@@ -29,7 +34,7 @@ function QnAKnowledge(props) {
           </div>
           <div className="others"></div>
 
-          <h3 align="center">나는 헌혈지식이야</h3>
+          <h3 align="center"></h3>
         </div>
       </div>
     );

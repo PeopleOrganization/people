@@ -8,6 +8,10 @@ function Board(props) {
             <div className="sidebarWrapper">
               <div className="sidebarMenu">
                 <h1 className="sidebarTitle">게시판</h1>
+                <span align="center" className="hello">
+          피플은 고객님의 정보를 소중하게 생각합니다.
+          <br></br>일부 서비스는 로그인 이후 이용 가능합니다.
+        </span><hr/>
                 <ui className="sidebarCircle">
                   <ul className="sidebarList">
                     <a className="href" href="Board">

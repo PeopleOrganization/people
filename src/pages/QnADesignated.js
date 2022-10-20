@@ -8,6 +8,12 @@ function QnADesignated(props) {
             <div className="sidebarWrapper">
               <div className="sidebarMenu">
                 <h1 className="sidebarTitle">궁금해요!</h1>
+                <span align="center" className="hello">
+                헌혈자가 대상을 미리 지정해 놓고 하는 헌혈로써,
+                <br></br>헌혈을 하는 사람이 현혈을 하기 전에 수혈자를 지정하거나,
+                  <br></br>환자가 수혈을 받기 전에 헌혈자를 지정하는 경우를 모두 포함합니다.
+                </span>
+                <hr />
                 <ui className="sidebarCircle">
                   <ul className="sidebarList">
                     <a className="href" href="QnAKnowledge">
@@ -29,8 +35,8 @@ function QnADesignated(props) {
           </div>
           <div className="others"></div>
 
-          <h3 align="center">나는 지정헌혈이란?이야</h3>
-        </div>
+          <h3 align="center"></h3>
+        </div>ㄴ
       </div>
     );
 }

@@ -30,7 +30,12 @@ function BloodCafe() {
         <div className="sidebar">
           <div className="sidebarWrapper">
             <div className="sidebarMenu">
-              <h1 className="sidebarTitle">지도</h1>
+              <h1 className="sidebarTitle">찾아보아요!</h1>
+              <span align="center" className="hello">
+                  헌혈카페는 아늑하고 편안한 공간으로 구성되어 친구들과 차도 마시고
+                  <br></br>인터넷도 즐기며 편하게 쉬어갈 수 있는 헌혈+카페+문화의 공간입니다.
+                </span>
+                <hr />
               <ui className="sidebarCircle">
                 <ul className="sidebarList">
                   <a className="href" href="BloodHouse">
