@@ -33,7 +33,7 @@ function QnAQuestion(props) {
           </div>
           <div className="others"></div>
 
-          <h3 align="center"></h3>
+          
         </div>
       </div>
     );

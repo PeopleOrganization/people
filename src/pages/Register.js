@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import Province2 from "./province2";
 import axios from 'axios'
 import { useState } from "react";
 import Checkbox from '@mui/material/Checkbox';
@@ -11,17 +10,36 @@ function Register(props) {
   var mailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
   const [check,setCheck] = useState("1");
   const [emailCheck,setEmailCheck] = useState("1");
+  const [pwCheck,setPwCheck] = useState("1");
   const [email,setEmail] = useState("");
   const [pw,setPw] = useState("");
   const [pw2,setPw2] = useState("");
   const [nickName,setNickName] = useState("");
   const [blood,setBlood] = useState("");
-  const [area,setArea] = useState("");
+  const [area,setArea] = useState("서울특별시");
+  const [error,setError] = useState("primary"); // 닉네임 에러
+  const [nickLabel,setNickLabel] = useState("닉네임"); // 닉네임 에러'
+  const [error2,setError2] = useState("primary"); // 이메일 에러
+  const [emailLabel,setEmailLabel] = useState("이메일"); // 이메일 에러
+  const [error3,setError3] = useState("primary"); // 비밀번호 확인 에러
+  const [pwLabel,setPwLabel] = useState("비밀번호 확인"); // 비밀번호 확인 에러
   const [push,setPush] = useState(false);
   const handleChange = () => { 
     setPush(!push); 
-  }; 
+  };
 
+  const provinces = [
+    { id: "서울특별시", province: "서울특별시" },
+    { id: "경기도", province: "경기도" },
+    { id: "강원도", province: "강원도" },
+    { id: "충청북도", province: "충청북도" },
+    { id: "충청남도", province: "충청남도" },
+    { id: "전라북도", province: "전라북도" },
+    { id: "전라남도", province: "전라남도" },
+    { id: "경상북도", province: "경상북도" },
+    { id: "경상남도", province: "경상남도" },
+    { id: "제주특별자치도", province: "제주특별자치도" },
+  ];
 
   const join = () => {
     console.log("회원가입 하러 옴");
@@ -39,12 +57,24 @@ function Register(props) {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-    if(check !== 0) {
-      alert("닉네임 중복체크를 해주세요.");
+    if(emailCheck !== 0) {
+      alert("이미 사용중인 이메일입니다.");
       return;
     }
-    if(emailCheck !== 0) {
-      alert("이메일 중복체크를 해주세요.");
+    if(check !== 0) {
+      alert("이미 사용중인 닉네임입니다.");
+      return;
+    }
+    if(pwCheck !== 0) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+    if(pw.length < 4) {
+      alert("비밀번호는 최소 4자리의 숫자 또는 문자로 이루어져야 합니다.")
+      return;
+    }
+    if(!mailRegExp.test(email)) {
+      alert("이메일 형식이 올바르지 않습니다.");
       return;
     }
     axios.post('http://localhost:3001/join', null, {
@@ -67,7 +97,27 @@ function Register(props) {
     })
   }
 
-  const overlap = () => {
+  const pwCheck2 = () => {
+
+        if(pw === pw2) { // 0을 받아오면 성공했다는 알람
+          console.log(pw);
+          console.log("비밀번호 일치");
+          setPwLabel("비밀번호 확인")
+          setError3("primary");
+          setPwCheck(0);
+          return;
+        }else { // 0이외의 값이라면 실패했다는 알람
+          console.log("비밀번호 다름");
+          setPwLabel("일치하지 않는 비밀번호")
+          setError3("error");
+          setPwCheck(1);
+          return;
+        }
+     
+  }
+
+  //닉네임 중복체크
+  const overlap = (prop) => {
     console.log("중복체크 하러 옴");
 
 
@@ -80,11 +130,16 @@ function Register(props) {
 
         console.log(res.data)
         if(res.data === 0) { // 0을 받아오면 성공했다는 알람
-          alert("사용해도 되는 닉네임입니다.");
+          console.log("없는 닉네임");
+          setNickLabel("닉네임")
+          setError("primary");
           setCheck(0);
           return;
         }else { // 0이외의 값이라면 실패했다는 알람
-          alert("이미 존재하는 닉네임입니다.")
+          console.log("있는 닉네임");
+          setNickLabel("이미 존재하는 닉네임")
+          setError("error");
+          setCheck(1);
           return;
         }
       })
@@ -93,6 +148,7 @@ function Register(props) {
     })
   }
 
+  //이메일 중복체크
   const emailOverlap = () => {
     console.log("중복체크 하러 옴");
 
@@ -106,15 +162,16 @@ function Register(props) {
 
         console.log(res.data)
         if(res.data === 0) { // 0을 받아오면 성공했다는 알람
-          if(!mailRegExp.test(email)) {
-            alert("이메일 형식이 올바르지 않습니다.");
-            return;
-          }
-          alert("사용해도 되는 이메일입니다.");
+          console.log("없는 이메일");
+          setEmailLabel("이메일");
+          setError2("primary");
           setEmailCheck(0);
           return;
         }else { // 0이외의 값이라면 실패했다는 알람
-          alert("이미 존재하는 이메일입니다.")
+          console.log("있는 이메일");
+          setEmailLabel("이미 존재하는 이메일");
+          setError2("error");
+          setEmailCheck(1);
           return;
         }
       })
@@ -123,14 +180,30 @@ function Register(props) {
     })
   }
 
+  useEffect(()=>{
+    pwCheck2();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[pw2])
+
+  useEffect(()=>{
+    overlap();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[nickName])
+
+  useEffect(()=>{
+    emailOverlap();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[email])
+
+
   return (
     <div className="centerContainer">
       <div className="container">
         <h1 className="sidebarTitle">회원가입</h1>
         <span align="center" className="hello">
-          피플은 고객님의 정보를 소중하게 생각합니다.
-          <br></br>일부 서비스는 로그인 이후 이용 가능합니다.
-        </span>
+          <span id="redColor">피플</span>은 고객님의 정보를 소중하게 생각합니다.
+          </span><span align="center" className="hello">일부 서비스는 로그인 이후 이용 가능합니다.
+          </span>
         <hr />
         <div align="center">
           <p>
@@ -144,10 +217,11 @@ function Register(props) {
             >
               <TextField
                 id="outlined-basic"
-                label="이메일"
+                label={emailLabel}
                 variant="outlined"
+                color={error2}
                 onChange={(event) => setEmail(event.target.value)}
-              /><br></br><Button onClick={emailOverlap}>중복확인</Button><br/>
+              /><br/>
               <TextField
                 id="outlined-basic"
                 label="비밀번호"
@@ -157,16 +231,19 @@ function Register(props) {
               /><br></br>
               <TextField
                 id="outlined-basic"
-                label="비밀번호 확인"
+                label={pwLabel}
+                type="password"
                 variant="outlined"
+                color={error3}
                 onChange={(event) => setPw2(event.target.value)}
               /><br></br>
               <TextField
-                id="outlined-basic"
-                label="닉네임"
+                id="outlined-error"
+                label={nickLabel}
                 variant="outlined"
+                color={error}
                 onChange={(event) => setNickName(event.target.value)}
-              /><br></br><Button onClick={overlap}>중복확인</Button><br/>
+              /><br/>
             </Box>
             
           </p>
@@ -207,7 +284,7 @@ function Register(props) {
                 name="blood"
               />
               O형&nbsp;&nbsp; &nbsp;꒐
-              <Checkbox style={{ color: "#e6687d" }} defaultChecked />
+              <Checkbox style={{ color: "#e6687d" }} />
               Rh-혈액형
             </label>
           </fieldset>
@@ -215,16 +292,18 @@ function Register(props) {
           <p>
             --------------- (거주지역을 선택해주세요.) ---------------
             <br />
-            <Province2
-              onChange={(event) => setArea(event.target.value)}
-              name="area"
-            ></Province2>
+            <select onChange={(event) => setArea(event.target.value)}>
+        {provinces.map((item) => (
+          <option key={item.id} value={item.id}>
+            {item.province}
+          </option>
+        ))}
+      </select>
           </p>
           <br></br>
           <p>
             <Checkbox
               style={{ color: "#e6687d" }}
-              defaultChecked
               id="agree"
               onChange={handleChange}
             />
@@ -241,45 +320,14 @@ function Register(props) {
 
 export default Register;
 
-const Input = styled.input.attrs((props) => ({
-  type: "text",
-  size: props.size || "1em",
-}))``;
-
-const Input2 = styled.input.attrs((props) => ({
-  type: "text",
-  size: props.size || "1em",
-}))`margin-right: 6.1%;`;
-
-const Input3 = styled.input.attrs((props) => ({
-  type: "text",
-  size: props.size || "1em",
-}))`margin-top: 2%;`;
-
-const Button = styled.button`
-&:hover{
-  background: #6f0000;
-  box-shadow: inset 0 0 10px #200122;
-  color: #fff;
-  border: none;
-}
-background: rgb(255, 81, 81);
-box-shadow: inset 0 0 10px rgb(91, 28, 26);
-color: #fff;
-border: none;
-font-size: medium;
-`;
-
 
 const Button2 = styled.button`
 &:hover{
-  background: #6f0000;
-  box-shadow: inset 0 0 10px #200122;
+  background: #555;
   color: #fff;
   border: none;
 }
-background: rgb(255, 81, 81);
-box-shadow: inset 0 0 10px rgb(91, 28, 26);
+background: #000;
 color: #fff;
 border: none;
 font-size: large;

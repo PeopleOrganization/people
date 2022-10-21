@@ -137,7 +137,7 @@ function BloodHouse(props) {
           </div>
         </div>
         <div className="others">
-          <div ref={mapElement} style={{ minHeight: "400px" }} />
+          <div className="house"ref={mapElement} style={{ minHeight: "600px" }} />
         </div>
       </div>
     </div>

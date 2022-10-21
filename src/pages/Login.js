@@ -21,6 +21,7 @@ function Login(props) {
   const [pw,setPw] = useState("");
 
   const login2 = () => {
+
     console.log("로그인 하러 옴");
     axios.post('http://localhost:3001/login', null, {
       params: { 
@@ -41,7 +42,12 @@ function Login(props) {
         console.log(res.data)
         if(res.data === 0) { // 0을 받아오면 성공했다는 알람
           alert("로그인에 성공하셨습니다.");
+          sessionStorage.setItem("check", "login");    
+          sessionStorage.setItem("email", email);
           document.location.href = '/'
+
+    
+
         }else { // 0이외의 값이라면 실패했다는 알람
           alert("로그인에 실패하셨습니다.");
         }
@@ -52,13 +58,14 @@ function Login(props) {
   }
 
 
+
   return (
     <div className="centerContainer">
       <div className="container">
         <h1 className="sidebarTitle">로그인</h1>
         <span align="center" className="hello">
-          피플은 고객님의 정보를 소중하게 생각합니다.
-          <br></br>일부 서비스는 로그인 이후 이용 가능합니다.
+          <span id="redColor">피플</span>은 고객님의 정보를 소중하게 생각합니다.
+          </span><span align="center" className="hello">일부 서비스는 로그인 이후 이용 가능합니다.
         </span><hr/>
         
         <div id="box">

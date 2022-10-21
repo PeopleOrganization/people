@@ -1,7 +1,40 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import title from "../imgs/title_icon.png";
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 
 function Menu() {
+  const [login,setLogin] = useState("login1");
+  const [logout,setLogout] = useState("login0");
+  
+
+  const check3 = () => { 
+    sessionStorage.clear(); //로그아웃 시 모든 세션 삭제
+  }
+
+  const check2 = () => {
+    if(sessionStorage.getItem("check") === ("login")) {
+      setLogin("login0");
+      setLogout("login1")
+    }else{
+      setLogin("login1");
+      setLogout("login0")
+    }
+  }
+
+  const checkMy = () => {
+    if(sessionStorage.getItem("check") === ("login")) {
+      document.location.href = '/MyPage';
+    }else {
+      alert("로그인 후 사용가능합니다.");
+      document.location.href = '/';
+    }
+  }
+
+  useEffect(()=>{
+    check2();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[sessionStorage.getItem("check")])
   return (
     <div id="container">
       <div id="left">
@@ -158,13 +191,16 @@ function Menu() {
       </div>
 
       <div id="right">
-        <a id="login1" href="Login">
+        <a id={login} href="Login">
           Login
         </a>
-        <a id="login2" href="Register">
+        <a id={logout} onClick={check3} href="Login">
+          LogOut
+        </a>
+        <a id={login} href="Register">
           Join
         </a>
-        <a id="login3" href="Mypage">
+        <a id="login3" onClick={checkMy} >
           MyPage
         </a>
       </div>
