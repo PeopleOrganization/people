@@ -692,4 +692,13 @@ li {
 #hosLi {
   width: 20%;
   padding-top: 3%;
+}
+
+#hosMap {
+  width: 60%;
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  margin: auto;
+  margin-bottom: 8%;
 }/*# sourceMappingURL=menu.css.map */

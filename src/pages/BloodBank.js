@@ -47,6 +47,9 @@ function BloodBank(props) {
     });
     const marker = new google.maps.Marker({
       position: location,
+      icon: {
+        url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+      },
       map,
     });
 
@@ -58,7 +61,7 @@ function BloodBank(props) {
 
     const infoWindow = new google.maps.InfoWindow();
     axios
-      .get("http://localhost:3001/bloodgeo")
+      .get("http://localhost:3001/blooddata", { params: { req: "bank" } })
       .then((res) => {
         let num = 1;
         console.log(res["data"].length);
@@ -66,6 +69,9 @@ function BloodBank(props) {
           try {
             const bhmarker = new google.maps.Marker({
               position: { lat: loc["lat"], lng: loc["long"] },
+              icon: {
+                url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+              },
               map,
             });
             bhmarker.addListener("click", () => {
@@ -109,10 +115,10 @@ function BloodBank(props) {
             <div className="sidebarMenu">
               <h1 className="sidebarTitle">찾아보아요!</h1>
               <span align="center" className="hello">
-                  피플은 고객님의 정보를 소중하게 생각합니다.
-                  <br></br>일부 서비스는 로그인 이후 이용 가능합니다.
-                </span>
-                <hr />
+                피플은 고객님의 정보를 소중하게 생각합니다.
+                <br></br>일부 서비스는 로그인 이후 이용 가능합니다.
+              </span>
+              <hr />
               <ui className="sidebarCircle">
                 <ul className="sidebarList">
                   <a className="href" href="BloodHouse">
@@ -137,7 +143,7 @@ function BloodBank(props) {
           </div>
         </div>
         <div className="others"></div>
-        <div className="house" ref={mapElement} style={{ minHeight: "600px" }} />
+        <div id="hosMap"ref={mapElement} style={{ minHeight: "600px" }} />
       </div>
     </div>
   );

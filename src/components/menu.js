@@ -27,7 +27,7 @@ function Menu() {
       document.location.href = '/MyPage';
     }else {
       alert("로그인 후 사용가능합니다.");
-      document.location.href = '/';
+      document.location.href = '/login';
     }
   }
 

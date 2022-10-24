@@ -45,7 +45,11 @@ function BloodHouse(props) {
       zoom: 17,
       center: location,
     });
+    //map.clearOverlays();
     const marker = new google.maps.Marker({
+      icon: {
+        url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+      },
       position: location,
       map,
     });
@@ -58,16 +62,21 @@ function BloodHouse(props) {
 
     const infoWindow = new google.maps.InfoWindow();
     axios
-      .get("http://localhost:3001/bloodgeo")
+      .get("http://localhost:3001/bloodhouse")
       .then((res) => {
         let num = 1;
         console.log(res["data"].length);
+
         res["data"].forEach((loc) => {
           try {
             const bhmarker = new google.maps.Marker({
               position: { lat: loc["lat"], lng: loc["long"] },
+              icon: {
+                url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+              },
               map,
             });
+
             bhmarker.addListener("click", () => {
               infoWindow.close();
               infoWindow.setContent(
@@ -137,7 +146,7 @@ function BloodHouse(props) {
           </div>
         </div>
         <div className="others">
-          <div className="house"ref={mapElement} style={{ minHeight: "600px" }} />
+          <div id="hosMap"ref={mapElement} style={{ minHeight: "600px" }} />
         </div>
       </div>
     </div>

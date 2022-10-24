@@ -72,13 +72,13 @@ export default function App() {
           <div className="others">
             {" "}
             <BarChart 
-              width={1200}
+              width={1500}
               height={600}
               data={data}
               margin={{
                 top: 30,
-                right: 40,
-                left: 100,
+                right: 30,
+                left: 36,
                 bottom: 5,
               }}
               barSize={20}
@@ -92,7 +92,7 @@ export default function App() {
               <Tooltip />
               <Legend />
               <CartesianGrid strokeDasharray="3 3" />
-              <Bar dataKey="DT" fill="#9ACD32" background={{ fill: "#eee" }} />
+              <Bar dataKey="DT" name='인구별' fill="#9ACD32" background={{ fill: "#eee" }} />
             </BarChart>
           </div>
         </div>

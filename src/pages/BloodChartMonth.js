@@ -92,7 +92,7 @@ export default function App() {
             <Tooltip />
             <Legend />
             <CartesianGrid strokeDasharray="3 3" />
-            <Bar dataKey="DT" fill="#9ACD32" background={{ fill: "#eee" }} />
+            <Bar dataKey="DT" fill="#9ACD32" name='월별(%)' background={{ fill: "#eee" }} />
           </BarChart>
         </div>
       </div>

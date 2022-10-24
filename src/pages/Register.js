@@ -15,7 +15,7 @@ function Register(props) {
   const [pw,setPw] = useState("");
   const [pw2,setPw2] = useState("");
   const [nickName,setNickName] = useState("");
-  const [blood,setBlood] = useState("");
+  let [blood,setBlood] = useState(""); // rh체크 시 값 변경이 일어나므로 let으로 선언
   const [area,setArea] = useState("서울특별시");
   const [error,setError] = useState("primary"); // 닉네임 에러
   const [nickLabel,setNickLabel] = useState("닉네임"); // 닉네임 에러'
@@ -24,8 +24,12 @@ function Register(props) {
   const [error3,setError3] = useState("primary"); // 비밀번호 확인 에러
   const [pwLabel,setPwLabel] = useState("비밀번호 확인"); // 비밀번호 확인 에러
   const [push,setPush] = useState(false);
+  const [rh, setRh] = useState(false);
   const handleChange = () => { 
     setPush(!push); 
+  };
+  const handleChange2 = () => { 
+    setRh(!rh); 
   };
 
   const provinces = [
@@ -77,6 +81,11 @@ function Register(props) {
       alert("이메일 형식이 올바르지 않습니다.");
       return;
     }
+
+    if(rh){ //rh를 체크 했을 때
+      blood = blood+'-';
+    }
+
     axios.post('http://localhost:3001/join', null, {
       params: { 
         email: email,
@@ -195,15 +204,14 @@ function Register(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[email])
 
-
   return (
     <div className="centerContainer">
       <div className="container">
         <h1 className="sidebarTitle">회원가입</h1>
         <span align="center" className="hello">
-          <span id="redColor">피플</span>은 고객님의 정보를 소중하게 생각합니다.
-          </span><span align="center" className="hello">일부 서비스는 로그인 이후 이용 가능합니다.
-          </span>
+          피플은 고객님의 정보를 소중하게 생각합니다.
+          <br></br>일부 서비스는 로그인 이후 이용 가능합니다.
+        </span>
         <hr />
         <div align="center">
           <p>
@@ -284,7 +292,7 @@ function Register(props) {
                 name="blood"
               />
               O형&nbsp;&nbsp; &nbsp;꒐
-              <Checkbox style={{ color: "#e6687d" }} />
+              <Checkbox style={{ color: "#e6687d" }} onChange={handleChange2}/>
               Rh-혈액형
             </label>
           </fieldset>

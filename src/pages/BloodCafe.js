@@ -47,6 +47,9 @@ function BloodCafe(props) {
     });
     const marker = new google.maps.Marker({
       position: location,
+      icon: {
+        url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+      },
       map,
     });
 
@@ -58,7 +61,7 @@ function BloodCafe(props) {
 
     const infoWindow = new google.maps.InfoWindow();
     axios
-      .get("http://localhost:3001/bloodgeo")
+      .get("http://localhost:3001/blooddata", { params: { req: "cafe" } })
       .then((res) => {
         let num = 1;
         console.log(res["data"].length);
@@ -66,6 +69,9 @@ function BloodCafe(props) {
           try {
             const bhmarker = new google.maps.Marker({
               position: { lat: loc["lat"], lng: loc["long"] },
+              icon: {
+                url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+              },
               map,
             });
             bhmarker.addListener("click", () => {
@@ -109,10 +115,12 @@ function BloodCafe(props) {
             <div className="sidebarMenu">
               <h1 className="sidebarTitle">찾아보아요!</h1>
               <span align="center" className="hello">
-                  헌혈카페는 아늑하고 편안한 공간으로 구성되어 친구들과 차도 마시고
-                  <br></br>인터넷도 즐기며 편하게 쉬어갈 수 있는 헌혈+카페+문화의 공간입니다.
-                </span>
-                <hr />
+                헌혈카페는 아늑하고 편안한 공간으로 구성되어 친구들과 차도
+                마시고
+                <br></br>인터넷도 즐기며 편하게 쉬어갈 수 있는 헌혈+카페+문화의
+                공간입니다.
+              </span>
+              <hr />
               <ui className="sidebarCircle">
                 <ul className="sidebarList">
                   <a className="href" href="BloodHouse">
@@ -137,7 +145,7 @@ function BloodCafe(props) {
           </div>
         </div>
         <div className="others"></div>
-        <div className="house" ref={mapElement} style={{ minHeight: "600px" }} />
+        <div id="hosMap"ref={mapElement} style={{ minHeight: "600px" }} />
       </div>
     </div>
   );

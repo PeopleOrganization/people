@@ -143,8 +143,8 @@ function BloodHospital(props) {
           </div>
         </div>
         <div className="others">
-          <div id="hosMap"ref={mapElement} style={{ minHeight: "400px" }} />
-          <br></br><br></br><br></br>
+          <div id="hosMap"ref={mapElement} style={{ minHeight: "600px" }} />
+
         </div>
       </div>
     </div>
