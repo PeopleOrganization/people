@@ -9,11 +9,11 @@ function Menu() {
   
 
   const check3 = () => { 
-    sessionStorage.clear(); //로그아웃 시 모든 세션 삭제
+    window.localStorage.clear(); //로그아웃 시 모든 세션 삭제
   }
 
   const check2 = () => {
-    if(sessionStorage.getItem("check") === ("login")) {
+    if(window.localStorage.getItem("check") === ("login")) {
       setLogin("login0");
       setLogout("login1")
     }else{
@@ -23,7 +23,7 @@ function Menu() {
   }
 
   const checkMy = () => {
-    if(sessionStorage.getItem("check") === ("login")) {
+    if(window.localStorage.getItem("check") === ("login")) {
       document.location.href = '/MyPage';
     }else {
       alert("로그인 후 사용가능합니다.");
@@ -34,7 +34,7 @@ function Menu() {
   useEffect(()=>{
     check2();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[sessionStorage.getItem("check")])
+  },[window.localStorage.getItem("check")])
   return (
     <div id="container">
       <div id="left">

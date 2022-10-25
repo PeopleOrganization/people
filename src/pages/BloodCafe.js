@@ -2,6 +2,13 @@
 import { useCallback, useEffect, useRef } from "react";
 import axios from "axios";
 
+const scrollToTop = () => {
+  window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+  })
+}
+
 function BloodCafe(props) {
   const mapElement = useRef(null);
 
@@ -108,44 +115,45 @@ function BloodCafe(props) {
   }, [initMap, loadScript]);
 
   return (
-    <div className="centerContainer">
+    <div id="bigContainer">
+      <div id="sideLeft">
+        <ul className="sidebarList2">
+          <a className="href2" href="BloodHouse">
+            {" "}
+            <li className="sidebarListItem2">헌혈의집</li>
+          </a>
+          &nbsp;
+          <a className="href2" href="BloodCafe">
+            <li className="sidebarListItem2 active">헌혈카페</li>
+          </a>
+          &nbsp;
+          <a className="href2" href="BloodBank">
+            <li className="sidebarListItem2">혈액원</li>
+          </a>
+          &nbsp;
+          <a className="href2" href="BloodHospital">
+            <li className="sidebarListItem2">지정병원</li>
+          </a>
+          <br></br>
+          <button id="top" onClick={scrollToTop} type="button">
+            {" "}
+            Top
+          </button>
+        </ul>
+      </div>
+
       <div className="container">
-        <div className="sidebar">
-          <div className="sidebarWrapper">
-            <div className="sidebarMenu">
-              <h1 className="sidebarTitle">찾아보아요!</h1>
-              <span align="center" className="hello">
-                헌혈카페는 아늑하고 편안한 공간으로 구성되어 친구들과 차도
-                마시고
-                <br></br>인터넷도 즐기며 편하게 쉬어갈 수 있는 헌혈+카페+문화의
-                공간입니다.
-              </span>
-              <hr />
-              <ui className="sidebarCircle">
-                <ul className="sidebarList">
-                  <a className="href" href="BloodHouse">
-                    {" "}
-                    <li className="sidebarListItem">헌혈의집</li>
-                  </a>
-                  &nbsp;
-                  <a className="href" href="BloodCafe">
-                    <li className="sidebarListItem active">헌혈카페</li>
-                  </a>
-                  &nbsp;
-                  <a className="href" href="BloodBank">
-                    <li className="sidebarListItem">혈액원</li>
-                  </a>
-                  &nbsp;
-                  <a className="href" href="BloodHospital">
-                    <li className="sidebarListItem">지정병원</li>
-                  </a>
-                </ul>
-              </ui>
-            </div>
-          </div>
-        </div>
+        <h1 className="sidebarTitle">찾아보아요!</h1>
+        <span align="center" className="hello">
+          헌혈카페는 아늑하고 편안한 공간으로 구성되어 친구들과 차도 마시고
+          <br></br>인터넷도 즐기며 편하게 쉬어갈 수 있는 헌혈+카페+문화의
+          공간입니다.
+        </span>
+        <hr />
         <div className="others"></div>
-        <div id="hosMap"ref={mapElement} style={{ minHeight: "600px" }} />
+        <div id="mapT">
+          <div id="hosMap" ref={mapElement} style={{ minHeight: "600px" }} />
+        </div>
       </div>
     </div>
   );

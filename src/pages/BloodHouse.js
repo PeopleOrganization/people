@@ -2,6 +2,13 @@
 import { useCallback, useEffect, useRef } from "react";
 import axios from "axios";
 
+const scrollToTop = () => {
+  window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+  })
+}
+
 function BloodHouse(props) {
   const mapElement = useRef(null);
 
@@ -109,44 +116,48 @@ function BloodHouse(props) {
       "https://maps.googleapis.com/maps/api/js?key=AIzaSyBIgZoVqTFMhUuZj2l0bFRkQsPoXWRVFI0&callback=initMap&language=en"
     );
   }, [initMap, loadScript]);
-
+  
   return (
-    <div className="centerContainer">
+    <div id="bigContainer">
+      <div id="sideLeft">
+        <ul className="sidebarList2">
+          <a className="href2" href="BloodHouse">
+            {" "}
+            <li className="sidebarListItem2 active">헌혈의집</li>
+          </a>
+          &nbsp;
+          <a className="href2" href="BloodCafe">
+            <li className="sidebarListItem2">헌혈카페</li>
+          </a>
+          &nbsp;
+          <a className="href2" href="BloodBank">
+            <li className="sidebarListItem2">혈액원</li>
+          </a>
+          &nbsp;
+          <a className="href2" href="BloodHospital">
+            <li className="sidebarListItem2">지정병원</li>
+          </a>
+          <br></br>
+          <button id="top" onClick={scrollToTop} type="button">
+            {" "}
+            Top
+          </button>
+        </ul>
+      </div>
+
       <div className="container">
-        <div className="sidebar">
-          <div className="sidebarWrapper">
-            <div className="sidebarMenu">
-              <h1 className="sidebarTitle">찾아보아요!</h1>
-              <span align="center" className="hello">
-                피플은 고객님의 정보를 소중하게 생각합니다.
-                <br></br>일부 서비스는 로그인 이후 이용 가능합니다.
-              </span>
-              <hr />
-              <ui className="sidebarCircle">
-                <ul className="sidebarList">
-                  <a className="href" href="BloodHouse">
-                    {" "}
-                    <li className="sidebarListItem active">헌혈의집</li>
-                  </a>
-                  &nbsp;
-                  <a className="href" href="BloodCafe">
-                    <li className="sidebarListItem">헌혈카페</li>
-                  </a>
-                  &nbsp;
-                  <a className="href" href="BloodBank">
-                    <li className="sidebarListItem">혈액원</li>
-                  </a>
-                  &nbsp;
-                  <a className="href" href="BloodHospital">
-                    <li className="sidebarListItem">지정병원</li>
-                  </a>
-                </ul>
-              </ui>
-            </div>
-          </div>
-        </div>
+        <h1 className="sidebarTitle">찾아보아요!</h1>
+        <span align="center" className="hello">
+          헌혈의 집이란 사람들이 찾아가 헌혈을 하는 곳으로, 안정적으로 혈액을
+          공급받고
+          <br /> 혈액 자급률을 높이기 위해 대한적십자사에서 각 지역에 설치한
+          곳입니다.
+        </span>
+        <hr />
         <div className="others">
-          <div id="hosMap"ref={mapElement} style={{ minHeight: "600px" }} />
+          <div id="mapT">
+            <div id="hosMap" ref={mapElement} style={{ minHeight: "600px" }} />
+          </div>
         </div>
       </div>
     </div>

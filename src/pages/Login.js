@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from 'axios'
 import { useState } from "react";
 
@@ -42,8 +42,8 @@ function Login(props) {
         console.log(res.data)
         if(res.data === 0) { // 0을 받아오면 성공했다는 알람
           alert("로그인에 성공하셨습니다.");
-          sessionStorage.setItem("check", "login");    
-          sessionStorage.setItem("email", email);
+          window.localStorage.setItem("check", "login");    
+          window.localStorage.setItem("email", email);
           document.location.href = '/'
 
     
@@ -56,6 +56,17 @@ function Login(props) {
        console.log(error);
     })
   }
+
+  const checkL = () => { // 로그인 페이지에 있는데 다른 페이지에서 이미 로그인 했다면
+    if(window.localStorage.getItem("check") === ("login")) {
+    document.location.href = '/';
+    }
+  }
+
+  useEffect(()=>{
+    checkL();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[window.localStorage.getItem("check")])
 
 
 

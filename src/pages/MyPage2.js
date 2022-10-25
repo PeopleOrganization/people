@@ -6,7 +6,14 @@ import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-function Register(props) {
+const scrollToTop = () => {
+  window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+  })
+}
+
+function MyPage2(props) {
   var mailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
   const [check,setCheck] = useState("1");
   const [emailCheck,setEmailCheck] = useState("1");
@@ -205,13 +212,34 @@ function Register(props) {
   },[email])
 
   return (
-    <div className="centerContainer">
+    <div id="bigContainer">
+      <div id="sideLeft">
+        <ul className="sidebarList2">
+          <a className="href2" href="QnAKnowledge">
+            {" "}
+            <li className="sidebarListItem2 active">내 정보</li>
+          </a>
+          &nbsp;
+          <a className="href2" href="QnADesignated">
+            <li className="sidebarListItem2">활동 리스트</li>
+          </a>
+          &nbsp;
+          <a className="href2" href="QnAQuestion">
+            <li className="sidebarListItem2">지정헌혈 현황</li>
+          </a>
+          <br></br>
+          <button id="top" onClick={scrollToTop} type="button">
+            {" "}
+            Top
+          </button>
+        </ul>
+      </div>
       <div className="container">
-        <h1 className="sidebarTitle">회원가입</h1>
+        <h1 className="sidebarTitle">마이페이지</h1>
         <span align="center" className="hello">
-          <span id="redColor">피플</span>은 고객님의 정보를 소중하게 생각합니다.
-          </span><span align="center" className="hello">일부 서비스는 로그인 이후 이용 가능합니다.
-        </span><hr/>
+          사용자 계정을 확인 및 수정할 수 있는 공간입니다.
+        </span>
+        <hr />
         <div align="center">
           <p>
             <Box 
@@ -325,7 +353,7 @@ function Register(props) {
 
 
 
-export default Register;
+export default MyPage2;
 
 
 const Button2 = styled.button`

@@ -2,6 +2,13 @@
 import { useCallback, useEffect, useRef } from "react";
 import axios from "axios";
 
+const scrollToTop = () => {
+  window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+  })
+}
+
 function BloodHospital(props) {
   const mapElement = useRef(null);
 
@@ -108,43 +115,43 @@ function BloodHospital(props) {
   }, [initMap, loadScript]);
 
   return (
-    <div className="centerContainer">
-      <div className="container">
-        <div className="sidebar">
-          <div className="sidebarWrapper">
-            <div className="sidebarMenu">
-              <h1 className="sidebarTitle">찾아보아요!</h1>
-              <span align="center" className="hello">
-                피플은 고객님의 정보를 소중하게 생각합니다.
-                <br></br>일부 서비스는 로그인 이후 이용 가능합니다.
-              </span>
-              <hr />
-              <ui className="sidebarCircle">
-                <ul className="sidebarList">
-                  <a className="href" href="BloodHouse">
-                    {" "}
-                    <li className="sidebarListItem">헌혈의집</li>
-                  </a>
-                  &nbsp;
-                  <a className="href" href="BloodCafe">
-                    <li className="sidebarListItem">헌혈카페</li>
-                  </a>
-                  &nbsp;
-                  <a className="href" href="BloodBank">
-                    <li className="sidebarListItem">혈액원</li>
-                  </a>
-                  &nbsp;
-                  <a className="href" href="BloodHospital">
-                    <li className="sidebarListItem active">지정병원</li>
-                  </a>
-                </ul>
-              </ui>
-            </div>
-          </div>
-        </div>
-        <div className="others">
-          <div id="hosMap"ref={mapElement} style={{ minHeight: "600px" }} />
+    <div id="bigContainer">
+      <div id="sideLeft">
+        <ul className="sidebarList2">
+          <a className="href2" href="BloodHouse">
+            {" "}
+            <li className="sidebarListItem2">헌혈의집</li>
+          </a>
+          &nbsp;
+          <a className="href2" href="BloodCafe">
+            <li className="sidebarListItem2">헌혈카페</li>
+          </a>
+          &nbsp;
+          <a className="href2" href="BloodBank">
+            <li className="sidebarListItem2">혈액원</li>
+          </a>
+          &nbsp;
+          <a className="href2" href="BloodHospital">
+            <li className="sidebarListItem2 active">지정병원</li>
+          </a>
+          <br></br>
+          <button id="top" onClick={scrollToTop} type="button">
+            {" "}
+            Top
+          </button>
+        </ul>
+      </div>
 
+      <div className="container">
+        <h1 className="sidebarTitle">찾아보아요!</h1>
+        <span align="center" className="hello">
+          지정병원에서도 지정헌혈을 할 수 있어요.
+        </span>
+        <hr />
+        <div className="others">
+          <div id="mapT">
+            <div id="hosMap" ref={mapElement} style={{ minHeight: "600px" }} />
+          </div>
         </div>
       </div>
     </div>

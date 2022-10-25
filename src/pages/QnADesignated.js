@@ -8,6 +8,7 @@ import Img6 from "../imgs/blood_icon8.png";
 import Img7 from "../imgs/blood_icon9.png";
 import styled from "styled-components";
 import Fade from "react-reveal/Fade";
+import { Link } from "react-router-dom";
 
 const IntroBlock = styled.div`
   margin-bottom: 135px;
@@ -16,41 +17,52 @@ const IntroBlock = styled.div`
   }
 `;
 
+const scrollToTop = () => {
+  window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+  })
+}
+
+const oneCheckBox = (checkThis) =>{
+  const box = document.getElementsByName("box");
+  for(let i=0; i<box.length; i++){
+    if(box[i]!==checkThis){
+      box[i].checked = false;
+    }
+  }
+}
+
 function QnADesignated(props) {
   return (
-    <div className="centerContainer">
+    <div id="bigContainer">
+      <div id="sideLeft">
+          <ul className="sidebarList2">
+            <a className="href2" href="QnAKnowledge">
+              {" "}
+              <li className="sidebarListItem2">헌혈지식</li>
+            </a>
+            &nbsp;
+            <a className="href2" href="QnADesignated">
+              <li className="sidebarListItem2 active">지정헌혈이란?</li>
+            </a>
+            &nbsp;
+            <a className="href2" href="QnAQuestion">
+              <li className="sidebarListItem2">자주묻는 질문</li>
+            </a>
+            <br></br>
+            <button id="top" onClick={scrollToTop} type="button" > Top</button>
+          </ul>
+      </div>
       <div className="container">
-        <div className="sidebar">
-          <div className="sidebarWrapper">
-            <div className="sidebarMenu">
-              <h1 className="sidebarTitle">궁금해요!</h1>
-              <span align="center" className="hello">
-                헌혈자가 대상을 미리 지정해 놓고 하는 헌혈로써,
-                <br></br>헌혈을 하는 사람이 현혈을 하기 전에 수혈자를
-                지정하거나,
-                <br></br>환자가 수혈을 받기 전에 헌혈자를 지정하는 경우를 모두
-                포함합니다.
-              </span>
-              <hr />
-              <ui className="sidebarCircle">
-                <ul className="sidebarList">
-                  <a className="href" href="QnAKnowledge">
-                    {" "}
-                    <li className="sidebarListItem">헌혈지식</li>
-                  </a>
-                  &nbsp;
-                  <a className="href" href="QnADesignated">
-                    <li className="sidebarListItem active">지정헌혈이란?</li>
-                  </a>
-                  &nbsp;
-                  <a className="href" href="QnAQuestion">
-                    <li className="sidebarListItem">자주묻는 질문</li>
-                  </a>
-                </ul>
-              </ui>
-            </div>
-          </div>
-        </div>
+        <h1 className="sidebarTitle">궁금해요!</h1>
+        <span align="center" className="hello">
+          헌혈자가 대상을 미리 지정해 놓고 하는 헌혈로써,
+          <br></br>헌혈을 하는 사람이 현혈을 하기 전에 수혈자를 지정하거나,
+          <br></br>환자가 수혈을 받기 전에 헌혈자를 지정하는 경우를 모두
+          포함합니다.
+        </span>
+        <hr />
         <div className="others"></div>
         <Fade bottom>
           <IntroBlock>
@@ -231,15 +243,100 @@ function QnADesignated(props) {
               alt="React"
             ></img>
           </h1>
+          <Link to="../BloodHospital">
+            <button className="hosButton" type="button">
+              병원위치보기
+            </button>
+          </Link>
           <hr style={{ height: "5px" }}></hr>
+
           <br></br>
           <div id="deshos">
             <div id="deshosList">
-              <input type="checkbox" id="menuBtn" defaultChecked></input>
+              <input
+                type="checkbox"
+                name="box"
+                id="menuBtn"
+                defaultChecked
+                onChange={(e) => oneCheckBox(e.target)}
+              ></input>
               <label for="menuBtn" className="labelBtn" onclick="">
                 ㄱ
               </label>
+              <input
+                type="checkbox"
+                name="box"
+                id="menuBtn2"
+                onChange={(e) => oneCheckBox(e.target)}
+              ></input>
+              <label for="menuBtn2" className="labelBtn2" onclick="">
+                ㄷ
+              </label>
+              <input
+                type="checkbox"
+                name="box"
+                id="menuBtn3"
+                onChange={(e) => oneCheckBox(e.target)}
+              ></input>
+              <label for="menuBtn3" className="labelBtn3" onclick="">
+                ㅁ
+              </label>
+              <input
+                type="checkbox"
+                name="box"
+                id="menuBtn4"
+                onChange={(e) => oneCheckBox(e.target)}
+              ></input>
+              <label for="menuBtn4" className="labelBtn4" onclick="">
+                ㅂ
+              </label>
+              <input
+                type="checkbox"
+                name="box"
+                id="menuBtn5"
+                onChange={(e) => oneCheckBox(e.target)}
+              ></input>
+              <label for="menuBtn5" className="labelBtn5" onclick="">
+                ㅅ
+              </label>
+              <input
+                type="checkbox"
+                name="box"
+                id="menuBtn6"
+                onChange={(e) => oneCheckBox(e.target)}
+              ></input>
+              <label for="menuBtn6" className="labelBtn6" onclick="">
+                ㅇ
+              </label>
+              <input
+                type="checkbox"
+                name="box"
+                id="menuBtn7"
+                onChange={(e) => oneCheckBox(e.target)}
+              ></input>
+              <label for="menuBtn7" className="labelBtn7" onclick="">
+                ㅈ
+              </label>
+              <input
+                type="checkbox"
+                name="box"
+                id="menuBtn8"
+                onChange={(e) => oneCheckBox(e.target)}
+              ></input>
+              <label for="menuBtn8" className="labelBtn8" onclick="">
+                ㅊ
+              </label>
+              <input
+                type="checkbox"
+                name="box"
+                id="menuBtn9"
+                onChange={(e) => oneCheckBox(e.target)}
+              ></input>
+              <label for="menuBtn9" className="labelBtn9" onclick="">
+                ㅎ
+              </label>
               <table className="hosList">
+                <br></br>
                 <tr id="hosUl">
                   <td id="hosLi">
                     <span>강남연세사랑</span>
@@ -330,22 +427,18 @@ function QnADesignated(props) {
                   </td>
                 </tr>
               </table>
-              <input type="checkbox" id="menuBtn2" defaultChecked></input>
-              <label for="menuBtn2" className="labelBtn" onclick="">
-                ㄷ
-              </label>
+
               <table className="hosList2">
+                <br></br>
                 <tr id="hosUl">
                   <td id="hosLi">
                     <span>더플러스병원(경기도 광주)</span>
                   </td>
                 </tr>
               </table>
-              <input type="checkbox" id="menuBtn3" defaultChecked></input>
-              <label for="menuBtn3" className="labelBtn" onclick="">
-                ㅁ
-              </label>
+
               <table className="hosList3">
+                <br></br>
                 <tr id="hosUl">
                   <td id="hosLi">
                     <span>목동힘찬</span>
@@ -357,12 +450,10 @@ function QnADesignated(props) {
                     <span>메디하임효병원</span>
                   </td>
                 </tr>
-                </table>
-                <input type="checkbox" id="menuBtn4" defaultChecked></input>
-              <label for="menuBtn4" className="labelBtn" onclick="">
-                ㅂ
-              </label>
+              </table>
+
               <table className="hosList4">
+                <br></br>
                 <tr id="hosUl">
                   <td id="hosLi">
                     <span>백성병원</span>
@@ -380,12 +471,10 @@ function QnADesignated(props) {
                     <span>바른사랑(신림)-신규병원</span>
                   </td>
                 </tr>
-                </table>
-                <input type="checkbox" id="menuBtn5" defaultChecked></input>
-              <label for="menuBtn5" className="labelBtn" onclick="">
-                ㅅ
-              </label>
+              </table>
+
               <table className="hosList5">
+                <br></br>
                 <tr id="hosUl">
                   <td id="hosLi">
                     <span>서울아산</span>
@@ -415,12 +504,10 @@ function QnADesignated(props) {
                     <span>센트럴병원(시화)</span>
                   </td>
                 </tr>
-                </table>
-                <input type="checkbox" id="menuBtn6" defaultChecked></input>
-              <label for="menuBtn6" className="labelBtn" onclick="">
-                ㅇ
-              </label>
+              </table>
+
               <table className="hosList6">
+                <br></br>
                 <tr id="hosUl">
                   <td id="hosLi">
                     <span>아주대</span>
@@ -462,23 +549,19 @@ function QnADesignated(props) {
                     <span>우리들병원(청담)</span>
                   </td>
                 </tr>
-                </table>
-                <input type="checkbox" id="menuBtn7" defaultChecked></input>
-              <label for="menuBtn7" className="labelBtn" onclick="">
-                ㅈ
-              </label>
+              </table>
+
               <table className="hosList7">
+                <br></br>
                 <tr id="hosUl">
                   <td id="hosLi">
                     <span>지샘(효산의료재단)</span>
                   </td>
                 </tr>
               </table>
-              <input type="checkbox" id="menuBtn8" defaultChecked></input>
-              <label for="menuBtn8" className="labelBtn" onclick="">
-                ㅊ
-              </label>
+
               <table className="hosList8">
+                <br></br>
                 <tr id="hosUl">
                   <td id="hosLi">
                     <span>최원호</span>
@@ -491,11 +574,9 @@ function QnADesignated(props) {
                   </td>
                 </tr>
               </table>
-              <input type="checkbox" id="menuBtn9" defaultChecked></input>
-              <label for="menuBtn9" className="labelBtn" onclick="">
-                ㅎ
-              </label>
+
               <table className="hosList9">
+                <br></br>
                 <tr id="hosUl">
                   <td id="hosLi">
                     <span>한양의대 구리</span>
@@ -525,9 +606,6 @@ function QnADesignated(props) {
               </table>
             </div>
           </div>
-
-          <br></br>
-          <br></br>
         </div>
       </div>
     </div>
