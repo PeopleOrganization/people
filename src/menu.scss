@@ -33,6 +33,7 @@ body{
 #bigContainer {
   flex:1;
   height: auto;
+  display: flex;
   min-width: auto;
   max-height: 9999999;
   font-family: "GmarketSansMedium";
@@ -134,7 +135,7 @@ body{
   #dropDown1 {
     color: #000;
     font-weight: 900;
-    font-size: large;
+    font-size: x-large;
     list-style: none;
     position: absolute;
     z-index: 2;
@@ -154,7 +155,7 @@ body{
   #dropDown2 {
     color: black;
     font-weight: 900;
-    font-size: large;
+    font-size: x-large;
     list-style: none;
     position: absolute;
     z-index: 2;
@@ -174,7 +175,7 @@ body{
   #dropDown3 {
     color: black;
     font-weight: 900;
-    font-size: large;
+    font-size: x-large;
     list-style: none;
     position: absolute;
     z-index: 2;
@@ -194,7 +195,7 @@ body{
   #dropDown4 {
     color: black;
     font-weight: 900;
-    font-size: large;
+    font-size: x-large;
     list-style: none;
     position: absolute;
     z-index: 2;
@@ -214,7 +215,7 @@ body{
   #dropDown5 {
     color: black;
     font-weight: 900;
-    font-size: large;
+    font-size: x-large;
     list-style: none;
     position: absolute;
     z-index: 2;
@@ -910,6 +911,7 @@ li{
   border-color: #fff;
   border-radius: 10px;
 }
+
 .hosButton:hover{
   background: rgb(33, 94, 45);
   border-color: #fff;
@@ -1219,7 +1221,6 @@ li{
 
 .sidebarList2{
   margin: auto;
-  margin-right: 90%;
 }
 
 .sidebarListItem2.active,
@@ -1243,4 +1244,11 @@ li{
   text-align: center;
   display: flex;
   margin: auto;
+}
+
+#postContainer{
+  flex: 4;
+    align-items: center;
+    justify-content: center;
+    
 }

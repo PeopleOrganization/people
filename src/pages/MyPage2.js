@@ -14,22 +14,12 @@ const scrollToTop = () => {
 }
 
 function MyPage2(props) {
-  var mailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
   const [check,setCheck] = useState("1");
-  const [emailCheck,setEmailCheck] = useState("1");
-  const [pwCheck,setPwCheck] = useState("1");
-  const [email,setEmail] = useState("");
-  const [pw,setPw] = useState("");
-  const [pw2,setPw2] = useState("");
   const [nickName,setNickName] = useState("");
   let [blood,setBlood] = useState(""); // rh체크 시 값 변경이 일어나므로 let으로 선언
   const [area,setArea] = useState("서울특별시");
   const [error,setError] = useState("primary"); // 닉네임 에러
   const [nickLabel,setNickLabel] = useState("닉네임"); // 닉네임 에러'
-  const [error2,setError2] = useState("primary"); // 이메일 에러
-  const [emailLabel,setEmailLabel] = useState("이메일"); // 이메일 에러
-  const [error3,setError3] = useState("primary"); // 비밀번호 확인 에러
-  const [pwLabel,setPwLabel] = useState("비밀번호 확인"); // 비밀번호 확인 에러
   const [push,setPush] = useState(false);
   const [rh, setRh] = useState(false);
   const handleChange = () => { 
@@ -38,7 +28,6 @@ function MyPage2(props) {
   const handleChange2 = () => { 
     setRh(!rh); 
   };
-
   const provinces = [
     { id: "서울특별시", province: "서울특별시" },
     { id: "경기도", province: "경기도" },
@@ -52,51 +41,27 @@ function MyPage2(props) {
     { id: "제주특별자치도", province: "제주특별자치도" },
   ];
 
+
   const join = () => {
     console.log("회원가입 하러 옴");
 
-    if(email === "") {
-      alert("이메일을 입력해주세요.");
-      return;
-    }else if(pw === "") {
-      alert("비밀번호를 입력해주세요.");
-      return;
-    }else if(nickName === "") {
+     if(nickName === "") {
       alert("닉네임을 입력해주세요");
-      return;
-    }else if(pw2 !== pw) {
-      alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
-    if(emailCheck !== 0) {
-      alert("이미 사용중인 이메일입니다.");
       return;
     }
     if(check !== 0) {
       alert("이미 사용중인 닉네임입니다.");
       return;
     }
-    if(pwCheck !== 0) {
-      alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
-    if(pw.length < 4) {
-      alert("비밀번호는 최소 4자리의 숫자 또는 문자로 이루어져야 합니다.")
-      return;
-    }
-    if(!mailRegExp.test(email)) {
-      alert("이메일 형식이 올바르지 않습니다.");
-      return;
-    }
+    
 
     if(rh){ //rh를 체크 했을 때
       blood = blood+'-';
     }
 
-    axios.post('http://localhost:3001/join', null, {
+    axios.post('http://localhost:3001/userModify', null, {
       params: { 
-        email: email,
-        pw: pw,
+        email: window.localStorage.getItem("email"),
         nickName : nickName,
         blood: blood,
         area: area,
@@ -105,32 +70,15 @@ function MyPage2(props) {
     })
       .then(res => {  
         console.log(res.data)
-        alert("회원가입에 성공하셨습니다.")
-        document.location.href = '/'
+        alert("회원정보가 수정되었습니다.")
+        document.location.href = '/myPage'
       })
       .catch(function(error){
        console.log(error);
     })
   }
 
-  const pwCheck2 = () => {
 
-        if(pw === pw2) { // 0을 받아오면 성공했다는 알람
-          console.log(pw);
-          console.log("비밀번호 일치");
-          setPwLabel("비밀번호 확인")
-          setError3("primary");
-          setPwCheck(0);
-          return;
-        }else { // 0이외의 값이라면 실패했다는 알람
-          console.log("비밀번호 다름");
-          setPwLabel("일치하지 않는 비밀번호")
-          setError3("error");
-          setPwCheck(1);
-          return;
-        }
-     
-  }
 
   //닉네임 중복체크
   const overlap = (prop) => {
@@ -164,82 +112,44 @@ function MyPage2(props) {
     })
   }
 
-  //이메일 중복체크
-  const emailOverlap = () => {
-    console.log("중복체크 하러 옴");
-
-
-    axios.post('http://localhost:3001/emailOverlap', null, {
-      params: { 
-        email: email,
-      }
-    })
-      .then(res => {
-
-        console.log(res.data)
-        if(res.data === 0) { // 0을 받아오면 성공했다는 알람
-          console.log("없는 이메일");
-          setEmailLabel("이메일");
-          setError2("primary");
-          setEmailCheck(0);
-          return;
-        }else { // 0이외의 값이라면 실패했다는 알람
-          console.log("있는 이메일");
-          setEmailLabel("이미 존재하는 이메일");
-          setError2("error");
-          setEmailCheck(1);
-          return;
-        }
-      })
-      .catch(function(error){
-       console.log(error);
-    })
-  }
-
-  useEffect(()=>{
-    pwCheck2();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[pw2])
+  
 
   useEffect(()=>{
     overlap();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[nickName])
 
-  useEffect(()=>{
-    emailOverlap();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[email])
+
 
   return (
     <div id="bigContainer">
-      <div id="sideLeft">
-        <ul className="sidebarList2">
-          <a className="href2" href="QnAKnowledge">
-            {" "}
-            <li className="sidebarListItem2 active">내 정보</li>
-          </a>
-          &nbsp;
-          <a className="href2" href="QnADesignated">
-            <li className="sidebarListItem2">활동 리스트</li>
-          </a>
-          &nbsp;
-          <a className="href2" href="QnAQuestion">
-            <li className="sidebarListItem2">지정헌혈 현황</li>
-          </a>
-          <br></br>
-          <button id="top" onClick={scrollToTop} type="button">
-            {" "}
-            Top
-          </button>
-        </ul>
-      </div>
-      <div className="container">
-        <h1 className="sidebarTitle">마이페이지</h1>
-        <span align="center" className="hello">
-          사용자 계정을 확인 및 수정할 수 있는 공간입니다.
-        </span>
-        <hr />
+    <div id="sideLeft">
+      <ul className="sidebarList2">
+        <a className="href2" href="QnAKnowledge">
+          {" "}
+          <li className="sidebarListItem2 active">내 정보</li>
+        </a>
+        &nbsp;
+        <a className="href2" href="QnADesignated">
+          <li className="sidebarListItem2">활동 리스트</li>
+        </a>
+        &nbsp;
+        <a className="href2" href="QnAQuestion">
+          <li className="sidebarListItem2">지정헌혈 현황</li>
+        </a>
+        <br></br>
+        <button id="top" onClick={scrollToTop} type="button">
+          {" "}
+          Top
+        </button>
+      </ul>
+    </div>
+    <div className="container">
+      <h1 className="sidebarTitle">마이페이지</h1>
+      <span align="center" className="hello">
+        사용자 계정을 확인 및 수정할 수 있는 공간입니다.
+      </span>
+      <hr />
         <div align="center">
           <p>
             <Box 
@@ -250,28 +160,7 @@ function MyPage2(props) {
               noValidate
               autoComplete="off"
             >
-              <TextField
-                id="outlined-basic"
-                label={emailLabel}
-                variant="outlined"
-                color={error2}
-                onChange={(event) => setEmail(event.target.value)}
-              /><br/>
-              <TextField
-                id="outlined-basic"
-                label="비밀번호"
-                type="password"
-                variant="outlined"
-                onChange={(event) => setPw(event.target.value)}
-              /><br></br>
-              <TextField
-                id="outlined-basic"
-                label={pwLabel}
-                type="password"
-                variant="outlined"
-                color={error3}
-                onChange={(event) => setPw2(event.target.value)}
-              /><br></br>
+             
               <TextField
                 id="outlined-error"
                 label={nickLabel}
@@ -344,7 +233,7 @@ function MyPage2(props) {
             />
             이메일 수신 동의
           </p>
-          <Button2 onClick={join}>회원가입</Button2>
+          <Button2 onClick={join}>정보 수정</Button2>
         </div>
       </div>
     </div>

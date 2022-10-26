@@ -1,0 +1,174 @@
+.voc-view-wrapper {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.voc-view-go-list-btn {
+    border: 0;
+    padding: 10px;
+    background-color: #ffd9d9;
+}
+
+.voc-view-row {
+    margin: 10px 0;
+    display: flex;
+}
+
+.voc-view-row>label:first-child {
+    margin: 5px 0;
+    width: 10%;
+    font-weight: bold;
+    text-align: end;
+}
+
+.voc-view-row>*:nth-child(2) {
+    margin: 10px 0;
+    width: 90%;
+    background: rgb(203, 117, 117);
+}
+
+#chatRoom{
+    width: 80%;
+    background:rgb(219, 218, 218);
+    overflow:scroll;
+    height: 1000px;
+    border: 3px solid ;
+}
+
+#receive{
+    justify-content: left;
+    text-align: start;
+    margin-left: 2%;
+    margin-right: 55%;
+    height: auto;
+    max-height: 99999px;
+    border: #000;
+    border-radius: 10px;
+    background: rgb(255, 216, 233);
+}
+
+#give{
+    justify-content: right;
+    margin-right: 2%;
+    margin-left: 55%;
+    text-align: end;
+    height: auto;
+    max-height: 99999px;
+    border: #000;
+    border-radius: 10px;
+    background:rgb(221, 244, 255);
+}
+
+#receiveNick{
+    margin-left: 2%;
+    justify-content: left;
+    text-align: start;
+}
+
+#giveNick{
+    margin-right: 2%;
+    justify-content: right;
+    text-align: end;
+}
+
+#receiveDate{
+    margin-right: 2%;
+    justify-content: right;
+    text-align: end;
+    display: flex;
+}
+
+#giveDate{
+    margin-left: 2%;
+    justify-content: left;
+    text-align: start;
+    display: flex;
+}
+
+#receiveChat{
+    margin-left: 2%;
+    margin-right: 2%;
+    font-weight: bold;
+    text-align: start;
+    background: rgb(255, 216, 233);
+}
+
+#giveChat{
+    margin-left: 2%;
+    margin-right: 2%;
+    font-weight: bold;
+    text-align: start;
+    background:rgb(221, 244, 255);
+}
+
+#boardButton{
+    width: 100%;
+    text-align: end;
+    justify-content: right;
+    position: sticky;
+}
+
+#chatIcon{
+
+    position: sticky;
+    top:10px;
+    text-align: end;
+    justify-content: right;
+    width:100%
+    
+}
+
+#boardBtn1{
+background: #000;
+color: #fff;
+}
+
+#boardBtn2{
+background: rgb(208, 217, 109);
+}
+
+#boardBtn3{
+background: rgb(63, 120, 190);
+color: #fff;
+}
+
+#boardSize{
+    width: 100%;
+}
+
+#boardItemSize1,#boardItemSize2,#boardItemSize3,#boardItemSize4,
+#boardItemSize5,#boardItemSize6,#boardItemSize7,#boardItemSize8{
+ width: auto;   
+}
+
+#boardItemSize1{
+    width:5%;
+}
+
+#boardItemSize2{
+    width:5%;
+}
+
+#boardItemSize3{
+    width:5%;
+}
+
+#boardItemSize4{
+    width:60%;
+}
+
+#boardItemSize5{
+    width:6%;
+}
+
+#boardItemSize6{
+    width:6%;
+}
+
+#boardItemSize7{
+    width:6%;
+}
+
+#boardItemSize8{
+    width:6%;
+}

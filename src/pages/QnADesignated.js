@@ -243,7 +243,7 @@ function QnADesignated(props) {
               alt="React"
             ></img>
           </h1>
-          <Link to="../BloodHospital">
+          <Link to="/BloodHospital">
             <button className="hosButton" type="button">
               병원위치보기
             </button>

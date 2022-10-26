@@ -334,6 +334,7 @@ const Button2 = styled.button`
   color: #fff;
   border: none;
 }
+
 background: #000;
 color: #fff;
 border: none;
