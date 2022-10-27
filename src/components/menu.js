@@ -100,22 +100,22 @@ function Menu() {
           <li id="dropDown3">
             Loc
             <li>
-              <a id="dropList" href="BloodHouse">
+              <a id="dropList" href="Facilities?blood=house">
                 헌혈의집 위치
               </a>
             </li>
             <li>
-              <a id="dropList" href="BloodCafe">
+              <a id="dropList" href="Facilities?blood=cafe">
                 헌혈카페 위치
               </a>
             </li>
             <li>
-              <a id="dropList" href="BloodBank">
+              <a id="dropList" href="Facilities?blood=bank">
                 혈액원 위치
               </a>
             </li>
             <li>
-              <a id="dropList" href="BloodHospital">
+              <a id="dropList" href="Facilities?blood=hospital">
                 지정병원 위치
               </a>
             </li>

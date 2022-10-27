@@ -1,16 +1,44 @@
 //구글맵키 AIzaSyBIgZoVqTFMhUuZj2l0bFRkQsPoXWRVFI0
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import House_des from "./facilities_components/house_des";
+import Cafe_des from "./facilities_components/Cafe_des";
+import Sidebar from "./facilities_components/Sidebar";
+
+const components = {
+  house: <House_des />,
+  cafe: <Cafe_des />,
+  bank: "혈액원이란 수혈에 필요한 혈액을 채혈 ·조제 ·보존하고 공급하는기관입니다.",
+  hospital: "지정병원에서도 지정헌혈을 할 수 있어요.",
+};
+
+const placeholder = {
+  house: "헌혈의집",
+  cafe: "헌혈카페",
+  bank: "혈액원",
+  hospital: "지정병원",
+};
 
 const scrollToTop = () => {
   window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-  })
-}
+    top: 0,
+    behavior: "smooth",
+  });
+};
 
-function BloodHospital(props) {
+function Facilities(props) {
   const mapElement = useRef(null);
+  const [list, setList] = useState([]);
+  const [googlemap, setGooglemap] = useState();
+  const [resData, setResData] = useState();
+  const [active, setActive] = useState({
+    house: "sidebarListItem2",
+    cafe: "sidebarListItem2",
+    bank: "sidebarListItem2",
+    hospital: "sidebarListItem2",
+  });
 
   function geo() {
     //동기 처리로 위치정보 세팅 후 구글맵을 띄우도록 함
@@ -28,9 +56,24 @@ function BloodHospital(props) {
     return promise;
   }
 
+  //자동완성 창에서 주소 클릭하면 그 주소로 구글맵 이동
+  function goAddress(address) {
+    resData.forEach((data) => {
+      if (data.address === address) {
+        googlemap.setCenter({ lat: data.lat, lng: data.long });
+        googlemap.setZoom(17);
+      }
+    });
+  }
+
   // 컴포넌트가 마운트될 때, 수동으로 스크립트를 넣어줍니다.
   // ﻿이는 script가 실행되기 이전에 window.initMap이 먼저 선언되어야 하기 때문입니다.
   const loadScript = useCallback((url) => {
+    setActive((prev) => {
+      prev[new URLSearchParams(window.location.search).get("blood")] =
+        "sidebarListItem2 active";
+      return prev;
+    });
     const firstScript = window.document.getElementsByTagName("script")[0];
     const newScript = window.document.createElement("script");
     newScript.src = url;
@@ -39,10 +82,6 @@ function BloodHospital(props) {
     firstScript?.parentNode?.insertBefore(newScript, firstScript);
   }, []);
 
-  // const locs = [
-  //   { lat: 36, lng: 127 },
-  //   { lat: 37, lng: 128 },
-  // ];
   // script에서 google map api를 가져온 후에 실행될 callback 함수
   const initMap = useCallback(async () => {
     const { google } = window;
@@ -53,13 +92,13 @@ function BloodHospital(props) {
       center: location,
     });
     const marker = new google.maps.Marker({
-      position: location,
       icon: {
         url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
       },
+      position: location,
       map,
     });
-
+    //현재위치 마커
     marker.addListener("click", () => {
       infoWindow.close();
       infoWindow.setContent("<h3>현재위치</h3>");
@@ -68,12 +107,16 @@ function BloodHospital(props) {
 
     const infoWindow = new google.maps.InfoWindow();
     axios
-      .get("http://localhost:3001/blooddata", { params: { req: "hospital" } })
+      .get("http://localhost:3001/blooddata", {
+        params: {
+          req: new URLSearchParams(window.location.search).get("blood"),
+        },
+      })
       .then((res) => {
-        let num = 1;
-        console.log(res["data"].length);
+        setResData(res.data);
         res["data"].forEach((loc) => {
           try {
+            //각 시설 마커
             const bhmarker = new google.maps.Marker({
               position: { lat: loc["lat"], lng: loc["long"] },
               icon: {
@@ -81,6 +124,7 @@ function BloodHospital(props) {
               },
               map,
             });
+            //마커 클릭시 설명 띄우기
             bhmarker.addListener("click", () => {
               infoWindow.close();
               infoWindow.setContent(
@@ -88,11 +132,22 @@ function BloodHospital(props) {
               );
               infoWindow.open(map, bhmarker);
             });
-            console.log(num++);
           } catch (err) {
-            console.log("error" + num);
+            console.log(err);
           }
         });
+        return { data: res["data"], gmap: map };
+      })
+      .then((res) => {
+        setGooglemap(res.gmap);
+        return res.data.map((loc) => {
+          const element = loc["address"];
+          if (element !== undefined) return element;
+          else return "undefined";
+        });
+      })
+      .then((res) => {
+        setList(res);
       })
       .catch(function (error) {
         console.log(error);
@@ -100,6 +155,7 @@ function BloodHospital(props) {
   }, []);
 
   useEffect(() => {
+    console.log(new URLSearchParams(window.location.search).get("blood"));
     const script = window.document.getElementsByTagName("script")[0];
     const includeCheck = script.src.startsWith(
       "https://maps.googleapis.com/maps/api"
@@ -118,22 +174,7 @@ function BloodHospital(props) {
     <div id="bigContainer">
       <div id="sideLeft">
         <ul className="sidebarList2">
-          <a className="href2" href="BloodHouse">
-            {" "}
-            <li className="sidebarListItem2">헌혈의집</li>
-          </a>
-          &nbsp;
-          <a className="href2" href="BloodCafe">
-            <li className="sidebarListItem2">헌혈카페</li>
-          </a>
-          &nbsp;
-          <a className="href2" href="BloodBank">
-            <li className="sidebarListItem2">혈액원</li>
-          </a>
-          &nbsp;
-          <a className="href2" href="BloodHospital">
-            <li className="sidebarListItem2 active">지정병원</li>
-          </a>
+          <Sidebar active={active} />
           <br></br>
           <button id="top" onClick={scrollToTop} type="button">
             {" "}
@@ -145,17 +186,43 @@ function BloodHospital(props) {
       <div className="container">
         <h1 className="sidebarTitle">찾아보아요!</h1>
         <span align="center" className="hello">
-          지정병원에서도 지정헌혈을 할 수 있어요.
+          {components[new URLSearchParams(window.location.search).get("blood")]}
         </span>
         <hr />
         <div className="others">
+          <div>
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              options={list}
+              onChange={(event, newValue) => {
+                goAddress(newValue);
+              }}
+              sx={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={
+                    placeholder[
+                      new URLSearchParams(window.location.search).get("blood")
+                    ]
+                  }
+                />
+              )}
+            />
+          </div>
+          <br></br>
+          <br></br>
           <div id="mapT">
             <div id="hosMap" ref={mapElement} style={{ minHeight: "600px" }} />
           </div>
         </div>
+        <br></br>
+        <br></br>
+        <br></br>
       </div>
     </div>
   );
 }
 
-export default BloodHospital;
+export default Facilities;

@@ -252,7 +252,7 @@ function BoardView() {
             <div id="give">
               <label id="giveNick">헌혈자1</label>
               <br />
-              <label id="giveChat">방금 헌혈하고 왔습니다용!</label>
+              <label id="giveChat">방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!</label>
               <br></br> <label id="giveDate">09:44</label>
             </div>
             <br />

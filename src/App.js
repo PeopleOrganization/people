@@ -4,7 +4,7 @@ import Main from './pages/Main';
 //<Route path="/product/*" element={<Product />}></Route>
 import Menu from './components/menu';
 import Footer from './components/footer';
-import BloodHouse from './pages/BloodHouse';
+import Facilities from './pages/Facilities';
 import Board from './pages/Board';
 import BoardView from './pages/BoardView';
 import BoardWrite from './pages/BoardWrite';
@@ -22,9 +22,6 @@ import BoardLoc from './pages/BoardLoc';
 import QnADesignated from './pages/QnADesignated';
 import QnAKnowledge from './pages/QnAKnowledge';
 import QnAQuestion from './pages/QnAQuestion';
-import BloodCafe from './pages/BloodCafe';
-import BloodBank from './pages/BloodBank';
-import BloodHospital from './pages/BloodHospital';
 import MyPage from './pages/MyPage';
 import ScrollToTop from "./components/ScrollToTop";
 import MyPage2 from './pages/MyPage2';
@@ -43,7 +40,7 @@ function App() {
           <Route path="/MyPage3" element={<MyPage3 />}></Route>
           <Route path="/" element={<Main />}></Route>
           <Route path="MyPage" element={<MyPage />}></Route>
-          <Route path="/BloodHouse" element={<BloodHouse />}></Route>
+          <Route path="/Facilities" element={<Facilities />}></Route>
           <Route path="/Board" element={<Board />}></Route>
           <Route path='/BoardView:postkey' element={<BoardView />}  />
           <Route path='/BoardWrite' element={<BoardWrite />}  />
@@ -64,9 +61,6 @@ function App() {
           <Route path="/QnADesignated" element={<QnADesignated />}></Route>
           <Route path="/QnAKnowledge" element={<QnAKnowledge />}></Route>
           <Route path="/QnAQuestion" element={<QnAQuestion />}></Route>
-          <Route path="/BloodCafe" element={<BloodCafe />}></Route>
-          <Route path="/BloodBank" element={<BloodBank />}></Route>
-          <Route path="/BloodHospital" element={<BloodHospital />}></Route>
         </Routes>
         <ScrollToTop />
       </BrowserRouter>
