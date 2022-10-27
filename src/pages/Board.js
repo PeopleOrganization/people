@@ -12,14 +12,15 @@ const scrollToTop = () => {
 function Board() {
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios.post("http://localhost:3001/postList").then((response) => {
-      setData(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
+    axios
+      .post("http://localhost:3001/postList")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
-
 
   return (
     <div id="bigContainer">
@@ -52,27 +53,53 @@ function Board() {
         </span>
         <hr />
 
-        <div id="postContainer" align="center">
+        <div id="postContainer0" align="center">
           <br />
-          <table>
-          
+          <table id="boardSize">
             <div>
-              <div id="boardSize">
-              <td id="boardItemSize1">{it.postkey}{"  "}</td>
-              <td id="boardItemSize2">혈액형: {it.bloodType}{" "}</td>
-              <td id="boardItemSize3">혈액종류: {it.bloodKind}{" "}</td>
-              <td id="boardItemSize4"><a href="/MyPage">제목: {it.title}</a>{" "}</td>
-              <td id="boardItemSize5">환자성명: {it.patientName}{" "}</td>
-              <td id="boardItemSize6">병원: {it.hospital}{" "}</td>
-              <td id="boardItemSize7">등록일: {it.postDate}{" "}</td>
-              <td id="boardItemSize8">수량: {it.responseB}/{it.requestB}</td></div><br/>
-          <hr/>
+              <div>
+                <td id="boardItemSize1"></td>
+                <td id="boardItemSize2">혈액형</td>
+                <td id="boardItemSize3">혈액종류</td>
+                <td id="boardItemSize4">제목</td>
+                <td id="boardItemSize5">환자성명</td>
+                <td id="boardItemSize6">병원</td>
+                <td id="boardItemSize7">등록일</td>
+                <td id="boardItemSize8">수량</td>
+              </div>
+              <br />
+              <hr />
             </div>
-          
+            {data.map((it) => (
+              <div key={it.postkey}>
+                <div>
+                  <td id="boardItemSize1">{it.postkey}</td>
+                  <td id="boardItemSize2">{it.bloodType} </td>
+                  <td id="boardItemSize3">{it.bloodKind} </td>
+                  <td id="boardItemSize4">
+                    <Link to={`/BoardView/${it.postkey}`}>{it.title}</Link>{" "}
+                  </td>
+                  <td id="boardItemSize5">{it.patientName} </td>
+                  <td id="boardItemSize6">{it.hospital} </td>
+                  <td id="boardItemSize7">{it.postDate} </td>
+                  <td id="boardItemSize8">
+                    {it.responseB}/{it.requestB}
+                  </td>
+                </div>
+                <br />
+                <hr />
+              </div>
+            ))}
           </table>
-              <br></br>
+          <br></br>
           <Link to="/BoardView">
-            <button id= "loginBtn">상세화면</button>
+            <button id="loginBtn">상세화면</button>
+          </Link>
+
+          <br></br>
+          <br></br>
+          <Link to="/BoardWrite">
+            <button id="loginBtn">글쓰기</button>
           </Link>
         </div>
       </div>

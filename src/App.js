@@ -7,6 +7,7 @@ import Footer from './components/footer';
 import BloodHouse from './pages/BloodHouse';
 import Board from './pages/Board';
 import BoardView from './pages/BoardView';
+import BoardWrite from './pages/BoardWrite';
 import Site from './pages/Site';
 import Login from './pages/Login';
 import LogOut from './pages/LogOut';
@@ -44,7 +45,8 @@ function App() {
           <Route path="MyPage" element={<MyPage />}></Route>
           <Route path="/BloodHouse" element={<BloodHouse />}></Route>
           <Route path="/Board" element={<Board />}></Route>
-          <Route path='/BoardView' element={<BoardView />}  />
+          <Route path='/BoardView:postkey' element={<BoardView />}  />
+          <Route path='/BoardWrite' element={<BoardWrite />}  />
           <Route path="/BoardBloodType" element={<BoardBloodType />}></Route>
           <Route path="/BoardLoc" element={<BoardLoc />}></Route>
           <Route path="/Site" element={<Site />}></Route>

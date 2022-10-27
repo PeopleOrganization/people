@@ -350,7 +350,7 @@ body {
 }
 
 #qnaTable {
-  background-color: #e6687d;
+  border: 1px solid #000;
   color: rgb(113, 72, 74);
   font-weight: bold;
   margin-bottom: 5%;
@@ -1232,10 +1232,4 @@ li {
   text-align: center;
   display: flex;
   margin: auto;
-}
-
-#postContainer {
-  flex: 4;
-  align-items: center;
-  justify-content: center;
 }/*# sourceMappingURL=menu.css.map */

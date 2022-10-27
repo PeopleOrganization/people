@@ -30,7 +30,12 @@ function Login(props) {
       }
     })
       .then(res => {
+        console.log("sssss" + res.data[0]["nickName"])
+        ;
+        window.localStorage.setItem("nickName", res.data[0]["nickName"])
 
+        return res;
+      }).then((res)=>{
         if(email === "") {
           alert("이메일을 입력해주세요.");
           return;
@@ -39,8 +44,9 @@ function Login(props) {
           return;
         }
 
-        console.log(res.data)
-        if(res.data === 0) { // 0을 받아오면 성공했다는 알람
+        //console.log(res.data)
+        if(res.data !== 1) { // 받아온 값이 1이 아니라면 성공
+         
           alert("로그인에 성공하셨습니다.");
           window.localStorage.setItem("check", "login");    
           window.localStorage.setItem("email", email);
@@ -48,10 +54,10 @@ function Login(props) {
 
     
 
-        }else { // 0이외의 값이라면 실패했다는 알람
+        }else { // 1이라면 실패
           alert("로그인에 실패하셨습니다.");
         }
-      }) 
+      })
       .catch(function(error){
        console.log(error);
     })

@@ -98,14 +98,12 @@ function QnAKnowledge(props) {
               <table
                 id="qnaTable"
                 align="center"
-                border="80px"
-                borderColor="#e6687d"
+                
                 width={"100%"}
               >
-                <br></br>
+                
                 <tr id="qnaTr">
                   <td id="qnaTd">
-                    <br></br>
                     <br></br>
                     <h3 id="qnaTitle">#헌혈이란?</h3>
                     <hr id="qnaHr"></hr>건강한 사람이 혈액이 부족하여 생명이
@@ -118,7 +116,7 @@ function QnAKnowledge(props) {
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <td id="qnaTd">
                     <br></br>
-                    <h3 id="qnaTitle">#헌혈은 장기이식의 한 부분</h3>
+                    <h3 id="qnaTitle">#헌혈은 장기이식의<br></br> 한 부분</h3>
                     <hr id="qnaHr"></hr>헌혈은 수혈이 필요한 환자의 생명을
                     구하는 유일한 수단입니다. 혈액은 아직 인공적으로 만들수
                     있거나 대체할 물질이 존재하지 않습니다.<br></br>
@@ -150,7 +148,7 @@ function QnAKnowledge(props) {
                     외국으로부터 수입하지 않고 혈액을 자급할 수 있습니다.
                     <br></br>그러므로 건강한 성인이라면 정기적이고 꾸준한 헌혈이
                     필요합니다.
-                    <br></br><br></br>
+                   
                     <br></br>
                     <br></br>
                   </td>
@@ -161,13 +159,13 @@ function QnAKnowledge(props) {
                     모릅니다. 건강할 때 헌혈하는 것은 자신과 사랑하는 가족을
                     위하여, 더 나아가 모두를 위한 사랑의 실천입니다. 헌혈은
                     건강한 사람만이 누릴 수 있는 특권입니다.
-                    <br></br>
+                    
                     <br></br>
                     <br></br>
                   </td>
                   &nbsp;&nbsp;&nbsp;&nbsp;
                 </tr>
-                <br></br>
+                
               </table>
             </div>
             <div
@@ -200,7 +198,7 @@ function QnAKnowledge(props) {
               <h3 id="redColor">
                 #전혈: <span id="basicColor">대량출혈 또는 수술시 사용</span>
               </h3>
-              <table
+              <table style={{border:"1px solid"}}
                 align="center"
                 bgcolor="eaa063"
                 width={"100%"}
@@ -236,7 +234,7 @@ function QnAKnowledge(props) {
                   빈혈, 일산화탄소 중독 등에 사용
                 </span>
               </h3>
-              <table
+              <table style={{border:"1px solid"}}
                 align="center"
                 bgcolor="eaa063"
                 width={"100%"}
@@ -269,7 +267,7 @@ function QnAKnowledge(props) {
                   빈혈 등에 사용
                 </span>
               </h3>
-              <table
+              <table style={{border:"1px solid"}}
                 align="center"
                 bgcolor="e6687d"
                 width={"100%"}
@@ -302,7 +300,7 @@ function QnAKnowledge(props) {
                   빈혈 등에 사용
                 </span>
               </h3>
-              <table
+              <table style={{border:"1px solid"}}
                 align="center"
                 bgcolor="e6687d"
                 width={"100%"}
@@ -335,7 +333,7 @@ function QnAKnowledge(props) {
                 #동결침전제제:{" "}
                 <span id="basicColor">혈우병, 제8응고인자 결핍시에 사용</span>
               </h3>
-              <table
+              <table style={{border:"1px solid"}}
                 align="center"
                 bgcolor="e6687d"
                 width={"100%"}
@@ -355,7 +353,7 @@ function QnAKnowledge(props) {
               <br></br>
 
               <h3 id="yellowColor">#신선동결혈장</h3>
-              <table
+              <table style={{border:"1px solid"}}
                 align="center"
                 bgcolor="e6687d"
                 width={"100%"}
@@ -377,7 +375,7 @@ function QnAKnowledge(props) {
               <br></br>
 
               <h3 id="redColor">#백혈구제거혈액제제</h3>
-              <table
+              <table style={{border:"1px solid"}}
                 align="center"
                 bgcolor="eaa063"
                 width={"100%"}
@@ -454,6 +452,7 @@ function QnAKnowledge(props) {
                 <br></br>의료기관(병원)은 해당 혈액을 필요한<br></br> 환자에게 수혈전 적합검사를 거쳐<br></br> 수혈하게 됩니다.</div>
             </div>
           </div>
+          <br></br><br></br>
         </div>
       </div>
     );
