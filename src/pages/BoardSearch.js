@@ -20,19 +20,18 @@ function Board() {
   };
 
   //엔터키 이벤트
-  const handleOnKeyPress = e => {
-    if (e.key === 'Enter') {
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
       handleOnClick(); // Enter 입력이 되면 클릭 이벤트 실행
     }
   };
-
 
   useEffect(() => {
     axios
       .post("http://localhost:3001/search", null, {
         params: {
-          search: '%'+window.localStorage.getItem("search")+'%'
-        }
+          search: "%" + window.localStorage.getItem("search") + "%",
+        },
       })
       .then((response) => {
         setData(response.data);
@@ -42,20 +41,38 @@ function Board() {
       });
   }, []);
 
-
-
   return (
     <div id="bigContainer">
       <div id="sideLeft">
         <ul className="sidebarList2">
           <a className="href" href="Board">
             {" "}
-            <li className="sidebarListItem2 active">전체게시판</li>
+            <li className="sidebarListItem2 ">전체게시판</li>
           </a>
           &nbsp;
-          <a className="href" href="BoardA">
-            <li className="sidebarListItem2">혈액형게시판</li>
-          </a>
+          <li className="sidebarListItem3 active">
+            혈액형게시판
+            <li>
+              <a id="BoardDropList" href="BoardA">
+                A형
+              </a>
+            </li>
+            <li>
+              <a id="BoardDropList" href="BoardB">
+                B형
+              </a>
+            </li>
+            <li>
+              <a id="BoardDropList" href="BoardAB">
+                AB형
+              </a>
+            </li>
+            <li>
+              <a id="BoardDropList" href="BoardO">
+                O형
+              </a>
+            </li>
+          </li>
           <br></br>
           <button id="top" onClick={scrollToTop} type="button">
             {" "}
@@ -70,18 +87,18 @@ function Board() {
           모든사람과 소통을 할 수 있는 게시판입니다.
         </span>
         <hr />
-          <br></br>
+        <br></br>
         <div id="postContainer0" align="center">
-        <div align="end" style={{padding:"1%"}}>
-        <TextField
-            sx={{ width: "25%"}}
-            name="search"
-            label="검색"
-            id="outlined-basic"
-            variant="outlined"
-            onChange={(event) => setSearch(event.target.value)}
-            onKeyPress={handleOnKeyPress}
-          />
+          <div align="end" style={{ padding: "1%" }}>
+            <TextField
+              sx={{ width: "25%" }}
+              name="search"
+              label="검색"
+              id="outlined-basic"
+              variant="outlined"
+              onChange={(event) => setSearch(event.target.value)}
+              onKeyPress={handleOnKeyPress}
+            />
           </div>
           <br />
           <table id="boardSize">

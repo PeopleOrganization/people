@@ -132,7 +132,7 @@ function Menu() {
             </li>
             <li>
               <a id="dropList" href="BoardA">
-                혈액형별 게시판
+                혈액형 게시판
               </a>
             </li>
           </li>

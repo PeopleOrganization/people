@@ -79,24 +79,6 @@
     width: 90%;
     margin-left: 1%;
     text-align: left;
-
-}
-
-.voc-view-row2>label:first-child {
-    margin: 5px 0;
-    width: 15%;
-    font-weight: bold;
-    font-size: large;
-    text-align: end;
-    color: #000000;
-}
-
-.voc-view-row2>*:nth-child(2) {
-    margin: 5px 0;
-    width: 90%;
-    margin-left: 1%;
-    border: 1px solid;
-    border-radius: 3px;
 }
 
 #chatRoom {
@@ -513,3 +495,42 @@
 }
 
 #bloodInfoTr2 {}
+
+
+#BoardDropList{
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #000;
+    color: white;
+    font-size: large;
+    font-weight: bold;
+    display: none;
+    text-decoration: none;
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .sidebarListItem3:hover #BoardDropList{
+    display: block;
+  }
+
+  #BoardDropList:hover{
+    background-color: #fff;
+    color: black;
+  }
+  
+.sidebarListItem3 {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    color: #555;
+    font-size: large;
+    font-weight: bold;
+  }
+  
+  .sidebarListItem3.active,
+  .sidebarListItem3:hover {
+    background-color: #000;
+    color: white;
+  }

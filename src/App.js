@@ -27,6 +27,12 @@ import MyPage3 from './pages/MyPage3';
 import BoardModify from './pages/BoardModify';
 import BoardSearch from './pages/BoardSearch';
 import BoardA from './pages/BoardA';
+import BoardB from './pages/BoardB';
+import BoardAB from './pages/BoardAB';
+import BoardO from './pages/BoardO';
+import MyPagePost from './pages/MyPagePost';
+import MyPageScrap from './pages/MyPageScrap';
+import MyPageReply from './pages/MyPageReply';
 import './menu.css';
 
 function App() {
@@ -40,8 +46,14 @@ function App() {
           <Route path="/MyPage3" element={<MyPage3 />}></Route>
           <Route path="/" element={<Main />}></Route>
           <Route path="MyPage" element={<MyPage />}></Route>
+          <Route path="MyPagePost" element={<MyPagePost />}></Route>
+          <Route path="MyPageScrap" element={<MyPageScrap />}></Route>
+          <Route path="MyPageReply" element={<MyPageReply />}></Route>
           <Route path="/BoardSearch" element={<BoardSearch />}></Route>
           <Route path="/BoardA" element={<BoardA />}></Route>
+          <Route path="/BoardB" element={<BoardB />}></Route>
+          <Route path="/BoardAB" element={<BoardAB />}></Route>
+          <Route path="/BoardO" element={<BoardO />}></Route>s
           <Route path="/Facilities" element={<Facilities />}></Route>
           <Route path="/Board" element={<Board />}></Route>
           <Route path='/BoardView:postkey' element={<BoardView />}  />

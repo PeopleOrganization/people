@@ -47,25 +47,12 @@ function MyPage(props) {
         },
       })
       .then((res) => {
-        setUser(res.data);
-        // eslint-disable-next-line array-callback-return
-        user.map((us) => {
-          setEmail(us.email);
-        });
-        // eslint-disable-next-line array-callback-return
-        user.map((us) => {
-          setNickName(us.nickName);
-        });
-        // eslint-disable-next-line array-callback-return
-        user.map((us) => {
-          setBlood(us.blood);
-        });
-        // eslint-disable-next-line array-callback-return
-        user.map((us) => {
-          setArea(us.area);
-        });
+          setEmail(res.data[0]["email"]);
+          setNickName(res.data[0]["nickName"]);
+          setBlood(res.data[0]["blood"]);
+          setArea(res.data[0]["area"]);
       });
-  });
+  }, []);
 
   return (
     <div id="bigContainer">
@@ -76,13 +63,25 @@ function MyPage(props) {
             <li className="sidebarListItem2 active">내 정보</li>
           </a>
           &nbsp;
-          <a className="href2" href="QnADesignated">
-            <li className="sidebarListItem2">활동 리스트</li>
-          </a>
+          <li className="sidebarListItem3">
+            활동 리스트
+            <li>
+              <a id="BoardDropList" href="MyPagePost">
+                내 게시글
+              </a>
+            </li>
+            <li>
+              <a id="BoardDropList" href="MyPageReply">
+                내 댓글
+              </a>
+            </li>
+            <li>
+              <a id="BoardDropList" href="MyPageScrap">
+                내 스크랩
+              </a>
+            </li>
+          </li>
           &nbsp;
-          <a className="href2" href="QnAQuestion">
-            <li className="sidebarListItem2">지정헌혈 현황</li>
-          </a>
           <br></br>
           <button id="top" onClick={scrollToTop} type="button">
             {" "}

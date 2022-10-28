@@ -1252,3 +1252,10 @@ li {
   display: flex;
   margin: auto;
 }
+
+#BoardDropList{
+  display: none;
+}
+.sidebarListItem2:hover #BoardDropList{
+  display: block;
+}

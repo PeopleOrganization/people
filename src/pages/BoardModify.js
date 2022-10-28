@@ -104,19 +104,35 @@ axios.post('http://localhost:3001/modify', null, {
     <div id="bigContainer">
        
       <div id="sideLeft">
-        <ul className="sidebarList2">
+      <ul className="sidebarList2">
           <a className="href" href="Board">
             {" "}
             <li className="sidebarListItem2 active">전체게시판</li>
           </a>
           &nbsp;
-          <a className="href" href="BoardBloodType">
-            <li className="sidebarListItem2">혈액형게시판</li>
-          </a>
-          &nbsp;
-          <a className="href" href="BoardLoc">
-            <li className="sidebarListItem2">지역게시판</li>
-          </a>
+          <li className="sidebarListItem3">
+            혈액형게시판
+            <li>
+              <a id="BoardDropList" href="BoardA">
+                A형
+              </a>
+            </li>
+            <li>
+              <a id="BoardDropList" href="BoardB">
+                B형
+              </a>
+            </li>
+            <li>
+              <a id="BoardDropList" href="BoardAB">
+                AB형
+              </a>
+            </li>
+            <li>
+              <a id="BoardDropList" href="BoardO">
+                O형
+              </a>
+            </li>
+          </li>
           <br></br>
           <button id="top" onClick={scrollToTop} type="button">
             {" "}

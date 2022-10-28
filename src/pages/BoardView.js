@@ -149,6 +149,7 @@ function BoardView() {
       })
       .then((res) => {
         setPost(res.data);
+
         window.localStorage.setItem("postkey", postkey2);
 
         // eslint-disable-next-line array-callback-return
@@ -258,15 +259,35 @@ function BoardView() {
   return (
     <div id="bigContainer">
       <div id="sideLeft">
-        <ul className="sidebarList2">
+      <ul className="sidebarList2">
           <a className="href" href="Board">
             {" "}
             <li className="sidebarListItem2 active">전체게시판</li>
           </a>
           &nbsp;
-          <a className="href" href="BoardA">
-            <li className="sidebarListItem2">혈액형게시판</li>
-          </a>
+          <li className="sidebarListItem3">
+            혈액형게시판
+            <li>
+              <a id="BoardDropList" href="BoardA">
+                A형
+              </a>
+            </li>
+            <li>
+              <a id="BoardDropList" href="BoardB">
+                B형
+              </a>
+            </li>
+            <li>
+              <a id="BoardDropList" href="BoardAB">
+                AB형
+              </a>
+            </li>
+            <li>
+              <a id="BoardDropList" href="BoardO">
+                O형
+              </a>
+            </li>
+          </li>
           <br></br>
           <button id="top" onClick={scrollToTop} type="button">
             {" "}
@@ -376,7 +397,6 @@ function BoardView() {
                 </button>
                 <Dialog
                   open={open3}
-                  TransitionComponent={Transition}
                   keepMounted
                   onClose={handleClose3}
                   aria-describedby="alert-dialog-slide-description"
@@ -512,7 +532,7 @@ function BoardView() {
                                       onChange={handleChange}
                                     >
                                       <MenuItem value="">
-                                        <em>혈액형</em>
+                                        혈액형
                                       </MenuItem>
                                       <MenuItem value={"A"}>A+</MenuItem>
                                       <MenuItem value={"B"}>B+</MenuItem>
@@ -549,7 +569,7 @@ function BoardView() {
                                       onChange={handleChange2}
                                     >
                                       <MenuItem value="">
-                                        <em>혈액종류</em>
+                                        혈액종류
                                       </MenuItem>
                                       <MenuItem value={"전혈"}>전혈</MenuItem>
                                       <MenuItem value={"성분채혈 혈소판"}>
@@ -593,7 +613,7 @@ function BoardView() {
                                       onChange={handleChange3}
                                     >
                                       <MenuItem value="">
-                                        <em>혈액원 명</em>
+                                        혈액원 명
                                       </MenuItem>
                                       <MenuItem value={"서울중앙혈액원"}>
                                         서울중앙혈액원

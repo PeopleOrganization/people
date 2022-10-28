@@ -5,6 +5,7 @@ import { useState } from "react";
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { margin } from "polished";
 
 function Register(props) {
   var mailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
@@ -263,39 +264,39 @@ function Register(props) {
           <br></br>------------ (본인의 혈액형을 선택해주세요.) ------------
           <br />
           <fieldset>
-            <label>
               <Radio
                 onChange={(event) => setBlood(event.target.value)}
                 value="A"
                 name="blood"
-              />
+                />&nbsp;
+                <label>
               A형&nbsp;&nbsp;
             </label>
 
-            <label>
               <Radio
                 onChange={(event) => setBlood(event.target.value)}
                 value="B"
                 name="blood"
-              />
+                />&nbsp;
+                <label>
               B형&nbsp;&nbsp;
             </label>
 
-            <label>
               <Radio
                 onChange={(event) => setBlood(event.target.value)}
                 value="AB"
                 name="blood"
-              />
+                />&nbsp;
+                <label>
               AB형&nbsp;&nbsp;
             </label>
 
-            <label>
               <Radio
                 onChange={(event) => setBlood(event.target.value)}
                 value="O"
                 name="blood"
-              />
+                />&nbsp;
+                <label>
               O형&nbsp;&nbsp; &nbsp;꒐
               <Checkbox style={{ color: "#e6687d" }} onChange={handleChange2} />
               Rh-혈액형

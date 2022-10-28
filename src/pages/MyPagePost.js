@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
-import "../menu.css";
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -21,15 +20,20 @@ function Board() {
   };
 
   //엔터키 이벤트
-  const handleOnKeyPress = (e) => {
-    if (e.key === "Enter") {
+  const handleOnKeyPress = e => {
+    if (e.key === 'Enter') {
       handleOnClick(); // Enter 입력이 되면 클릭 이벤트 실행
     }
   };
 
+
   useEffect(() => {
     axios
-      .post("http://localhost:3001/postList")
+      .post("http://localhost:3001/myPost", null, {
+        params: {
+          email: window.localStorage.getItem("email")
+        }
+      })
       .then((response) => {
         setData(response.data);
       })
@@ -38,35 +42,32 @@ function Board() {
       });
   }, []);
 
+
+
   return (
     <div id="bigContainer">
       <div id="sideLeft">
         <ul className="sidebarList2">
-          <a className="href" href="Board">
+          <a className="href2" href="MyPage">
             {" "}
-            <li className="sidebarListItem2 active">전체게시판</li>
+            <li className="sidebarListItem2">내 정보</li>
           </a>
           &nbsp;
-          <li className="sidebarListItem3">
-            혈액형게시판
+          <li className="sidebarListItem3 active">
+            활동 리스트
             <li>
-              <a id="BoardDropList" href="BoardA">
-                A형
+              <a id="BoardDropList" href="MyPagePost">
+                내 게시글
               </a>
             </li>
             <li>
-              <a id="BoardDropList" href="BoardB">
-                B형
+              <a id="BoardDropList" href="MyPageReply">
+                내 댓글
               </a>
             </li>
             <li>
-              <a id="BoardDropList" href="BoardAB">
-                AB형
-              </a>
-            </li>
-            <li>
-              <a id="BoardDropList" href="BoardO">
-                O형
+              <a id="BoardDropList" href="MyPageScrap">
+                내 스크랩
               </a>
             </li>
           </li>
@@ -79,23 +80,23 @@ function Board() {
       </div>
 
       <div className="container">
-        <h1 className="sidebarTitle">소통해요!</h1>
+        <h1 className="sidebarTitle">내 활동</h1>
         <span align="center" className="hello">
           모든사람과 소통을 할 수 있는 게시판입니다.
         </span>
         <hr />
-        <br></br>
+          <br></br>
         <div id="postContainer0" align="center">
-          <div align="end" style={{ padding: "1%" }}>
-            <TextField
-              sx={{ width: "25%" }}
-              name="search"
-              label="검색"
-              id="outlined-basic"
-              variant="outlined"
-              onChange={(event) => setSearch(event.target.value)}
-              onKeyPress={handleOnKeyPress}
-            />
+        <div align="end" style={{padding:"1%"}}>
+        <TextField
+            sx={{ width: "25%"}}
+            name="search"
+            label="검색"
+            id="outlined-basic"
+            variant="outlined"
+            onChange={(event) => setSearch(event.target.value)}
+            onKeyPress={handleOnKeyPress}
+          />
           </div>
           <br />
           <table id="boardSize">
