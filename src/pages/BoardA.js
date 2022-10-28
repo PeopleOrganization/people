@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import TextField from "@mui/material/TextField";
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -12,24 +11,10 @@ const scrollToTop = () => {
 
 function Board() {
   const [data, setData] = useState([]);
-  const [search, setSearch] = useState("");
-
-  const handleOnClick = () => {
-    window.localStorage.setItem("search", search);
-    document.location.href = "/BoardSearch";
-  };
-
-  //엔터키 이벤트
-  const handleOnKeyPress = e => {
-    if (e.key === 'Enter') {
-      handleOnClick(); // Enter 입력이 되면 클릭 이벤트 실행
-    }
-  };
-
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/postList")
+      .post("http://localhost:3001/bloodA")
       .then((response) => {
         setData(response.data);
       })
@@ -37,8 +22,6 @@ function Board() {
         console.log(error);
       });
   }, []);
-
-
 
   return (
     <div id="bigContainer">
@@ -70,19 +53,8 @@ function Board() {
           모든사람과 소통을 할 수 있는 게시판입니다.
         </span>
         <hr />
-          <br></br>
+
         <div id="postContainer0" align="center">
-        <div align="end" style={{padding:"1%"}}>
-        <TextField
-            sx={{ width: "25%"}}
-            name="search"
-            label="검색"
-            id="outlined-basic"
-            variant="outlined"
-            onChange={(event) => setSearch(event.target.value)}
-            onKeyPress={handleOnKeyPress}
-          />
-          </div>
           <br />
           <table id="boardSize">
             <div>
@@ -120,13 +92,16 @@ function Board() {
               </div>
             ))}
           </table>
+          <br></br>
+          <Link to="/BoardView">
+            <button id="loginBtn">상세화면</button>
+          </Link>
 
+          <br></br>
           <br></br>
           <Link to="/BoardWrite">
             <button id="loginBtn">글쓰기</button>
           </Link>
-          <br></br>
-          <br></br>
         </div>
       </div>
     </div>
@@ -134,3 +109,4 @@ function Board() {
 }
 
 export default Board;
+ 

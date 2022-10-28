@@ -131,13 +131,8 @@ function Menu() {
               </a>
             </li>
             <li>
-              <a id="dropList" href="BoardBloodType">
+              <a id="dropList" href="BoardA">
                 혈액형별 게시판
-              </a>
-            </li>
-            <li>
-              <a id="dropList" href="BoardLoc">
-                지역별 게시판
               </a>
             </li>
           </li>

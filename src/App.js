@@ -17,8 +17,6 @@ import BloodChartMonth from './pages/BloodChartMonth';
 import BloodChartLoc from './pages/BloodChartLoc';
 import BloodChartAge from './pages/BloodChartAge';
 import BloodChartBloodType from './pages/BloodChartBloodType';
-import BoardBloodType from './pages/BoardBloodType';
-import BoardLoc from './pages/BoardLoc';
 import QnADesignated from './pages/QnADesignated';
 import QnAKnowledge from './pages/QnAKnowledge';
 import QnAQuestion from './pages/QnAQuestion';
@@ -27,6 +25,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import MyPage2 from './pages/MyPage2';
 import MyPage3 from './pages/MyPage3';
 import BoardModify from './pages/BoardModify';
+import BoardSearch from './pages/BoardSearch';
+import BoardA from './pages/BoardA';
 import './menu.css';
 
 function App() {
@@ -40,12 +40,12 @@ function App() {
           <Route path="/MyPage3" element={<MyPage3 />}></Route>
           <Route path="/" element={<Main />}></Route>
           <Route path="MyPage" element={<MyPage />}></Route>
+          <Route path="/BoardSearch" element={<BoardSearch />}></Route>
+          <Route path="/BoardA" element={<BoardA />}></Route>
           <Route path="/Facilities" element={<Facilities />}></Route>
           <Route path="/Board" element={<Board />}></Route>
           <Route path='/BoardView:postkey' element={<BoardView />}  />
           <Route path='/BoardWrite' element={<BoardWrite />}  />
-          <Route path="/BoardBloodType" element={<BoardBloodType />}></Route>
-          <Route path="/BoardLoc" element={<BoardLoc />}></Route>
           <Route path="/Site" element={<Site />}></Route>
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/LogOut" element={<LogOut />}></Route>

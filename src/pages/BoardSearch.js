@@ -29,7 +29,11 @@ function Board() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/postList")
+      .post("http://localhost:3001/search", null, {
+        params: {
+          search: '%'+window.localStorage.getItem("search")+'%'
+        }
+      })
       .then((response) => {
         setData(response.data);
       })

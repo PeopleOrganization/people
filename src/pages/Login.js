@@ -88,7 +88,7 @@ function Login(props) {
         <br></br>
         <div align="center" id="margin">
           <TextField
-            sx={{ width: "25%" }}
+            sx={{ width: "25%"}}
             name="email"
             label="이메일"
             id="outlined-basic"

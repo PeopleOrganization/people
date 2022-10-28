@@ -60,51 +60,25 @@ useEffect(() => {
       },
     })
     .then((res) => {
-      setUser(res.data);
-      // eslint-disable-next-line array-callback-return
-      console.log("SS")
-      console.log(res.data);
-      user.map((us) => {
-        setBloodType(us.bloodType);
-      });
-      // eslint-disable-next-line array-callback-return
-      user.map((us) => {
-        setTitle(us.title);
-      });
-      // eslint-disable-next-line array-callback-return
-      user.map((us) => {
-        setBloodKind(us.bloodKind);
-      });
-      // eslint-disable-next-line array-callback-return
-      user.map((us) => {
-        setHospital(us.hospital);
-      });
-       // eslint-disable-next-line array-callback-return
-       user.map((us) => {
-        setPhonNum(us.phonNum);
-      });
-       // eslint-disable-next-line array-callback-return
-       user.map((us) => {
-        setRequestB(us.requestB);
-      });
-       // eslint-disable-next-line array-callback-return
-       user.map((us) => {
-        setContent(us.content);
-      });
-       // eslint-disable-next-line array-callback-return
-       user.map((us) => {
-        setRegistNum(us.registNum);
-      });
-      // eslint-disable-next-line array-callback-return
-      user.map((us) => {
-        setPatientName(us.patientName);
-      });
+      // setUser(res.data);
+      setBloodType(res.data[0]["bloodType"])
+      setTitle(res.data[0]["title"]);
+      setBloodKind(res.data[0]["bloodKind"]);
+      setPatientName(res.data[0]["patientName"]);
+      setHospital(res.data[0]["hospital"]);
+      setPhonNum(res.data[0]["phonNum"]);
+      setRequestB(res.data[0]["requestB"]);
+      setContent(res.data[0]["content"]);
+      setRegistNum(res.data[0]["registNum"]);
+
+      
     });
 }, []);
 
 const postModify = () => {
 axios.post('http://localhost:3001/modify', null, {
       params: { 
+        postkey: window.localStorage.getItem("postkey"),
         bloodType: bloodType,
         bloodKind : bloodKind,
         patientName: patientName,
@@ -167,7 +141,7 @@ axios.post('http://localhost:3001/modify', null, {
           <div className="voc-view-wrapper">
         <div className="voc-view-row2">
           <label>제목 :</label>
-          <input value={title} />
+          <input value={title} onChange={(event) => setTitle(event.target.value)} />
         </div>
         <div className="voc-view-row2">
           <label>혈액형 :</label>

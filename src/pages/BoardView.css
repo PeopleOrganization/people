@@ -5,10 +5,10 @@
     background: #bacee0;
     border: 3px solid;
     border-radius: 100px;
-    border-color:#000;
+    border-color: #000;
     width: 90%;
     margin: auto;
-  
+
 }
 
 #postContainer0 {
@@ -17,10 +17,10 @@
     justify-content: center;
     border: 3px solid;
     border-radius: 10px;
-    border-color:#000;
+    border-color: #000;
     width: 90%;
     margin: auto;
-  
+
 }
 
 #postContainer2 {
@@ -30,15 +30,23 @@
     background: #ffffff;
     border: 3px solid;
     border-radius: 100px;
-    border-color:#000;
+    border-color: #000;
     width: 90%;
     margin: auto;
-  
+
 }
 
 .voc-view-wrapper {
     width: 60%;
     margin: 0 auto;
+}
+
+.voc-view-wrapper2 {
+    width: 70%;
+    margin: 0 auto;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    
 }
 
 .voc-view-go-list-btn {
@@ -48,7 +56,7 @@
 }
 
 .voc-view-row {
-    margin: 10px 0;
+    margin: 2px 0;
     display: flex;
 }
 
@@ -71,7 +79,7 @@
     width: 90%;
     margin-left: 1%;
     text-align: left;
-    
+
 }
 
 .voc-view-row2>label:first-child {
@@ -101,7 +109,7 @@
     border-color: #000;
 }
 
-#chatRoom::-webkit-scrollbar{
+#chatRoom::-webkit-scrollbar {
     width: 15px;
 }
 
@@ -114,9 +122,9 @@
     border-radius: 100px;
     background-image: linear-gradient(180deg, #d0368a 0%, #708ad4 99%);
     box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
-  }
+}
 
-  #chatRoom2 {
+#chatRoom2 {
     width: 80%;
     background: #ffffff;
     overflow: auto;
@@ -127,7 +135,7 @@
     border-color: #000;
 }
 
-#chatRoom2::-webkit-scrollbar{
+#chatRoom2::-webkit-scrollbar {
     width: 15px;
 }
 
@@ -140,7 +148,7 @@
     border-radius: 100px;
     background-image: linear-gradient(180deg, #d0368a 0%, #708ad4 99%);
     box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
-  }
+}
 
 
 #receive {
@@ -218,7 +226,7 @@
 #receiveChat {
     margin-left: 2%;
     margin-right: 2%;
-    padding:1%;
+    padding: 1%;
     border: 1px solid;
     border-radius: 18px;
     font-weight: bold;
@@ -233,7 +241,7 @@
     width: 100%;
     margin: auto;
     height: 340px;
-    padding:1%;
+    padding: 1%;
     border: 1px solid;
     border-radius: 10px;
     font-weight: bold;
@@ -248,7 +256,7 @@
 #giveChat {
     margin-left: 2%;
     margin-right: 2%;
-    padding:1%;
+    padding: 1%;
     border: 1px solid;
     border-radius: 18px;
     font-size: large;
@@ -290,44 +298,44 @@
     font-weight: bold;
 }
 
-#boardSize{
+#boardSize {
     width: 90%;
     text-align: center;
 }
 
-#boardItemSize1{
-    width:5%;
+#boardItemSize1 {
+    width: 5%;
 }
 
-#boardItemSize2{
-    width:5%;
+#boardItemSize2 {
+    width: 5%;
 }
 
-#boardItemSize3{
-    width:15%;
+#boardItemSize3 {
+    width: 15%;
 }
 
-#boardItemSize4{
-    width:40%;
+#boardItemSize4 {
+    width: 40%;
 }
 
-#boardItemSize5{
-    width:10%;
+#boardItemSize5 {
+    width: 10%;
 }
 
-#boardItemSize6{
-    width:15%;
+#boardItemSize6 {
+    width: 15%;
 }
 
-#boardItemSize7{
-    width:5%;
+#boardItemSize7 {
+    width: 5%;
 }
 
-#boardItemSize8{
-    width:5%;
+#boardItemSize8 {
+    width: 5%;
 }
 
-#boardReply{
+#boardReply {
     width: 80%;
     background: #bacee0;
     height: 80px;
@@ -338,37 +346,37 @@
     display: flex;
 }
 
-#replyLeft{
-width: 10%;
-text-align: center;
-justify-content: center;
-margin: auto;
-margin-left: 1%;
-margin-right: 1%;
+#replyLeft {
+    width: 10%;
+    text-align: center;
+    justify-content: center;
+    margin: auto;
+    margin-left: 1%;
+    margin-right: 1%;
 }
 
 
-#replyRight{
+#replyRight {
     width: 80%;
     margin: auto;
     margin-right: 1%;
     height: 70%;
 }
 
-#replySend{
+#replySend {
     width: 10%;
     margin: auto;
-    margin-right:2%;
+    margin-right: 2%;
     height: 70%;
 }
 
-#replyImage{
-font-size: large;
-background: #fff;
-font-weight: bold;
+#replyImage {
+    font-size: large;
+    background: #fff;
+    font-weight: bold;
 }
 
-#replyBoard{
+#replyBoard {
     text-align: left;
     justify-content: center;
     height: 100%;
@@ -379,7 +387,7 @@ font-weight: bold;
     resize: none;
 }
 
-#replySendBtn{
+#replySendBtn {
     text-align: center;
     justify-content: center;
     height: 100%;
@@ -389,7 +397,7 @@ font-weight: bold;
     font-weight: bold;
 }
 
-#boardWriteBtn{
+#boardWriteBtn {
     background: #000;
     color: #fff;
     border: none;
@@ -397,9 +405,111 @@ font-weight: bold;
     font-size: large;
 }
 
-#boardDelete{
+#boardDelete {
     display: none;
 }
 
-#boardDelete2{
+#boardDelete2 {}
+
+#bloodLicence {
+    background: blue;
+    margin: auto;
+    padding: 3%;
+    color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
+
+#bloodLicence2 {
+    background: rgb(255, 255, 255);
+    margin: auto;
+    padding: 2%;
+    color: #fff;
+    color: #000;
+    border-radius: 10px;
+}
+
+#bloodLicenceTitle2 {
+    color: #000;
+    font-size: large;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+#bloodLicenceTitle3 {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+#bloodLicenceNum1 {
+    width: 7%;
+}
+
+#bloodLicenceNum2 {
+    width: 7%;
+}
+
+#bloodLicenceNum3 {
+    width: 25%;
+}
+
+#bloodLicenceNum4 {
+    width: 7%;
+}
+
+#bloodLicenceBloodType {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+#bloodLicenceBloodType2 {
+    display: flex;
+    margin: auto;
+    margin-left: 4%;
+    text-align: center;
+
+}
+
+#bloodLicenceSelect {
+    width: 50%;
+}
+
+#BoardLicenceText {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+#bloodLicenceTable {
+    width: 97.5%;
+    text-align: center;
+    justify-content: center;
+    border: 2px solid;
+}
+
+#bloodLicenceTable2 {
+    width: 100%;
+    justify-content: center;
+    border: 2px solid;
+}
+
+#bloodInfoTd1 {
+    text-align: end;
+    padding: 15px;
+    color: #000;
+}
+
+#bloodInfoTd2 {
+    text-align: center;
+    padding: 15px;
+    color: #000;
+}
+
+#bloodInfoTr1 {
+    background: rgb(224, 224, 224);
+}
+
+#bloodInfoTr2 {}
