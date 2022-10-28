@@ -53,12 +53,8 @@ function Board() {
             <li className="sidebarListItem2 active">전체게시판</li>
           </a>
           &nbsp;
-          <a className="href" href="BoardBloodType">
+          <a className="href" href="BoardA">
             <li className="sidebarListItem2">혈액형게시판</li>
-          </a>
-          &nbsp;
-          <a className="href" href="BoardLoc">
-            <li className="sidebarListItem2">지역게시판</li>
           </a>
           <br></br>
           <button id="top" onClick={scrollToTop} type="button">
