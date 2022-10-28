@@ -29,15 +29,11 @@ function Board() {
         <ul className="sidebarList2">
           <a className="href" href="Board">
             {" "}
-            <li className="sidebarListItem2 active">전체게시판</li>
+            <li className="sidebarListItem2">전체게시판</li>
           </a>
           &nbsp;
-          <a className="href" href="BoardBloodType">
-            <li className="sidebarListItem2">혈액형게시판</li>
-          </a>
-          &nbsp;
-          <a className="href" href="BoardLoc">
-            <li className="sidebarListItem2">지역게시판</li>
+          <a className="href" href="BoardA">
+            <li className="sidebarListItem2 active">혈액형게시판</li>
           </a>
           <br></br>
           <button id="top" onClick={scrollToTop} type="button">
@@ -93,15 +89,11 @@ function Board() {
             ))}
           </table>
           <br></br>
-          <Link to="/BoardView">
-            <button id="loginBtn">상세화면</button>
-          </Link>
-
-          <br></br>
-          <br></br>
           <Link to="/BoardWrite">
             <button id="loginBtn">글쓰기</button>
           </Link>
+          <br></br>
+          <br></br>
         </div>
       </div>
     </div>

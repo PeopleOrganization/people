@@ -93,15 +93,11 @@ function Board() {
             ))}
           </table>
           <br></br>
-          <Link to="/BoardView">
-            <button id="loginBtn">상세화면</button>
-          </Link>
-
-          <br></br>
-          <br></br>
           <Link to="/BoardWrite">
             <button id="loginBtn">글쓰기</button>
           </Link>
+          <br></br>
+          <br></br>
         </div>
       </div>
     </div>
