@@ -87,7 +87,7 @@ function MyPage3(props) {
     <div id="bigContainer">
       <div id="sideLeft">
         <ul className="sidebarList2">
-          <a className="href2" href="QnAKnowledge">
+          <a className="href2" href="MyPage">
             {" "}
             <li className="sidebarListItem2 active">내 정보</li>
           </a>
@@ -107,11 +107,11 @@ function MyPage3(props) {
         </ul>
       </div>
       <div className="container">
-        <h1 className="sidebarTitle">마이페이지</h1>
+        <h1 className="sidebarTitle">비밀번호 변경</h1>
         <span align="center" className="hello">
-          사용자 계정을 확인 및 수정할 수 있는 공간입니다.
+          사용자의 비밀번호를 변경할 수 있습니다. 
         </span>
-        <hr />
+        <hr /><br></br>
         <div align="center">
           <p>
             <Box 
@@ -142,7 +142,7 @@ function MyPage3(props) {
             </Box>
             
           </p>
-          <Button2 onClick={change}>비밀번호 변경</Button2>
+          <button id="loginBtn" onClick={change}>비밀번호 변경</button>
         </div>
       </div>
     </div>

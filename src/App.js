@@ -26,7 +26,7 @@ import MyPage from './pages/MyPage';
 import ScrollToTop from "./components/ScrollToTop";
 import MyPage2 from './pages/MyPage2';
 import MyPage3 from './pages/MyPage3';
-
+import BoardModify from './pages/BoardModify';
 import './menu.css';
 
 function App() {
@@ -58,6 +58,7 @@ function App() {
             path="/BloodChartBloodType"
             element={<BloodChartBloodType />}
           ></Route>
+          <Route path="BoardModify" element={<BoardModify />}></Route>
           <Route path="/QnADesignated" element={<QnADesignated />}></Route>
           <Route path="/QnAKnowledge" element={<QnAKnowledge />}></Route>
           <Route path="/QnAQuestion" element={<QnAQuestion />}></Route>

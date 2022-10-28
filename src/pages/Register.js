@@ -210,11 +210,14 @@ function Register(props) {
         <h1 className="sidebarTitle">회원가입</h1>
         <span align="center" className="hello">
           <span id="redColor">피플</span>은 고객님의 정보를 소중하게 생각합니다.
-          </span><span align="center" className="hello">일부 서비스는 로그인 이후 이용 가능합니다.
-        </span><hr/>
+        </span>
+        <span align="center" className="hello">
+          일부 서비스는 로그인 이후 이용 가능합니다.
+        </span>
+        <hr />
         <div align="center">
           <p>
-            <Box 
+            <Box
               component="form"
               sx={{
                 "& > :not(style)": { m: 1, width: "25ch" },
@@ -228,14 +231,16 @@ function Register(props) {
                 variant="outlined"
                 color={error2}
                 onChange={(event) => setEmail(event.target.value)}
-              /><br/>
+              />
+              <br />
               <TextField
                 id="outlined-basic"
                 label="비밀번호"
                 type="password"
                 variant="outlined"
                 onChange={(event) => setPw(event.target.value)}
-              /><br></br>
+              />
+              <br></br>
               <TextField
                 id="outlined-basic"
                 label={pwLabel}
@@ -243,16 +248,17 @@ function Register(props) {
                 variant="outlined"
                 color={error3}
                 onChange={(event) => setPw2(event.target.value)}
-              /><br></br>
+              />
+              <br></br>
               <TextField
                 id="outlined-error"
                 label={nickLabel}
                 variant="outlined"
                 color={error}
                 onChange={(event) => setNickName(event.target.value)}
-              /><br/>
+              />
+              <br />
             </Box>
-            
           </p>
           <br></br>------------ (본인의 혈액형을 선택해주세요.) ------------
           <br />
@@ -291,7 +297,7 @@ function Register(props) {
                 name="blood"
               />
               O형&nbsp;&nbsp; &nbsp;꒐
-              <Checkbox style={{ color: "#e6687d" }} onChange={handleChange2}/>
+              <Checkbox style={{ color: "#e6687d" }} onChange={handleChange2} />
               Rh-혈액형
             </label>
           </fieldset>
@@ -300,12 +306,12 @@ function Register(props) {
             --------------- (거주지역을 선택해주세요.) ---------------
             <br />
             <select onChange={(event) => setArea(event.target.value)}>
-        {provinces.map((item) => (
-          <option key={item.id} value={item.id}>
-            {item.province}
-          </option>
-        ))}
-      </select>
+              {provinces.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.province}
+                </option>
+              ))}
+            </select>
           </p>
           <br></br>
           <p>
@@ -316,8 +322,11 @@ function Register(props) {
             />
             이메일 수신 동의
           </p>
-          <Button2 onClick={join}>회원가입</Button2>
+          <button id="loginBtn" onClick={join}>
+            회원가입
+          </button>
         </div>
+          <br></br><br></br>
       </div>
     </div>
   );

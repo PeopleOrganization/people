@@ -35,7 +35,7 @@ function MyPage(props) {
   };
 
   useEffect(() => {
-    checkM();
+   // checkM();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.localStorage.getItem("check")]);
 
@@ -71,7 +71,7 @@ function MyPage(props) {
     <div id="bigContainer">
       <div id="sideLeft">
         <ul className="sidebarList2">
-          <a className="href2" href="QnAKnowledge">
+          <a className="href2" href="MyPage">
             {" "}
             <li className="sidebarListItem2 active">내 정보</li>
           </a>
@@ -91,12 +91,12 @@ function MyPage(props) {
         </ul>
       </div>
       <div className="container" align="center">
-        <h1 className="sidebarTitle">소통해요!</h1>
+        <h1 className="sidebarTitle">내 정보</h1>
         <span align="center" className="hello">
-          모든사람과 소통을 할 수 있는 게시판입니다.
+          내 정보를 확인할 수 있습니다.
         </span>
-        <hr />
-        이메일:
+        <hr /><br></br><br></br>
+        이메일:{" "}
         <input type={"text"} disabled value={email} name="nickName" /> <br />
         <br />
         닉네임:{" "}
@@ -105,16 +105,16 @@ function MyPage(props) {
         혈액형: <input type={"text"} disabled value={blood} name="blood" />
         <br />
         <br />
-        지 역: <input type={"text"} disabled value={area} name="area" />
+        지 역:&nbsp; <input type={"text"} disabled value={area} name="area" />
         <br />
         <br />
         <p>
-          <button id="myPage2" onClick={myPage2}>
+          <button id="loginBtn" onClick={myPage2}>
             정보 수정
           </button>
         </p>
         <p>
-          <button id="myPage3" onClick={myPage3}>
+          <button id="loginBtn" onClick={myPage3}>
             비밀번호 변경
           </button>
         </p>

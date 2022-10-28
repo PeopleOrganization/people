@@ -125,8 +125,11 @@ function BoardView() {
   const scrollRef = useRef();
   const [post, setPost] = useState([]);
   const [content, setContent] = useState("");
+  const [deleteShow, setDeleteShow] = useState("boardDelete"); //기본 값은 안 보이게
   const params = useParams();
-  const postkey2 = params.postkey;
+  const postkey2 = params.postkey; 
+
+
 
   useEffect(() => {
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -141,12 +144,36 @@ function BoardView() {
   const handleClose = () => {
     setOpen(false);
   };
+  
+
+   //삭제버튼이 보일지 안 보일지 결정
+  useEffect(() => {
+    axios
+      .post("http://localhost:3001/deleteNick", null, {
+        params: {
+          postkey: postkey2
+        },
+      })
+      .then((res) => {
+        setPost(res.data);
+        window.localStorage.setItem("postkey", postkey2);
+        
+        // eslint-disable-next-line array-callback-return
+        console.log("이메일확인하러옴");
+        console.log(res.data[0]["email"]);
+        console.log(window.localStorage.getItem("email"));
+        if(res.data[0]["email"] === window.localStorage.getItem("email")) {
+          setDeleteShow("boardDelete2")
+        }
+      });
+  }, []);
+
 
   useEffect(() => {
     axios
       .post("http://localhost:3001/postView", null, {
         params: {
-          postkey:postkey2,
+          postkey: postkey2
         },
       })
       .then((res) => {
@@ -158,6 +185,30 @@ function BoardView() {
         });
       });
   }, );
+
+  const modify2 = () => {
+      document.location.href = '/BoardModify';
+    
+  }
+
+  const delete2 = () => {
+    console.log("글 삭제 하러 옴");
+
+
+    axios.post('http://localhost:3001/delete', null, {
+      params: { 
+        postkey: postkey2
+      }
+    })
+      .then(res => {  
+        console.log(res.data)
+        alert("게시글이 삭제되었습니다.")
+        document.location.href = '/Board'
+      })
+      .catch(function(error){
+       console.log(error);
+    })
+  }
 
   return (
     <div id="bigContainer">
@@ -238,7 +289,7 @@ function BoardView() {
             {/* 수혈자 */}
             <br />
             <div id="receive">
-              <label id="receiveNick">수혈자</label>
+              <label id="receiveNick">{window.localStorage.getItem("nickName")}</label>
               <br />
               <label id="receiveChat">
               {content} <br></br>
@@ -252,7 +303,7 @@ function BoardView() {
             <div id="give">
               <label id="giveNick">헌혈자1</label>
               <br />
-              <label id="giveChat">방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!방금 헌혈하고 왔습니다용!</label>
+              <label id="giveChat">방금 헌혈하고 왔습니다용!</label>
               <br></br> <label id="giveDate">09:44</label>
             </div>
             <br />
@@ -297,7 +348,8 @@ function BoardView() {
             </div>
           </div>
           <br /> <br /> 
-        </div>
+        </div><Button id={deleteShow} onClick={modify2}>수정</Button>
+        <Button id={deleteShow} onClick={delete2}>삭제</Button>
         <br /> <br />
         <br /> <br />
       </div>

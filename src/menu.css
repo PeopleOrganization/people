@@ -125,6 +125,7 @@ body {
   font-size: large;
   color: #fff;
   margin-right: 8%;
+  cursor: pointer;
 }
 
 #login1:hover {

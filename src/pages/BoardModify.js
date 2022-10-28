@@ -28,7 +28,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 
-function BoardWrite() {
+function BoardModify() {
   const { vocId } = useParams();
   // const item = GetData(vocId);
 
@@ -41,21 +41,70 @@ function BoardWrite() {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const [user, setUser] = useState([]);
 const [bloodType, setBloodType] = useState("");
 const [title, setTitle] = useState("");
 const [bloodKind, setBloodKind] = useState("");
 const [patientName, setPatientName] = useState("");
 const [hospital, setHospital] = useState("");
 const [phonNum, setPhonNum] = useState("");
-const [registNum, setRegistNum] = useState("");
 const [requestB, setRequestB] = useState("");
 const [content, setContent] = useState("");
+const [registNum, setRegistNum] = useState("");
 
-const postSave = () => {
-axios.post('http://localhost:3001/post', null, {
+useEffect(() => {
+  axios
+    .post("http://localhost:3001/modifyInfo", null, {
+      params: {
+        postkey: window.localStorage.getItem("postkey"),
+      },
+    })
+    .then((res) => {
+      setUser(res.data);
+      // eslint-disable-next-line array-callback-return
+      console.log("SS")
+      console.log(res.data);
+      user.map((us) => {
+        setBloodType(us.bloodType);
+      });
+      // eslint-disable-next-line array-callback-return
+      user.map((us) => {
+        setTitle(us.title);
+      });
+      // eslint-disable-next-line array-callback-return
+      user.map((us) => {
+        setBloodKind(us.bloodKind);
+      });
+      // eslint-disable-next-line array-callback-return
+      user.map((us) => {
+        setHospital(us.hospital);
+      });
+       // eslint-disable-next-line array-callback-return
+       user.map((us) => {
+        setPhonNum(us.phonNum);
+      });
+       // eslint-disable-next-line array-callback-return
+       user.map((us) => {
+        setRequestB(us.requestB);
+      });
+       // eslint-disable-next-line array-callback-return
+       user.map((us) => {
+        setContent(us.content);
+      });
+       // eslint-disable-next-line array-callback-return
+       user.map((us) => {
+        setRegistNum(us.registNum);
+      });
+      // eslint-disable-next-line array-callback-return
+      user.map((us) => {
+        setPatientName(us.patientName);
+      });
+    });
+}, []);
+
+const postModify = () => {
+axios.post('http://localhost:3001/modify', null, {
       params: { 
-        nickName: window.localStorage.getItem("nickName"),
         bloodType: bloodType,
         bloodKind : bloodKind,
         patientName: patientName,
@@ -63,15 +112,13 @@ axios.post('http://localhost:3001/post', null, {
         hospital: hospital,
         phonNum: phonNum,
         requestB: requestB,
-        responseB: 0,
         title: title,
         content: content,
-        email: window.localStorage.getItem("email")
       }
     })
       .then(res => {  
         console.log(res.data)
-        alert("게시글 등록에 성공하셨습니다.")
+        alert("게시글 수정에 성공하셨습니다.")
         document.location.href = '/Board'
       })
       .catch(function(error){
@@ -120,35 +167,35 @@ axios.post('http://localhost:3001/post', null, {
           <div className="voc-view-wrapper">
         <div className="voc-view-row2">
           <label>제목 :</label>
-          <input onChange={(event) => setTitle(event.target.value)} />
+          <input value={title} />
         </div>
         <div className="voc-view-row2">
           <label>혈액형 :</label>
-          <input onChange={(event) => setBloodType(event.target.value)} />
+          <input value={bloodType} onChange={(event) => setBloodType(event.target.value)} />
         </div>
         <div className="voc-view-row2">
           <label>혈액종류 :</label>
-          <input onChange={(event) => setBloodKind(event.target.value)} />
+          <input value={bloodKind} onChange={(event) => setBloodKind(event.target.value)} />
         </div>
         <div className="voc-view-row2">
           <label>환자명 :</label>
-          <input onChange={(event) => setPatientName(event.target.value)} />
+          <input value={patientName} onChange={(event) => setPatientName(event.target.value)} />
         </div>
         <div className="voc-view-row2">
           <label>의료기관 :</label>
-          <input onChange={(event) => setHospital(event.target.value)} />
+          <input value={hospital} onChange={(event) => setHospital(event.target.value)} />
         </div>
         <div className="voc-view-row2">
           <label>연락처 :</label>
-          <input onChange={(event) => setPhonNum(event.target.value)} />
+          <input value={phonNum} onChange={(event) => setPhonNum(event.target.value)} />
         </div>
         <div className="voc-view-row2">
           <label>등록번호 :</label>
-          <input onChange={(event) => setRegistNum(event.target.value)} />
+          <input value={registNum} onChange={(event) => setRegistNum(event.target.value)} />
         </div>
         <div className="voc-view-row2">
           <label>필요수량 :</label>
-          <input onChange={(event) => setRequestB(event.target.value)} />
+          <input value={requestB} onChange={(event) => setRequestB(event.target.value)} />
         </div>
       </div>
           <div id="chatRoom2">
@@ -158,13 +205,13 @@ axios.post('http://localhost:3001/post', null, {
             <div id="receive2">
               <label id="receiveNick2">댓글 작성</label>
               <br />
-            <textarea id="receiveChat2" onChange={(event) => setContent(event.target.value)}></textarea>
+            <textarea id="receiveChat2" value={content} onChange={(event) => setContent(event.target.value)}></textarea>
             </div>
             <br />
             {/* 수혈자 여기까지 */}
             <br /> <br /> <br />
           </div>
-            <button id="boardWriteBtn" onClick={postSave}>등록하기</button>
+            <button id="boardWriteBtn" onClick={postModify}>수정하기</button>
           
           <br /> <br />
         </div>{" "}
@@ -175,4 +222,4 @@ axios.post('http://localhost:3001/post', null, {
     </div>
   );
 }
-export default BoardWrite;
+export default BoardModify;
