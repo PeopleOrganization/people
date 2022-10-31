@@ -98,7 +98,6 @@ function BoardView() {
   const { vocId } = useParams();
   const item = GetData(vocId);
   const scrollRef = useRef();
-  const [post, setPost] = useState([]);
   const [content, setContent] = useState("");
   const [replyData, setReplyData] = useState([]); //댓글 저장
   const [deleteShow, setDeleteShow] = useState("boardDelete"); //기본 값은 안 보이게
@@ -107,6 +106,63 @@ function BoardView() {
   const [email3, setEmail3] = useState(""); // 게시글 작성자의 이메일
   const [replyContent, setReplyContent] = useState(""); // 댓글 내용
 
+  const [nickName, setNickName] = useState("");
+  const [bloodType, setBloodType] = useState("");
+  const [bloodKind, setBloodKind] = useState("");
+  const [patientName, setPatientName] = useState("");
+  const [hospital, setHospital] = useState("");
+  const [phonNum, setPhonNum] = useState("");
+  const [registNum, setRegistNum] = useState("");
+  const [postYear, setPostYear] = useState("");
+  const [postMonth, setPostMonth] = useState("");
+  const [postDay, setPostDay] = useState("");
+  const [postHour, setPostHour] = useState("");
+  const [postMinute, setPostMinute] = useState("");
+
+
+  //이 아래는 헌혈 등록자가 입력하는 정보
+  const [bloodNum, setBloodNum] = useState("");
+  const [bloodNum2, setBloodNum2] = useState("");
+  const [bloodNum3, setBloodNum3] = useState("");
+  const [bloodNum4, setBloodNum4] = useState("");
+  const [bloodType2, setBloodType2] = useState("");
+  const [bloodKind2, setBloodKind2] = useState("");
+  const [hospital2, setHospital2] = useState("");
+  const [bloodDate, setBloodDate] = useState("");
+
+  //현재 날짜
+  const dateTotal = new Date();
+  const nowYear = dateTotal.getFullYear();
+  const nowMonth = dateTotal.getMonth()+1;
+  const nowDay = dateTotal.getDate();
+
+
+  let [scrapCheck2, setScrapCheck2] = useState("");
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:3001/postView", null, {
+        params: {
+          postkey: postkey2,
+        },
+      })
+      .then((res) => {
+        setBloodType(res.data[0]["bloodType"]);
+        setBloodKind(res.data[0]["bloodKind"]);
+        setPatientName(res.data[0]["patientName"]);
+        setHospital(res.data[0]["hospital"]);
+        setPhonNum(res.data[0]["phonNum"]);
+        setNickName(res.data[0]["nickName"]);
+        setRegistNum(res.data[0]["registNum"]);
+        setPostYear(res.data[0]["year"]);
+        setPostMonth(res.data[0]["month"]);
+        setPostDay(res.data[0]["day"]);
+        setPostHour(res.data[0]["hour"]);
+        setPostMinute(res.data[0]["minute"])
+
+      });
+  }, []);
+
   useEffect(() => {
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   });
@@ -114,6 +170,7 @@ function BoardView() {
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const [open3, setOpen3] = React.useState(false);
+  const [open4, setOpen4] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -139,25 +196,32 @@ function BoardView() {
     setOpen3(false);
   };
 
-  //삭제버튼이 보일지 안 보일지 결정
-  useEffect(() => {
+  const handleClickOpen4 = () => {
+    setOpen4(true);
+  };
+
+  const handleClose4 = () => {
+    setOpen4(false);
+  };
+
+   //삭제버튼이 보일지 안 보일지 결정
+   useEffect(() => {
     axios
       .post("http://localhost:3001/deleteNick", null, {
         params: {
-          postkey: postkey2,
+          postkey: postkey2
         },
       })
       .then((res) => {
-        setPost(res.data);
-
         window.localStorage.setItem("postkey", postkey2);
-
+        
         // eslint-disable-next-line array-callback-return
         console.log("이메일확인하러옴");
         console.log(res.data[0]["email"]);
+        setEmail3(res.data[0]["email"]);
         console.log(window.localStorage.getItem("email"));
-        if (res.data[0]["email"] === window.localStorage.getItem("email")) {
-          setDeleteShow("boardDelete2");
+        if(res.data[0]["email"] === window.localStorage.getItem("email")) {
+          setDeleteShow("boardDelete2")
         }
       });
   }, []);
@@ -183,18 +247,13 @@ function BoardView() {
     axios
       .post("http://localhost:3001/postView", null, {
         params: {
-          postkey: postkey2,
+          postkey: postkey2
         },
       })
       .then((res) => {
-        setPost(res.data);
-
-        // eslint-disable-next-line array-callback-return
-        post.map((us) => {
-          setContent(us.content);
-        });
+        setContent(res.data[0]["content"]);
       });
-  });
+  }, );
 
   const modify2 = () => {
     document.location.href = "/BoardModify";
@@ -219,26 +278,139 @@ function BoardView() {
         console.log(error);
       });
   };
+  
+//헌혈증서 등록
+const certificate = () => {
+  axios
+    .post("http://localhost:3001/certificate", null, {
+      params: {
+        bloodNum : bloodNum,
+        bloodNum2 : bloodNum2,
+        bloodNum3 : bloodNum3,
+        bloodNum4 : bloodNum4,
+        email : window.localStorage.getItem("email"),
+        bloodType : bloodType2,
+        bloodKind : bloodKind2,
+        hospital : hospital2,
+        bloodDate : bloodDate
+      },
+    })
+    .then(res => {
+      console.log(res.data)
+      if(res.data === 0) { // 0을 받으면 헌혈증서 등록에 성공했다는 댓글 생성
+        axios.post('http://localhost:3001/reply', null, {
+      params: { 
+        postkey: postkey2,
+        email: window.localStorage.getItem("email"),
+        nickName: window.localStorage.getItem("nickName"),
+        replyContent: "<지정 헌혈을 완료했어요!>"
+      }
+    })
+    .then(res => {  
+      console.log("1증가")
+      axios.post('http://localhost:3001/responsePlus', null, {
+      params: { 
+        postkey: postkey2,
+      }
+    })
+    })
+      .then(res => {  
+        console.log("등록완료 후 새로고침")
+        alert("헌혈 증서가 등록 되었습니다.")
+        window.location.reload();
+
+      })
+      .catch(function(error){
+       console.log(error);
+    })
+      }else { // 0이외의 값이면 이미 스크랩 했다는 것
+        alert("헌혈 증서 등록에 실패하였습니다.")
+        .catch(function(error){
+          console.log(error);
+       })
+      }
+
+    })
+};
+
+  //스크랩 했는지, 안 했는지
+  const scrapCheck = () => {
+    axios.post('http://localhost:3001/scrapCheck', null, {
+      params: { 
+        postkey: postkey2,
+        email: window.localStorage.getItem("email"),
+        nickName: window.localStorage.getItem("nickName")
+      }
+    })
+      .then(res => {
+        console.log(res.data)
+        console.log("순서 1");
+        if(res.data === 0) { // 0을 받으면 아직 스크랩을 안 했다는 것
+          console.log("아직 스크랩 안 했음!! 0")
+          axios.post('http://localhost:3001/scrap', null, {
+        params: { 
+          postkey: postkey2,
+          email: window.localStorage.getItem("email"),
+          nickName: window.localStorage.getItem("nickName")
+        }
+      })
+        .then(res => {  
+          // console("값0: "+scrapCheck2)
+          console.log(res.data)
+          alert("스크랩 되었습니다.")
+        })
+        .catch(function(error){
+         console.log(error);
+      })
+        }else { // 0이외의 값이면 이미 스크랩 했다는 것
+          console.log("이미 스크랩 했음!! 1")
+          axios.post('http://localhost:3001/scrapDelete', null, {
+        params: { 
+          postkey: postkey2,
+          email: window.localStorage.getItem("email"),
+          nickName: window.localStorage.getItem("nickName")
+        }
+      })
+        .then(res => {  
+          // console.log(res.data)
+          // console("값1: "+scrapCheck2)
+          alert("스크랩을 취소하였습니다.")
+        })
+        .catch(function(error){
+         console.log(error);
+      })
+        }
+
+      })
+ 
+
+
+   
+  }
+
+
+
+
 
   //게시글 삭제
   const delete2 = () => {
     console.log("글 삭제 하러 옴");
 
-    axios
-      .post("http://localhost:3001/delete", null, {
-        params: {
-          postkey: postkey2,
-        },
+
+    axios.post('http://localhost:3001/delete', null, {
+      params: { 
+        postkey: postkey2
+      }
+    })
+      .then(res => {  
+        console.log(res.data)
+        alert("게시글이 삭제되었습니다.")
+        document.location.href = '/Board'
       })
-      .then((res) => {
-        console.log(res.data);
-        alert("게시글이 삭제되었습니다.");
-        document.location.href = "/Board";
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+      .catch(function(error){
+       console.log(error);
+    })
+  }
 
   const [Type, setType] = React.useState("");
   const [Kind, setKind] = React.useState("");
@@ -345,27 +517,27 @@ function BoardView() {
                       <table id="bloodLicenceTable2">
                         <tr id="bloodInfoTr1">
                           <td id="bloodInfoTd1">환자명 :&nbsp;</td>
-                          <td id="bloodInfoTd2">홍길동</td>
+                          <td id="bloodInfoTd2">{patientName}</td>
                         </tr>
                         <tr id="bloodInfoTr2">
                           <td id="bloodInfoTd1">혈액형 :&nbsp;</td>
-                          <td id="bloodInfoTd2">O형</td>
+                          <td id="bloodInfoTd2">{bloodType}형</td>
                         </tr>
                         <tr id="bloodInfoTr1">
                           <td id="bloodInfoTd1">혈액종류 :&nbsp;</td>
-                          <td id="bloodInfoTd2">전혈</td>
+                          <td id="bloodInfoTd2">{bloodKind}</td>
                         </tr>
                         <tr id="bloodInfoTr2">
                           <td id="bloodInfoTd1">의료기관 :&nbsp;</td>
-                          <td id="bloodInfoTd2">서울대학병원</td>
+                          <td id="bloodInfoTd2">{hospital}</td>
                         </tr>
                         <tr id="bloodInfoTr1">
                           <td id="bloodInfoTd1">연락처 :&nbsp;</td>
-                          <td id="bloodInfoTd2">010-1234-5678</td>
+                          <td id="bloodInfoTd2">{phonNum}</td>
                         </tr>
                         <tr id="bloodInfoTr2">
                           <td id="bloodInfoTd1">등록번호 :&nbsp;</td>
-                          <td id="bloodInfoTd2">155-2526-27272</td>
+                          <td id="bloodInfoTd2">{registNum}</td>
                         </tr>
                       </table>
                     </DialogContentText>
@@ -391,12 +563,13 @@ function BoardView() {
                   </DialogActions>
                 </Dialog>
                 &nbsp;
-                <button id="boardBtn2" onClick={handleClickOpen3}>
+                <button id="boardBtn2" onClick={scrapCheck}>
                   {" "}
                   <BookmarkIcon></BookmarkIcon>스크랩
                 </button>
                 <Dialog
                   open={open3}
+                  TransitionComponent={Transition}
                   keepMounted
                   onClose={handleClose3}
                   aria-describedby="alert-dialog-slide-description"
@@ -491,13 +664,14 @@ function BoardView() {
                           헌혈증서 &nbsp;
                           <span id="bloodLicence2">
                             증서번호:&nbsp;
-                            <input id="bloodLicenceNum1"></input>
+                            <input id="bloodLicenceNum1" onChange={(event) => setBloodNum(event.target.value)}></input>
                             &nbsp;-&nbsp;
-                            <input id="bloodLicenceNum2"></input>
+                            <input id="bloodLicenceNum2" onChange={(event) => setBloodNum2(event.target.value)}></input>
                             &nbsp;-&nbsp;
-                            <input id="bloodLicenceNum3"></input>
+                            <input id="bloodLicenceNum3" onChange={(event) => setBloodNum3(event.target.value)}></input>
                             &nbsp;-&nbsp;
-                            <input id="bloodLicenceNum4"></input>
+                            <input id="bloodLicenceNum4" onChange={(event) => setBloodNum4(event.target.value)}></input>
+
                           </span>{" "}
                         </span>
                         <br />
@@ -505,7 +679,7 @@ function BoardView() {
                           <tr>
                             <td>
                               <br></br>
-                              &nbsp;<span>닉네임 님</span>
+                              &nbsp;<span>{window.localStorage.getItem("nickName")} 님</span>
                               <br></br>
                               <br></br>
                               <p id="bloodLicenceBloodType">
@@ -527,9 +701,10 @@ function BoardView() {
                                       }}
                                       labelId="demo-simple-select-helper-label"
                                       id="demo-simple-select-helper"
-                                      value={Type}
+                                      value={bloodType2}
                                       label="Type"
-                                      onChange={handleChange}
+                                      onChange={(event) => setBloodType2(event.target.value)}
+                                      // onChange={handleChange}
                                     >
                                       <MenuItem value="">
                                         혈액형
@@ -542,6 +717,7 @@ function BoardView() {
                                       <MenuItem value={"B-"}>B-</MenuItem>
                                       <MenuItem value={"AB-"}>AB-</MenuItem>
                                       <MenuItem value={"O-"}>O-</MenuItem>
+                                      
                                     </Select>
                                   </FormControl>
                                 </Box>
@@ -564,9 +740,10 @@ function BoardView() {
                                       }}
                                       labelId="demo-simple-select-helper-label"
                                       id="demo-simple-select-helper"
-                                      value={Kind}
+                                      value={bloodKind2}
                                       label="Kind"
-                                      onChange={handleChange2}
+                                      onChange={(event) => setBloodKind2(event.target.value) } 
+                                      // onChange={handleChange2}
                                     >
                                       <MenuItem value="">
                                         혈액종류
@@ -608,9 +785,10 @@ function BoardView() {
                                       }}
                                       labelId="demo-simple-select-helper-label"
                                       id="demo-simple-select-helper"
-                                      value={Bank}
+                                      value={hospital2}
                                       label="Bank"
-                                      onChange={handleChange3}
+                                      onChange={(event) => setHospital2(event.target.value)}
+                                      // onChange={handleChange3}
                                     >
                                       <MenuItem value="">
                                         혈액원 명
@@ -689,7 +867,9 @@ function BoardView() {
                                     InputLabelProps={{
                                       shrink: true,
                                     }}
+                                    onChange={(event) => setBloodDate(event.target.value)}
                                   />
+
                                 </Stack>
                               </p>
                               <br></br>
@@ -739,13 +919,18 @@ function BoardView() {
             <br />
             <div id="receive">
               <label id="receiveNick">
-                {window.localStorage.getItem("nickName")}
+                {nickName}
               </label>
               <br />
               <label id="receiveChat">
                 {content} <br></br>
-              </label>
-              <label id="receiveDate">08:55</label>
+              </label><br></br>
+              {postYear === nowYear && postMonth === nowMonth && postDay === nowDay ? (
+
+                <label id="receiveDate">{postHour}:{postMinute}</label>
+              ) :
+              <label id="receiveDate">{postYear}/{postMonth}/{postDay}</label>
+              }
             </div>
             <br />
             {/* 수혈자 여기까지 */}
@@ -753,19 +938,36 @@ function BoardView() {
               <div key={it.replykey}>
                 <div>
                   {it.email === email3 ? (
+                    (it.year === nowYear && it.month === nowMonth && it.day === nowDay) ? (
                     <div id="receive">
                       <label id="receiveNick">{it.nickName}</label>
                       <br />
                       <label id="receiveChat">{it.replyContent}</label>
-                      <br></br> <label id="giveDate">09:44</label>{" "}
+                      <br></br> <label id="receiveDate">{it.hour}:{it.minute}</label>{" "}
+                    </div>
+                    ) :
+                    <div id="receive">
+                      <label id="receiveNick">{it.nickName}</label>
+                      <br />
+                      <label id="receiveChat">{it.replyContent}</label>
+                      <br></br> <label id="receiveDate">{it.year}/{it.month}/{it.day}</label>{" "}
                     </div>
                   ) : (
+                    (it.year === nowYear && it.month === nowMonth && it.day === nowDay) ? (
                     <div id="give">
                       {" "}
                       <label id="giveNick">{it.nickName}</label>
                       <br />
                       <label id="giveChat">{it.replyContent}</label>
-                      <br></br> <label id="giveDate">09:44</label>{" "}
+                      <br></br> <label id="giveDate">{it.hour}:{it.minute}</label>{" "}
+                    </div>
+                    ) :
+                    <div id="give">
+                      {" "}
+                      <label id="giveNick">{it.nickName}</label>
+                      <br />
+                      <label id="giveChat">{it.replyContent}</label>
+                      <br></br> <label id="giveDate">{it.year}/{it.month}/{it.day}</label>{" "}
                     </div>
                   )}
                 </div>
@@ -773,6 +975,7 @@ function BoardView() {
               </div>
             ))}
           </div>
+
           <div id="boardReply">
             <div id="replyLeft">
               <button id="replyImage">
@@ -794,12 +997,73 @@ function BoardView() {
           </div>
           <br /> <br />
         </div>
-        <Button id={deleteShow} onClick={modify2}>
+        <br></br> <br></br>
+        <div align="center">
+        <button className="modifyBtn" id={deleteShow} onClick={modify2}>
           수정
-        </Button>
-        <Button id={deleteShow} onClick={delete2}>
+        </button>
+        &nbsp;&nbsp;&nbsp;
+        <button className="deleteBtn" id={deleteShow} onClick={handleClickOpen4}>
           삭제
-        </Button>
+        </button>
+        <Dialog
+                  open={open4}
+                  TransitionComponent={Transition}
+                  keepMounted
+                  onClose={handleClose4}
+                  aria-describedby="alert-dialog-slide-description"
+                >
+                  <DialogTitle
+                    align="center"
+                    color="red"
+                    sx={{
+                      fontFamily: "GmarketSansMedium",
+                      fontSize: "x-large",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {"삭제"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText
+                      id="alert-dialog-slide-description"
+                      sx={{
+                        fontFamily: "GmarketSansMedium",
+                        fontSize: "large",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      정말 삭제하시겠습니까?
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions
+                    sx={{
+                      fontFamily: "GmarketSansMedium",
+                      fontSize: "x-large",
+                      fontWeight: "bold",
+                      display: "flex",
+                      textAlign: "center",
+                      justifyContent: "center",
+                      marginBottom: "3%",
+                    }}
+                  >
+                    <button
+                      id="loginBtn"
+                      style={{ padding: "1%", width: "30%" }}
+                      onClick={delete2}
+                    >
+                      확인
+                    </button>
+                    <button
+                      id="loginBtn"
+                      style={{ padding: "1%", width: "30%" }}
+                      onClick={handleClose4}
+                    >
+                      취소
+                    </button>
+                  </DialogActions>
+                </Dialog>
+        </div>
         <br /> <br />
         <br /> <br />
       </div>

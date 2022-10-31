@@ -119,11 +119,11 @@ function Login(props) {
             <tr>
               <p>
                 {" "}
-                <a id="loginHref" href="Register" onClick={login2}>
+                <a id="loginHref" href="FindPassword">
                   비밀번호 찾기 ꒐
                 </a>
                 &nbsp;
-                <a id="loginHref" href="Register" onClick={login2}>
+                <a id="loginHref" href="Register" >
                   회원가입
                 </a>
                 &nbsp;

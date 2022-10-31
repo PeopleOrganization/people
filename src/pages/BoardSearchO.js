@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
-import "../menu.css";
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -17,7 +16,7 @@ function Board() {
 
   const handleOnClick = () => {
     window.localStorage.setItem("search", search);
-    document.location.href = "/BoardSearchO";
+    document.location.href = "/BoardSearch";
   };
 
   //엔터키 이벤트
@@ -29,7 +28,11 @@ function Board() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/bloodO")
+      .post("http://localhost:3001/searchO", null, {
+        params: {
+          search: "%" + window.localStorage.getItem("search") + "%",
+        },
+      })
       .then((response) => {
         setData(response.data);
       })
@@ -100,8 +103,8 @@ function Board() {
           <br />
           <table id="boardSize">
             <div>
-            <div>
-                <td className="noneMenu" id="boardItemSize1">Tb</td>
+              <div>
+              <td className="noneMenu" id="boardItemSize1">Tb</td>
                 <td id="boardItemSize2">혈액형</td>
                 <td id="boardItemSize3">혈액종류</td>
                 <td id="boardItemSize4">제목</td>
@@ -109,12 +112,12 @@ function Board() {
                 <td id="boardItemSize6">병원</td>
                 <td id="boardItemSize7">등록일</td>
                 <td id="boardItemSize8">수량</td>
-                </div>
+              </div>
               <br />
               <hr />
             </div>
             {data.map((it) => (
-                <Link key={it.postkey} to={`/BoardView${it.postkey}`}>
+              <Link key={it.postkey} to={`/BoardView${it.postkey}`}>
               <div id ="boardLink">
                 <tr id="boardLink2" style={{textDecoration: "none"}}>
                   <td id="boardItemSize1">{it.postkey}</td>

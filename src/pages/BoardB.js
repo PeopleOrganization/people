@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import "../menu.css";
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -11,10 +13,23 @@ const scrollToTop = () => {
 
 function Board() {
   const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const handleOnClick = () => {
+    window.localStorage.setItem("search", search);
+    document.location.href = "/BoardSearchB";
+  };
+
+  //엔터키 이벤트
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleOnClick(); // Enter 입력이 되면 클릭 이벤트 실행
+    }
+  };
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/bloodB")
+      .post("http://localhost:3001/bloodBs")
       .then((response) => {
         setData(response.data);
       })
@@ -69,13 +84,24 @@ function Board() {
           모든사람과 소통을 할 수 있는 게시판입니다.
         </span>
         <hr />
-
+        <br></br>
         <div id="postContainer0" align="center">
+          <div align="end" style={{ padding: "1%" }}>
+            <TextField
+              sx={{ width: "25%" }}
+              name="search"
+              label="검색"
+              id="outlined-basic"
+              variant="outlined"
+              onChange={(event) => setSearch(event.target.value)}
+              onKeyPress={handleOnKeyPress}
+            />
+          </div>
           <br />
           <table id="boardSize">
             <div>
-              <div>
-                <td id="boardItemSize1"></td>
+            <div>
+                <td className="noneMenu" id="boardItemSize1">Tb</td>
                 <td id="boardItemSize2">혈액형</td>
                 <td id="boardItemSize3">혈액종류</td>
                 <td id="boardItemSize4">제목</td>
@@ -83,38 +109,40 @@ function Board() {
                 <td id="boardItemSize6">병원</td>
                 <td id="boardItemSize7">등록일</td>
                 <td id="boardItemSize8">수량</td>
-              </div>
+                </div>
               <br />
               <hr />
             </div>
             {data.map((it) => (
-              <div key={it.postkey}>
-                <div>
+                <Link key={it.postkey} to={`/BoardView${it.postkey}`}>
+              <div id ="boardLink">
+                <tr id="boardLink2" style={{textDecoration: "none"}}>
                   <td id="boardItemSize1">{it.postkey}</td>
                   <td id="boardItemSize2">{it.bloodType} </td>
                   <td id="boardItemSize3">{it.bloodKind} </td>
-                  <td id="boardItemSize4">
-                    <Link to={`/BoardView${it.postkey}`}>{it.title}</Link>{" "}
-                  </td>
+                  <td id="boardItemSize4">{it.title}</td>
                   <td id="boardItemSize5">{it.patientName} </td>
                   <td id="boardItemSize6">{it.hospital} </td>
-                  <td id="boardItemSize7">{it.postDate} </td>
+                  <td id="boardItemSize7">{it.year}/{it.month}/{it.day}</td>
                   <td id="boardItemSize8">
                     {it.responseB}/{it.requestB}
                   </td>
-                </div>
+                </tr>
                 <br />
                 <hr />
               </div>
+                </Link>
             ))}
           </table>
+
           <br></br>
           <Link to="/BoardWrite">
-            <button id="loginBtn">글쓰기</button>
+            <button id="loginBtn" style={{marginTop:"15%", marginBottom:"5%"}}>글쓰기</button>
           </Link>
           <br></br>
           <br></br>
         </div>
+        <br></br><br></br>
       </div>
     </div>
   );

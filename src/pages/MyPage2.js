@@ -124,25 +124,36 @@ function MyPage2(props) {
   return (
     <div id="bigContainer">
     <div id="sideLeft">
-      <ul className="sidebarList2">
-        <a className="href2" href="MyPage">
-          {" "}
-          <li className="sidebarListItem2 active">내 정보</li>
-        </a>
-        &nbsp;
-        <a className="href2" href="QnADesignated">
-          <li className="sidebarListItem2">활동 리스트</li>
-        </a>
-        &nbsp;
-        <a className="href2" href="QnAQuestion">
-          <li className="sidebarListItem2">지정헌혈 현황</li>
-        </a>
-        <br></br>
-        <button id="top" onClick={scrollToTop} type="button">
-          {" "}
-          Top
-        </button>
-      </ul>
+    <ul className="sidebarList2">
+          <a className="href2" href="MyPage">
+            {" "}
+            <li className="sidebarListItem2 active">내 정보</li>
+          </a>
+          &nbsp;
+          <li className="sidebarListItem3">
+            활동 리스트
+            <li>
+              <a id="BoardDropList" href="MyPagePost">
+                내 게시글
+              </a>
+            </li>
+            <li>
+              <a id="BoardDropList" href="MyPageReply">
+                내 댓글
+              </a>
+            </li>
+            <li>
+              <a id="BoardDropList" href="MyPageScrap">
+                내 스크랩
+              </a>
+            </li>
+          </li>
+          <br></br>
+          <button id="top" onClick={scrollToTop} type="button">
+            {" "}
+            Top
+          </button>
+        </ul>
     </div>
     <div className="container">
       <h1 className="sidebarTitle">내 정보 수정</h1>

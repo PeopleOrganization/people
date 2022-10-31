@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
 import axios from 'axios'
 import { useState } from "react";
-
+import "./BoardView.css";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -9,6 +15,10 @@ const scrollToTop = () => {
       behavior: 'smooth'
   })
 }
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 //개인 정보 보여주는 페이지
 function MyPage(props) {
@@ -18,6 +28,24 @@ function MyPage(props) {
   const [nickName, setNickName] = useState("");
   let [blood, setBlood] = useState("");
   const [area, setArea] = useState("");
+  const [one, setOne] = useState("");
+  const [two, setTwo] = useState("");
+  const [three, setThree] = useState("");
+  const [four, setFour] = useState("");
+  const [five, setFive] = useState("");
+  const [six, setSix] = useState("");
+
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 
   const myPage2 = () => {
     document.location.href = "/MyPage2";
@@ -54,6 +82,23 @@ function MyPage(props) {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .post("http://localhost:3001/Myblood", null, {
+        params: {
+          email: window.localStorage.getItem("email"),
+        },
+      })
+      .then((res) => {
+          setOne(res.data[0]["one"]);
+          setTwo(res.data[0]["two"]);
+          setThree(res.data[0]["three"]);
+          setFour(res.data[0]["four"]);
+          setFive(res.data[0]["five"]);
+          setSix(res.data[0]["six"]);
+      });
+  }, []);
+
   return (
     <div id="bigContainer">
       <div id="sideLeft">
@@ -81,7 +126,6 @@ function MyPage(props) {
               </a>
             </li>
           </li>
-          &nbsp;
           <br></br>
           <button id="top" onClick={scrollToTop} type="button">
             {" "}
@@ -116,6 +160,86 @@ function MyPage(props) {
           <button id="loginBtn" onClick={myPage3}>
             비밀번호 변경
           </button>
+        </p>
+        <p>
+          <button id="loginBtn" onClick={handleClickOpen}>
+            내 헌혈 현황
+          </button>
+          <Dialog
+                  open={open}
+                  TransitionComponent={Transition}
+                  keepMounted
+                  onClose={handleClose}
+                  aria-describedby="alert-dialog-slide-description"
+                >
+                  <DialogTitle
+                    align="center"
+                    color="red"
+                    sx={{
+                      fontFamily: "GmarketSansMedium",
+                      fontSize: "x-large",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {"내 헌혈 현황"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText
+                      id="alert-dialog-slide-description"
+                      sx={{
+                        fontFamily: "GmarketSansMedium",
+                        fontSize: "large",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      <table id="bloodLicenceTable2">
+                        <tr id="bloodInfoTr1">
+                          <td id="bloodInfoTd1">전 혈 :&nbsp;</td>
+                          <td id="bloodInfoTd2">{one}</td>
+                        </tr>
+                        <tr id="bloodInfoTr2">
+                          <td id="bloodInfoTd1">성분채혈 혈소판 :&nbsp;</td>
+                          <td id="bloodInfoTd2">{two}</td>
+                        </tr>
+                        <tr id="bloodInfoTr1">
+                          <td id="bloodInfoTd1">혈 장 :&nbsp;</td>
+                          <td id="bloodInfoTd2">{three}</td>
+                        </tr>
+                        <tr id="bloodInfoTr2">
+                          <td id="bloodInfoTd1">농축적혈구 :&nbsp;</td>
+                          <td id="bloodInfoTd2">{four}</td>
+                        </tr>
+                        <tr id="bloodInfoTr1">
+                          <td id="bloodInfoTd1">성분채혈 백혈구 :&nbsp;</td>
+                          <td id="bloodInfoTd2">{five}</td>
+                        </tr>
+                        <tr id="bloodInfoTr2">
+                          <td id="bloodInfoTd1">백혈구여과제거적혈구 :&nbsp;</td>
+                          <td id="bloodInfoTd2">{six}</td>
+                        </tr>
+                      </table>
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions
+                    sx={{
+                      fontFamily: "GmarketSansMedium",
+                      fontSize: "x-large",
+                      fontWeight: "bold",
+                      display: "flex",
+                      textAlign: "center",
+                      justifyContent: "center",
+                      marginBottom: "3%",
+                    }}
+                  >
+                    <button
+                      id="loginBtn"
+                      style={{ padding: "1%" }}
+                      onClick={handleClose}
+                    >
+                      확인
+                    </button>
+                  </DialogActions>
+                </Dialog>
         </p>
       </div>
     </div>

@@ -82,7 +82,7 @@ function Board() {
       <div className="container">
         <h1 className="sidebarTitle">내 관심</h1>
         <span align="center" className="hello">
-          모든사람과 소통을 할 수 있는 게시판입니다.
+        내가 스크랩한 게시글을 확인할 수 있는 공간입니다.
         </span>
         <hr />
           <br></br>
@@ -102,7 +102,7 @@ function Board() {
           <table id="boardSize">
             <div>
               <div>
-                <td id="boardItemSize1"></td>
+              <td className="noneMenu" id="boardItemSize1">게시글번호</td>
                 <td id="boardItemSize2">혈액형</td>
                 <td id="boardItemSize3">혈액종류</td>
                 <td id="boardItemSize4">제목</td>
@@ -115,24 +115,24 @@ function Board() {
               <hr />
             </div>
             {data.map((it) => (
-              <div key={it.postkey}>
-                <div>
+              <Link key={it.postkey} to={`/BoardView${it.postkey}`}>
+              <div id ="boardLink">
+                <tr id="boardLink2" style={{textDecoration: "none"}}>
                   <td id="boardItemSize1">{it.postkey}</td>
                   <td id="boardItemSize2">{it.bloodType} </td>
                   <td id="boardItemSize3">{it.bloodKind} </td>
-                  <td id="boardItemSize4">
-                    <Link to={`/BoardView${it.postkey}`}>{it.title}</Link>{" "}
-                  </td>
+                  <td id="boardItemSize4">{it.title}</td>
                   <td id="boardItemSize5">{it.patientName} </td>
                   <td id="boardItemSize6">{it.hospital} </td>
                   <td id="boardItemSize7">{it.postDate} </td>
                   <td id="boardItemSize8">
                     {it.responseB}/{it.requestB}
                   </td>
-                </div>
+                </tr>
                 <br />
                 <hr />
               </div>
+                </Link>
             ))}
           </table>
 
@@ -143,6 +143,8 @@ function Board() {
           <br></br>
           <br></br>
         </div>
+        <br></br>
+          <br></br>
       </div>
     </div>
   );

@@ -1233,4 +1233,12 @@ li {
   text-align: center;
   display: flex;
   margin: auto;
+}
+
+#BoardDropList {
+  display: none;
+}
+
+.sidebarListItem2:hover #BoardDropList {
+  display: block;
 }/*# sourceMappingURL=menu.css.map */
