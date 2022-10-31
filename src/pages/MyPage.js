@@ -195,27 +195,27 @@ function MyPage(props) {
                       <table id="bloodLicenceTable2">
                         <tr id="bloodInfoTr1">
                           <td id="bloodInfoTd1">전 혈 :&nbsp;</td>
-                          <td id="bloodInfoTd2">{one}</td>
+                          <td id="bloodInfoTd2">{one}번</td>
                         </tr>
                         <tr id="bloodInfoTr2">
                           <td id="bloodInfoTd1">성분채혈 혈소판 :&nbsp;</td>
-                          <td id="bloodInfoTd2">{two}</td>
+                          <td id="bloodInfoTd2">{two}번</td>
                         </tr>
                         <tr id="bloodInfoTr1">
                           <td id="bloodInfoTd1">혈 장 :&nbsp;</td>
-                          <td id="bloodInfoTd2">{three}</td>
+                          <td id="bloodInfoTd2">{three}번</td>
                         </tr>
                         <tr id="bloodInfoTr2">
                           <td id="bloodInfoTd1">농축적혈구 :&nbsp;</td>
-                          <td id="bloodInfoTd2">{four}</td>
+                          <td id="bloodInfoTd2">{four}번</td>
                         </tr>
                         <tr id="bloodInfoTr1">
                           <td id="bloodInfoTd1">성분채혈 백혈구 :&nbsp;</td>
-                          <td id="bloodInfoTd2">{five}</td>
+                          <td id="bloodInfoTd2">{five}번</td>
                         </tr>
                         <tr id="bloodInfoTr2">
                           <td id="bloodInfoTd1">백혈구여과제거적혈구 :&nbsp;</td>
-                          <td id="bloodInfoTd2">{six}</td>
+                          <td id="bloodInfoTd2">{six}번</td>
                         </tr>
                       </table>
                     </DialogContentText>
