@@ -88,21 +88,12 @@ function Board() {
           <br></br>
         <div id="postContainer0" align="center">
         <div align="end" style={{padding:"1%"}}>
-        <TextField
-            sx={{ width: "25%"}}
-            name="search"
-            label="검색"
-            id="outlined-basic"
-            variant="outlined"
-            onChange={(event) => setSearch(event.target.value)}
-            onKeyPress={handleOnKeyPress}
-          />
           </div>
           <br />
           <table id="boardSize">
             <div>
               <div>
-              <td className="noneMenu" id="boardItemSize1">게시글번호</td>
+              <td className="noneMenu" id="boardItemSize1">게</td>
                 <td id="boardItemSize2">혈액형</td>
                 <td id="boardItemSize3">혈액종류</td>
                 <td id="boardItemSize4">제목</td>
@@ -124,7 +115,7 @@ function Board() {
                   <td id="boardItemSize4">{it.title}</td>
                   <td id="boardItemSize5">{it.patientName} </td>
                   <td id="boardItemSize6">{it.hospital} </td>
-                  <td id="boardItemSize7">{it.postDate} </td>
+                  <td id="boardItemSize7">{it.year}/{it.month}/{it.day}</td>
                   <td id="boardItemSize8">
                     {it.responseB}/{it.requestB}
                   </td>
