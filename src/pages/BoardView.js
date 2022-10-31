@@ -19,6 +19,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 
 const scrollToTop = () => {
@@ -171,6 +173,7 @@ function BoardView() {
   const [open2, setOpen2] = React.useState(false);
   const [open3, setOpen3] = React.useState(false);
   const [open4, setOpen4] = React.useState(false);
+  const [open5, setOpen5] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -202,6 +205,14 @@ function BoardView() {
 
   const handleClose4 = () => {
     setOpen4(false);
+  };
+
+  const handleClickOpen5 = () => {
+    setOpen5(true);
+  };
+
+  const handleClose5 = () => {
+    setOpen5(false);
   };
 
    //삭제버튼이 보일지 안 보일지 결정
@@ -281,56 +292,81 @@ function BoardView() {
   
 //헌혈증서 등록
 const certificate = () => {
-  axios
-    .post("http://localhost:3001/certificate", null, {
-      params: {
-        bloodNum : bloodNum,
-        bloodNum2 : bloodNum2,
-        bloodNum3 : bloodNum3,
-        bloodNum4 : bloodNum4,
-        email : window.localStorage.getItem("email"),
-        bloodType : bloodType2,
-        bloodKind : bloodKind2,
-        hospital : hospital2,
-        bloodDate : bloodDate
-      },
-    })
-    .then(res => {
-      console.log(res.data)
-      if(res.data === 0) { // 0을 받으면 헌혈증서 등록에 성공했다는 댓글 생성
-        axios.post('http://localhost:3001/reply', null, {
-      params: { 
-        postkey: postkey2,
-        email: window.localStorage.getItem("email"),
-        nickName: window.localStorage.getItem("nickName"),
-        replyContent: "<지정 헌혈을 완료했어요!>"
-      }
-    })
-    .then(res => {  
-      console.log("1증가")
-      axios.post('http://localhost:3001/responsePlus', null, {
-      params: { 
-        postkey: postkey2,
-      }
-    })
-    })
-      .then(res => {  
-        console.log("등록완료 후 새로고침")
-        alert("헌혈 증서가 등록 되었습니다.")
-        window.location.reload();
-
+  if (validation()) {
+    axios
+      .post("http://localhost:3001/certificate", null, {
+        params: {
+          bloodNum: bloodNum,
+          bloodNum2: bloodNum2,
+          bloodNum3: bloodNum3,
+          bloodNum4: bloodNum4,
+          email: window.localStorage.getItem("email"),
+          bloodType: bloodType2,
+          bloodKind: bloodKind2,
+          hospital: hospital2,
+          bloodDate: bloodDate,
+        },
       })
-      .catch(function(error){
-       console.log(error);
-    })
-      }else { // 0이외의 값이면 이미 스크랩 했다는 것
-        alert("헌혈 증서 등록에 실패하였습니다.")
-        .catch(function(error){
-          console.log(error);
-       })
-      }
+      .then((res) => {
+        console.log(res.data);
+        if (res.data === 0) {
+          // 0을 받으면 헌혈증서 등록에 성공했다는 댓글 생성
+          axios
+            .post("http://localhost:3001/reply", null, {
+              params: {
+                postkey: postkey2,
+                email: window.localStorage.getItem("email"),
+                nickName: window.localStorage.getItem("nickName"),
+                replyContent: "<지정 헌혈을 완료했어요!>",
+              },
+            })
+            .then((res) => {
+              console.log("1증가");
+              axios.post("http://localhost:3001/responsePlus", null, {
+                params: {
+                  postkey: postkey2,
+                },
+              });
+            })
+            .then((res) => {
+              console.log("등록완료 후 새로고침");
+              alert("헌혈 증서가 등록 되었습니다.");
+              window.location.reload();
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else {
+          // 0이외의 값이면 이미 스크랩 했다는 것
+          alert("헌혈 증서 등록에 실패하였습니다.").catch(function (error) {
+            console.log(error);
+          });
+        }
+      });
+  }
+};
 
-    })
+//헌혈증서 유효성 검사
+const validation = () => {
+  if (!/^\d{2}$/.test(bloodNum)) {
+    alert("헌혈 증서번호를 정확히 입력해주세요");
+    return false;
+  }
+  if (!/^\d{2}$/.test(bloodNum2)) {
+    alert("헌혈 증서번호를 정확히 입력해주세요");
+    return false;
+  }
+  if (!/^\d{6}$/.test(bloodNum3)) {
+    alert("헌혈 증서번호를 정확히 입력해주세요");
+    return false;
+  }
+  if (!/^\d{2}$/.test(bloodNum4)) {
+    alert("헌혈 증서번호를 정확히 입력해주세요");
+    return false;
+  }
+
+  handleClose();
+  return true;
 };
 
   //스크랩 했는지, 안 했는지
@@ -618,6 +654,7 @@ const certificate = () => {
                   </DialogActions>
                 </Dialog>
                 &nbsp;
+                {/*########################## 헌혈자 시점 ##########################*/}
                 <button id="boardBtn3" onClick={handleClickOpen}>
                   <FactCheckIcon></FactCheckIcon>헌혈증서
                 </button>
@@ -898,7 +935,11 @@ const certificate = () => {
                       <button
                         id="loginBtn"
                         style={{ padding: "1%" }}
-                        onClick={handleClose}
+
+                       onClick={ () => {
+                          certificate()  
+                        }
+                        }
                       >
                         등록
                       </button>
@@ -913,6 +954,288 @@ const certificate = () => {
                   </Dialog>
                 </div>
                 &nbsp;
+
+                {/* ########################## 수혈자시점 ##########################*/}
+                <button id="boardBtn4" onClick={handleClickOpen5}>
+                  <FactCheckIcon></FactCheckIcon>헌혈증서
+                </button>
+                <div>
+                  <Dialog
+                    open={open5}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleClose5}
+                    aria-describedby="alert-dialog-slide-description"
+                  >
+                    <DialogTitle
+                      align="center"
+                      color="red"
+                      sx={{
+                        fontFamily: "GmarketSansMedium",
+                        fontSize: "x-large",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {"헌혈증서확인"}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText
+                        id="alert-dialog-slide-description"
+                        sx={{
+                          fontFamily: "GmarketSansMedium",
+                          fontSize: "large",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        
+                        <br></br>
+                        <span id="bloodLicence">
+                          헌혈증서 &nbsp;
+                          <span id="bloodLicence2">
+                            증서번호:&nbsp;
+                            <input id="bloodLicenceNum1" value="**" onChange={(event) => setBloodNum(event.target.value)}></input>
+                            &nbsp;-&nbsp;
+                            <input id="bloodLicenceNum2" value="**" onChange={(event) => setBloodNum2(event.target.value)}></input>
+                            &nbsp;-&nbsp;
+                            <input id="bloodLicenceNum3" value="******" onChange={(event) => setBloodNum3(event.target.value)}></input>
+                            &nbsp;-&nbsp;
+                            <input id="bloodLicenceNum4" value="**" onChange={(event) => setBloodNum4(event.target.value)}></input>
+
+                          </span>{" "}
+                        </span>
+                        <br />
+                        <table id="bloodLicenceTable">
+                          <tr>
+                            <td>
+                              <br></br>
+                              <button id="BoardArrow"><ArrowBackIosNewIcon></ArrowBackIosNewIcon></button><span style={{marginRight:"20%",marginLeft:"20%"}} >{window.localStorage.getItem("nickName")} 님</span><button  id="BoardArrow"><ArrowForwardIosIcon></ArrowForwardIosIcon></button>
+                              <br></br>
+                              <br></br>
+                              <p id="bloodLicenceBloodType">
+                                <Box sx={{ width: "5%", minWidth: "45%" }}>
+                                  <FormControl fullWidth>
+                                    <InputLabel
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      id="demo-simple-select-helper-label"
+                                    >
+                                      혈액형
+                                    </InputLabel>
+                                    <Select
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      labelId="demo-simple-select-helper-label"
+                                      id="demo-simple-select-helper"
+                                      value={bloodType2}
+                                      label="Type"
+                                      // onChange={(event) => setBloodType2(event.target.value)}
+                                      // onChange={handleChange}
+                                    >
+                                      <MenuItem value="">
+                                        혈액형
+                                      </MenuItem>
+                                      <MenuItem value={"A"}>A+</MenuItem>
+                                      <MenuItem value={"B"}>B+</MenuItem>
+                                      <MenuItem value={"AB"}>AB+</MenuItem>
+                                      <MenuItem value={"O"}>O+</MenuItem>
+                                      <MenuItem value={"A-"}>A-</MenuItem>
+                                      <MenuItem value={"B-"}>B-</MenuItem>
+                                      <MenuItem value={"AB-"}>AB-</MenuItem>
+                                      <MenuItem value={"O-"}>O-</MenuItem>
+                                      
+                                    </Select>
+                                  </FormControl>
+                                </Box>
+                                &nbsp;&nbsp;
+                                <Box sx={{ width: "5%", minWidth: "45%" }}>
+                                  <FormControl fullWidth>
+                                    <InputLabel
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      id="demo-simple-select-helper-label"
+                                    >
+                                      헌혈종류
+                                    </InputLabel>
+                                    <Select
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      labelId="demo-simple-select-helper-label"
+                                      id="demo-simple-select-helper"
+                                      value={bloodKind2}
+                                      label="Kind"
+                                      onChange={(event) => setBloodKind2(event.target.value) } 
+                                      // onChange={handleChange2}
+                                    >
+                                      <MenuItem value="">
+                                        혈액종류
+                                      </MenuItem>
+                                      <MenuItem value={"전혈"}>전혈</MenuItem>
+                                      <MenuItem value={"성분채혈 혈소판"}>
+                                        성분채혈 혈소판
+                                      </MenuItem>
+                                      <MenuItem value={"혈장"}>혈장</MenuItem>
+                                      <MenuItem value={"농축적혈구"}>
+                                        농축적혈구
+                                      </MenuItem>
+                                      <MenuItem value={"성분채혈 백혈구"}>
+                                        성분채혈 백혈구
+                                      </MenuItem>
+                                      <MenuItem value={"백혈구여과제거적혈구"}>
+                                        백혈구여과제거적혈구
+                                      </MenuItem>
+                                    </Select>
+                                  </FormControl>
+                                </Box>
+                              </p>
+                              <p id="bloodLicenceBloodType2">
+                                <Box sx={{ width: "5%", minWidth: "47%" }}>
+                                  <FormControl fullWidth>
+                                    <InputLabel
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      id="demo-simple-select-helper-label"
+                                    >
+                                      혈액원 명
+                                    </InputLabel>
+                                    <Select
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      labelId="demo-simple-select-helper-label"
+                                      id="demo-simple-select-helper"
+                                      value={hospital2}
+                                      label="Bank"
+                                      onChange={(event) => setHospital2(event.target.value)}
+                                      // onChange={handleChange3}
+                                    >
+                                      <MenuItem value="">
+                                        혈액원 명
+                                      </MenuItem>
+                                      <MenuItem value={"서울중앙혈액원"}>
+                                        서울중앙혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"서울남부혈액원"}>
+                                        서울남부혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"서울동부혈액원"}>
+                                        서울동부혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"부산혈액원"}>
+                                        부산혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"대구경북혈액원"}>
+                                        대구경북혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"인천혈액원"}>
+                                        인천혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"울산혈액원"}>
+                                        울산혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"경기혈액원"}>
+                                        경기혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"강원혈액원"}>
+                                        강원혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"충북혈액원"}>
+                                        충북혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"대전세종충남혈액원"}>
+                                        대전세종충남혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"전북혈액원"}>
+                                        전북혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"광주·전남혈액원"}>
+                                        광주·전남혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"경남혈액원"}>
+                                        경남혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"제주혈액원"}>
+                                        제주혈액원
+                                      </MenuItem>
+                                      <MenuItem value={"중앙혈액검사센터"}>
+                                        중앙혈액검사센터
+                                      </MenuItem>
+                                      <MenuItem value={"혈액관리본부"}>
+                                        혈액관리본부
+                                      </MenuItem>
+                                      <MenuItem value={"혈장분획센터"}>
+                                        혈장분획센터
+                                      </MenuItem>
+                                      <MenuItem value={"중부혈액검사센터"}>
+                                        중부혈액검사센터
+                                      </MenuItem>
+                                      <MenuItem value={"남부혈액검사센터"}>
+                                        남부혈액검사센터
+                                      </MenuItem>
+                                    </Select>
+                                  </FormControl>
+                                </Box>
+                                &nbsp;&nbsp;
+                                <Stack component="form" noValidate spacing={3}>
+                                  <TextField
+                                    id="date"
+                                    label="헌혈일자"
+                                    type="date"
+                                    defaultValue="2022-01-01"
+                                    value={bloodDate}
+                                    sx={{ width: "5%", minWidth: "158%" }}
+                                    InputLabelProps={{
+                                      shrink: true,
+                                    }}
+                                    onChange={(event) => setBloodDate(event.target.value)}
+                                  />
+
+                                </Stack>
+                              </p>
+                              <br></br>
+                              <p id="BoardLicenceText">
+                                사랑의 헌혈에 동참하여 생명 나눔을 몸소 실천하신
+                                귀하에게<br></br>
+                                깊은 존경과 감사의 마음을 담아 이 증서를
+                                드립니다.
+                              </p>
+                            </td>
+                          </tr>
+                        </table>
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions
+                      sx={{
+                        fontFamily: "GmarketSansMedium",
+                        fontSize: "x-large",
+                        fontWeight: "bold",
+                        display: "flex",
+                        textAlign: "center",
+                        justifyContent: "center",
+                        marginBottom: "3%",
+                      }}
+                    >
+                      <button
+                        id="loginBtn"
+                        style={{ padding: "1%" }}
+                        onClick={handleClose5}
+                      >
+                        확인
+                      </button>
+                      
+                    </DialogActions>
+                  </Dialog>
+                </div>
               </span>
             </div>
             {/* 수혈자 */}
@@ -937,7 +1260,7 @@ const certificate = () => {
             {replyData.map((it) => (
               <div key={it.replykey}>
                 <div>
-                  {it.email === email3 ? (
+                  {it.email === email3 ? ( //자신의 게시글에 댓글을 다는 경우
                     (it.year === nowYear && it.month === nowMonth && it.day === nowDay) ? (
                     <div id="receive">
                       <label id="receiveNick">{it.nickName}</label>
@@ -953,6 +1276,7 @@ const certificate = () => {
                       <br></br> <label id="receiveDate">{it.year}/{it.month}/{it.day}</label>{" "}
                     </div>
                   ) : (
+                    (it.replyType === "true") ? ( // 일반 댓글일 경우
                     (it.year === nowYear && it.month === nowMonth && it.day === nowDay) ? (
                     <div id="give">
                       {" "}
@@ -969,6 +1293,31 @@ const certificate = () => {
                       <label id="giveChat">{it.replyContent}</label>
                       <br></br> <label id="giveDate">{it.year}/{it.month}/{it.day}</label>{" "}
                     </div>
+                    ) : //헌혈증서 댓글일 경우
+                    (it.year === nowYear && it.month === nowMonth && it.day === nowDay) ? (
+                      <div id="give">
+                        {" "}
+                        <label id="giveNick">{it.nickName}</label>
+                        <br />
+                        <label id="giveChat2" >{it.replyContent}<br/>
+                        헌혈자 닉네임: {it.nickName} <br/>
+                        혈액형: {it.bloodType}형 혈액종류: {it.bloodKind} <br/>
+                        병원: {it.hospital} 헌혈일자: {it.bloodDate}
+                        </label>
+                        <br></br> <label id="giveDate">{it.hour}:{it.minute}</label>{" "}
+                      </div>
+                      ) :
+                      <div id="give">
+                        {" "}
+                        <label id="giveNick">{it.nickName}</label>
+                        <br />
+                        <label id="giveChat2" >{it.replyContent}<br/>
+                        헌혈자 닉네임: {it.nickName} <br/>
+                        혈액형: {it.bloodType}형 혈액종류: {it.bloodKind} <br/>
+                        병원: {it.hospital} 헌혈일자: {it.bloodDate}
+                        </label>
+                        <br></br> <label id="giveDate">{it.year}/{it.month}/{it.day}</label>{" "}
+                      </div>
                   )}
                 </div>
                 <br />

@@ -251,6 +251,18 @@
     background: #ffeb33;
 }
 
+#giveChat {
+    margin-left: 2%;
+    margin-right: 2%;
+    padding: 1%;
+    border: 1px solid;
+    border-radius: 18px;
+    font-size: large;
+    font-weight: bold;
+    text-align: start;
+    background: #7b3ea1;
+}
+
 #boardButton {
     width: 100%;
     text-align: end;
@@ -296,6 +308,18 @@
 }
 
 #boardBtn3:hover {
+    background: rgb(28, 61, 101);
+    color: #fff;
+    font-weight: bold;
+}
+
+#boardBtn4 {
+    background: rgb(63, 120, 190);
+    color: #fff;
+    font-weight: bold;
+}
+
+#boardBtn4:hover {
     background: rgb(28, 61, 101);
     color: #fff;
     font-weight: bold;
@@ -479,18 +503,22 @@
 
 #bloodLicenceNum1 {
     width: 7%;
+    text-align: center;
 }
 
 #bloodLicenceNum2 {
     width: 7%;
+    text-align: center;
 }
 
 #bloodLicenceNum3 {
     width: 25%;
+    text-align: center;
 }
 
 #bloodLicenceNum4 {
     width: 7%;
+    text-align: center;
 }
 
 #bloodLicenceBloodType {
@@ -629,4 +657,14 @@ border: none;
     background: #c4374f;
     color: #fff;
     border: none;
+}
+
+#BoardArrow{
+    background: #fff;
+    color: #555;
+    border: none;
+}
+
+#BoardArrow:hover{
+    color: #000;
 }

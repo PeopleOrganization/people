@@ -37,6 +37,42 @@ function BoardWrite() {
   const [requestB, setRequestB] = useState("");
   const [content, setContent] = useState("");
 
+  function validation(post) {
+    if (title === "") {
+      alert("제목을 입력하세요");
+      return;
+    }
+    if (bloodType === "") {
+      alert("혈액형을 선택하세요");
+      return;
+    }
+    if (bloodKind === "") {
+      alert("헌혈종류를 선택하세요");
+      return;
+    }
+    if (requestB === "") {
+      alert("필요수량을 선택하세요");
+      return;
+    }
+    if (patientName === "") {
+      alert("환자명을 입력하세요");
+      return;
+    }
+    if (hospital === "") {
+      alert("의료기관을 입력하세요");
+      return;
+    }
+    if (!/^[0-9]+$/.test(phonNum) || phonNum.length < 8) {
+      alert("연락처를 입력하세요");
+      return;
+    }
+    if (!/^\d{10}$/.test(registNum)) {
+      alert("등록번호를 입력하세요");
+      return;
+    }
+    post();
+  }
+
   const postSave = () => {
     axios
       .post("http://localhost:3001/post", null, {
@@ -273,7 +309,9 @@ function BoardWrite() {
             {/* 수혈자 여기까지 */}
             <br /> <br /> <br />
           </div>
-          <button id="loginBtn" style={{marginBottom:"3%",padding:"1%"}} onClick={postSave}>
+          <button id="loginBtn" style={{marginBottom:"3%",padding:"1%"}} onClick={() => {
+              validation(postSave);
+            }}>
             등록하기
           </button>
           <br /> <br />

@@ -80,6 +80,42 @@ useEffect(() => {
     });
 }, []);
 
+function validation(post) {
+  if (title === "") {
+    alert("제목을 입력하세요");
+    return;
+  }
+  if (bloodType === "") {
+    alert("혈액형을 선택하세요");
+    return;
+  }
+  if (bloodKind === "") {
+    alert("헌혈종류를 선택하세요");
+    return;
+  }
+  if (requestB === "") {
+    alert("필요수량을 선택하세요");
+    return;
+  }
+  if (patientName === "") {
+    alert("환자명을 입력하세요");
+    return;
+  }
+  if (hospital === "") {
+    alert("의료기관을 입력하세요");
+    return;
+  }
+  if (!/^[0-9]+$/.test(phonNum) || phonNum.length < 8) {
+    alert("연락처를 입력하세요");
+    return;
+  }
+  if (!/^\d{10}$/.test(registNum)) {
+    alert("등록번호를 입력하세요");
+    return;
+  }
+  post();
+}
+
 const postModify = () => {
 axios.post('http://localhost:3001/modify', null, {
       params: { 
@@ -363,7 +399,9 @@ axios.post('http://localhost:3001/modify', null, {
                     <button
                       id="loginBtn"
                       style={{ padding: "1%", width: "30%" }}
-                      onClick={postModify}
+                      onClick={() => {
+                        validation(postModify);
+                      }}
                     >
                       확인
                     </button>
