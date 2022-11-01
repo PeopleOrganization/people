@@ -30,8 +30,19 @@ function Login(props) {
         },
       })
       .then((res) => {
-        console.log("sssss" + res.data[0]["nickName"]);
-        window.localStorage.setItem("nickName", res.data[0]["nickName"]);
+        console.log(res);
+        if (res.data !== 1) {
+          // 받아온 값이 1이 아니라면 성공
+
+          alert("로그인에 성공하셨습니다.");
+          window.localStorage.setItem("check", "login");
+          window.localStorage.setItem("email", email);
+          window.localStorage.setItem("nickName", res.data[0]["nickName"]);
+          document.location.href = "/";
+        } else {
+          // 1이라면 실패
+          alert("로그인에 실패하셨습니다.");
+        }
 
         return res;
       })
@@ -45,21 +56,16 @@ function Login(props) {
         }
 
         //console.log(res.data)
-        if (res.data !== 1) {
-          // 받아온 값이 1이 아니라면 성공
-
-          alert("로그인에 성공하셨습니다.");
-          window.localStorage.setItem("check", "login");
-          window.localStorage.setItem("email", email);
-          document.location.href = "/";
-        } else {
-          // 1이라면 실패
-          alert("로그인에 실패하셨습니다.");
-        }
       })
       .catch(function (error) {
         console.log(error);
       });
+  };
+
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      login2(); // Enter 입력이 되면 클릭 이벤트 실행
+    }
   };
 
   const checkL = () => {
@@ -105,6 +111,7 @@ function Login(props) {
             type="password"
             variant="outlined"
             onChange={(event) => setPw(event.target.value)}
+            onKeyPress={handleOnKeyPress}
           />
           <br></br>
           <br></br>

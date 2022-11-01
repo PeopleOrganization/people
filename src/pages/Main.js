@@ -10,6 +10,7 @@ function Main(props) {
         src={Img}
         style={{
           width: "100vw",
+          height:"100%",
           backgroundrepeat: "no-repeat",
           backgroundPosition: "top center",
           backgroundAttachment: "fixed",

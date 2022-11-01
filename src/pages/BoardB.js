@@ -81,7 +81,7 @@ function Board() {
       <div className="container">
         <h1 className="sidebarTitle">소통해요!</h1>
         <span align="center" className="hello">
-        혈액형별로 소통을 할 수 있는 게시판입니다.
+        B 혈액형과 소통을 할 수 있는 게시판입니다.
         </span>
         <hr />
         <br></br>

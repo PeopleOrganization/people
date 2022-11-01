@@ -19,8 +19,6 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import styled from "styled-components";
 
@@ -32,25 +30,25 @@ const scrollToTop = () => {
 };
 
 const Button1 = styled.button`
-&:hover{
-  background: rgb(28, 61, 101);
+  &:hover {
+    background: rgb(28, 61, 101);
     color: #fff;
     font-weight: bold;
-}
+  }
 
-background: rgb(63, 120, 190);
-color: #fff;
-font-weight: bold;
+  background: rgb(63, 120, 190);
+  color: #fff;
+  font-weight: bold;
 `;
 
-const oneCheckBox = (checkThis) =>{
+const oneCheckBox = (checkThis) => {
   const box = document.getElementsByName("box");
-  for(let i=0; i<box.length; i++){
-    if(box[i]!==checkThis){
+  for (let i = 0; i < box.length; i++) {
+    if (box[i] !== checkThis) {
       box[i].checked = false;
     }
   }
-}
+};
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -115,7 +113,7 @@ function GetData(vocId) {
     </>
   );
 
-  return item;
+  return { jsx: item, rqb: requestB, rpb: responseB };
 }
 
 function BoardView() {
@@ -160,7 +158,7 @@ function BoardView() {
   const nowDay = dateTotal.getDate();
 
   const [bloodCheck, setBloodCheck] = useState("boardDelete"); //헌혈증서 확인용(작성자 시점)
-  const [bloodCheck2, setBloodCheck2] = useState("boardDelete2");//헌혈증서 작성용(헌혈자 시점)
+  const [bloodCheck2, setBloodCheck2] = useState("boardDelete2"); //헌혈증서 작성용(헌혈자 시점)
 
   const [endData, setEndData] = useState([]); //헌혈 목록 저장
 
@@ -168,18 +166,18 @@ function BoardView() {
 
   useEffect(() => {
     axios
-    .post("http://localhost:3001/certificateShow", null, {
-      params: {
-        postkey : postkey2
-      },
-    })
-    .then((res) => {
-      console.log(res.data);
-      setEndData(res.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .post("http://localhost:3001/certificateShow", null, {
+        params: {
+          postkey: postkey2,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setEndData(res.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
   useEffect(() => {
@@ -255,6 +253,12 @@ function BoardView() {
     setOpen5(false);
   };
 
+  function countCertificate() {
+    item.rpb < item.rqb
+      ? handleClickOpen()
+      : alert("필요수량만큼의 혈액이 모두 확보되었습니다.");
+  }
+
   //삭제버튼이 보일지 안 보일지 결정
   useEffect(() => {
     axios
@@ -321,7 +325,7 @@ function BoardView() {
           email: window.localStorage.getItem("email"),
           nickName: window.localStorage.getItem("nickName"),
           replyContent: replyContent,
-          replyType: "true"
+          replyType: "true",
         },
       })
       .then((res) => {
@@ -557,7 +561,7 @@ function BoardView() {
         <hr />
         <div id="postContainer" align="center">
           <br />
-          <div>{item}</div>
+          <div>{item.jsx}</div>
           <br />
           <br />
           <div id="chatRoom" ref={scrollRef}>
@@ -700,329 +704,331 @@ function BoardView() {
                 </Dialog>
                 &nbsp;
                 {/*########################## 헌혈자 시점 ##########################*/}
-                <Button1 id={bloodCheck2} onClick={handleClickOpen}>
+                <Button1 id={bloodCheck2} onClick={countCertificate}>
                   <FactCheckIcon></FactCheckIcon>헌혈증서
                 </Button1>
-                  <Dialog
-                    open={open}
-                    TransitionComponent={Transition}
-                    keepMounted
-                    onClose={handleClose}
-                    aria-describedby="alert-dialog-slide-description"
+                <Dialog
+                  open={open}
+                  TransitionComponent={Transition}
+                  keepMounted
+                  onClose={handleClose}
+                  aria-describedby="alert-dialog-slide-description"
+                >
+                  <DialogTitle
+                    align="center"
+                    color="red"
+                    sx={{
+                      fontFamily: "GmarketSansMedium",
+                      fontSize: "x-large",
+                      fontWeight: "bold",
+                    }}
                   >
-                    <DialogTitle
-                      align="center"
-                      color="red"
+                    {"헌혈증서등록"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText
+                      id="alert-dialog-slide-description"
                       sx={{
                         fontFamily: "GmarketSansMedium",
-                        fontSize: "x-large",
+                        fontSize: "large",
                         fontWeight: "bold",
                       }}
                     >
-                      {"헌혈증서등록"}
-                    </DialogTitle>
-                    <DialogContent>
-                      <DialogContentText
-                        id="alert-dialog-slide-description"
-                        sx={{
-                          fontFamily: "GmarketSansMedium",
-                          fontSize: "large",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        <p id="bloodLicenceTitle2">
-                          소중한 지정헌혈 감사합니다.
-                        </p>{" "}
-                        <p id="bloodLicenceTitle3">
-                          헌혈환료를 눌러 요청자에게 알려주세요. <br></br>헌혈증
-                          정보까지 입력해 주시면 요청자에게 큰 도움이 돼요.
-                          <br></br>
-                          <br></br>헌혈증을 보고 정보를 입력해 주세요. (필수){" "}
-                        </p>
-                        <hr></hr>
+                      <p id="bloodLicenceTitle2">소중한 지정헌혈 감사합니다.</p>{" "}
+                      <p id="bloodLicenceTitle3">
+                        헌혈환료를 눌러 요청자에게 알려주세요. <br></br>헌혈증
+                        정보까지 입력해 주시면 요청자에게 큰 도움이 돼요.
                         <br></br>
-                        <table id="bloodLicenceTable">
-                          <tr>
-                            <td id="bloodLicence">
-                              헌혈증서 &nbsp;
-                              <td id="bloodLicence2">
-                                증서번호:&nbsp;
-                                <input
-                                  id="bloodLicenceNum1"
-                                  onChange={(event) =>
-                                    setBloodNum(event.target.value)
-                                  }
-                                ></input>
-                                &nbsp;-&nbsp;
-                                <input
-                                  id="bloodLicenceNum2"
-                                  onChange={(event) =>
-                                    setBloodNum2(event.target.value)
-                                  }
-                                ></input>
-                                &nbsp;-&nbsp;
-                                <input
-                                  id="bloodLicenceNum3"
-                                  onChange={(event) =>
-                                    setBloodNum3(event.target.value)
-                                  }
-                                ></input>
-                                &nbsp;-&nbsp;
-                                <input
-                                  id="bloodLicenceNum4"
-                                  onChange={(event) =>
-                                    setBloodNum4(event.target.value)
-                                  }
-                                ></input>
-                              </td>
+                        <br></br>헌혈증을 보고 정보를 입력해 주세요. (필수){" "}
+                      </p>
+                      <hr></hr>
+                      <br></br>
+                      <table id="bloodLicenceTable">
+                        <tr>
+                          <td id="bloodLicence">
+                            헌혈증서 &nbsp;
+                            <td id="bloodLicence2">
+                              증서번호:&nbsp;
+                              <input
+                                id="bloodLicenceNum1"
+                                onChange={(event) =>
+                                  setBloodNum(event.target.value)
+                                }
+                              ></input>
+                              &nbsp;-&nbsp;
+                              <input
+                                id="bloodLicenceNum2"
+                                onChange={(event) =>
+                                  setBloodNum2(event.target.value)
+                                }
+                              ></input>
+                              &nbsp;-&nbsp;
+                              <input
+                                id="bloodLicenceNum3"
+                                onChange={(event) =>
+                                  setBloodNum3(event.target.value)
+                                }
+                              ></input>
+                              &nbsp;-&nbsp;
+                              <input
+                                id="bloodLicenceNum4"
+                                onChange={(event) =>
+                                  setBloodNum4(event.target.value)
+                                }
+                              ></input>
                             </td>
-                          </tr>{" "}
-                          <tr>
-                            <td>
-                              <br></br>
-                              &nbsp;
-                              <span>
-                                {window.localStorage.getItem("nickName")} 님
-                              </span>
-                              <br></br>
-                              <br></br>
-                              <p id="bloodLicenceBloodType">
-                                <Box sx={{ width: "5%", minWidth: "45%" }}>
-                                  <FormControl fullWidth>
-                                    <InputLabel
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      id="demo-simple-select-helper-label"
-                                    >
-                                      혈액형
-                                    </InputLabel>
-                                    <Select
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      labelId="demo-simple-select-helper-label"
-                                      id="demo-simple-select-helper"
-                                      value={bloodType2}
-                                      label="Type"
-                                      onChange={(event) =>
-                                        setBloodType2(event.target.value)
-                                      }
-                                      // onChange={handleChange}
-                                    >
-                                      <MenuItem value="">혈액형</MenuItem>
-                                      <MenuItem value={"A"}>A+</MenuItem>
-                                      <MenuItem value={"B"}>B+</MenuItem>
-                                      <MenuItem value={"AB"}>AB+</MenuItem>
-                                      <MenuItem value={"O"}>O+</MenuItem>
-                                      <MenuItem value={"A-"}>A-</MenuItem>
-                                      <MenuItem value={"B-"}>B-</MenuItem>
-                                      <MenuItem value={"AB-"}>AB-</MenuItem>
-                                      <MenuItem value={"O-"}>O-</MenuItem>
-                                    </Select>
-                                  </FormControl>
-                                </Box>
-                                &nbsp;&nbsp;
-                                <Box sx={{ width: "5%", minWidth: "45%" }}>
-                                  <FormControl fullWidth>
-                                    <InputLabel
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      id="demo-simple-select-helper-label"
-                                    >
-                                      헌혈종류
-                                    </InputLabel>
-                                    <Select
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      labelId="demo-simple-select-helper-label"
-                                      id="demo-simple-select-helper"
-                                      value={bloodKind2}
-                                      label="Kind"
-                                      onChange={(event) =>
-                                        setBloodKind2(event.target.value)
-                                      }
-                                      // onChange={handleChange2}
-                                    >
-                                      <MenuItem value="">혈액종류</MenuItem>
-                                      <MenuItem value={"전혈"}>전혈</MenuItem>
-                                      <MenuItem value={"성분채혈 혈소판"}>
-                                        성분채혈 혈소판
-                                      </MenuItem>
-                                      <MenuItem value={"혈장"}>혈장</MenuItem>
-                                      <MenuItem value={"농축적혈구"}>
-                                        농축적혈구
-                                      </MenuItem>
-                                      <MenuItem value={"성분채혈 백혈구"}>
-                                        성분채혈 백혈구
-                                      </MenuItem>
-                                      <MenuItem value={"백혈구여과제거적혈구"}>
-                                        백혈구여과제거적혈구
-                                      </MenuItem>
-                                    </Select>
-                                  </FormControl>
-                                </Box>
-                              </p>
-                              <p id="bloodLicenceBloodType2">
-                                <Box sx={{ width: "5%", minWidth: "47%" }}>
-                                  <FormControl fullWidth>
-                                    <InputLabel
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      id="demo-simple-select-helper-label"
-                                    >
-                                      혈액원 명
-                                    </InputLabel>
-                                    <Select
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      labelId="demo-simple-select-helper-label"
-                                      id="demo-simple-select-helper"
-                                      value={hospital2}
-                                      label="Bank"
-                                      onChange={(event) =>
-                                        setHospital2(event.target.value)
-                                      }
-                                      // onChange={handleChange3}
-                                    >
-                                      <MenuItem value="">혈액원 명</MenuItem>
-                                      <MenuItem value={"서울중앙혈액원"}>
-                                        서울중앙혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"서울남부혈액원"}>
-                                        서울남부혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"서울동부혈액원"}>
-                                        서울동부혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"부산혈액원"}>
-                                        부산혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"대구경북혈액원"}>
-                                        대구경북혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"인천혈액원"}>
-                                        인천혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"울산혈액원"}>
-                                        울산혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"경기혈액원"}>
-                                        경기혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"강원혈액원"}>
-                                        강원혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"충북혈액원"}>
-                                        충북혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"대전세종충남혈액원"}>
-                                        대전세종충남혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"전북혈액원"}>
-                                        전북혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"광주·전남혈액원"}>
-                                        광주·전남혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"경남혈액원"}>
-                                        경남혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"제주혈액원"}>
-                                        제주혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"중앙혈액검사센터"}>
-                                        중앙혈액검사센터
-                                      </MenuItem>
-                                      <MenuItem value={"혈액관리본부"}>
-                                        혈액관리본부
-                                      </MenuItem>
-                                      <MenuItem value={"혈장분획센터"}>
-                                        혈장분획센터
-                                      </MenuItem>
-                                      <MenuItem value={"중부혈액검사센터"}>
-                                        중부혈액검사센터
-                                      </MenuItem>
-                                      <MenuItem value={"남부혈액검사센터"}>
-                                        남부혈액검사센터
-                                      </MenuItem>
-                                    </Select>
-                                  </FormControl>
-                                </Box>
-                                &nbsp;&nbsp;
-                                <Stack component="form" noValidate spacing={3}>
-                                  <TextField
-                                    id="date"
-                                    label="헌혈일자"
-                                    type="date"
-                                    defaultValue="2022-01-01"
-                                    sx={{ width: "5%", minWidth: "155%" }}
-                                    InputLabelProps={{
-                                      shrink: true,
+                          </td>
+                        </tr>{" "}
+                        <tr>
+                          <td>
+                            <br></br>
+                            &nbsp;
+                            <span>
+                              {window.localStorage.getItem("nickName")} 님
+                            </span>
+                            <br></br>
+                            <br></br>
+                            <p id="bloodLicenceBloodType">
+                              <Box
+                              // sx={{ width: "5%", minWidth: "45%" }}
+                              >
+                                <FormControl fullWidth>
+                                  <InputLabel
+                                    sx={{
+                                      fontFamily: "GmarketSansMedium",
+                                      fontWeight: "bold",
                                     }}
+                                    id="demo-simple-select-helper-label"
+                                  >
+                                    혈액형
+                                  </InputLabel>
+                                  <Select
+                                    sx={{
+                                      fontFamily: "GmarketSansMedium",
+                                      fontWeight: "bold",
+                                    }}
+                                    labelId="demo-simple-select-helper-label"
+                                    id="demo-simple-select-helper"
+                                    value={bloodType2}
+                                    label="Type"
                                     onChange={(event) =>
-                                      setBloodDate(event.target.value)
+                                      setBloodType2(event.target.value)
                                     }
-                                  />
-                                </Stack>
-                              </p>
-                              <br></br>
-                              <p id="BoardLicenceText">
-                                사랑의 헌혈에 동참하여 생명 나눔을 몸소 실천하신
-                                귀하에게<br></br>
-                                깊은 존경과 감사의 마음을 담아 이 증서를
-                                드립니다.
-                              </p>
-                            </td>
-                          </tr>
-                        </table>
-                      </DialogContentText>
-                    </DialogContent>
-                    <DialogActions
-                      sx={{
-                        fontFamily: "GmarketSansMedium",
-                        fontSize: "x-large",
-                        fontWeight: "bold",
-                        display: "flex",
-                        textAlign: "center",
-                        justifyContent: "center",
-                        marginBottom: "3%",
+                                    // onChange={handleChange}
+                                  >
+                                    <MenuItem value="">혈액형</MenuItem>
+                                    <MenuItem value={"A"}>A+</MenuItem>
+                                    <MenuItem value={"B"}>B+</MenuItem>
+                                    <MenuItem value={"AB"}>AB+</MenuItem>
+                                    <MenuItem value={"O"}>O+</MenuItem>
+                                    <MenuItem value={"A-"}>A-</MenuItem>
+                                    <MenuItem value={"B-"}>B-</MenuItem>
+                                    <MenuItem value={"AB-"}>AB-</MenuItem>
+                                    <MenuItem value={"O-"}>O-</MenuItem>
+                                  </Select>
+                                </FormControl>
+                              </Box>
+                              &nbsp;&nbsp;
+                              <Box
+                              // sx={{ width: "5%", minWidth: "45%" }}
+                              >
+                                <FormControl fullWidth>
+                                  <InputLabel
+                                    sx={{
+                                      fontFamily: "GmarketSansMedium",
+                                      fontWeight: "bold",
+                                    }}
+                                    id="demo-simple-select-helper-label"
+                                  >
+                                    헌혈종류
+                                  </InputLabel>
+                                  <Select
+                                    sx={{
+                                      fontFamily: "GmarketSansMedium",
+                                      fontWeight: "bold",
+                                    }}
+                                    labelId="demo-simple-select-helper-label"
+                                    id="demo-simple-select-helper"
+                                    value={bloodKind2}
+                                    label="Kind"
+                                    onChange={(event) =>
+                                      setBloodKind2(event.target.value)
+                                    }
+                                    // onChange={handleChange2}
+                                  >
+                                    <MenuItem value="">혈액종류</MenuItem>
+                                    <MenuItem value={"전혈"}>전혈</MenuItem>
+                                    <MenuItem value={"성분채혈 혈소판"}>
+                                      성분채혈 혈소판
+                                    </MenuItem>
+                                    <MenuItem value={"혈장"}>혈장</MenuItem>
+                                    <MenuItem value={"농축적혈구"}>
+                                      농축적혈구
+                                    </MenuItem>
+                                    <MenuItem value={"성분채혈 백혈구"}>
+                                      성분채혈 백혈구
+                                    </MenuItem>
+                                    <MenuItem value={"백혈구여과제거적혈구"}>
+                                      백혈구여과제거적혈구
+                                    </MenuItem>
+                                  </Select>
+                                </FormControl>
+                              </Box>
+                            </p>
+                            <p id="bloodLicenceBloodType">
+                              <Box
+                              // sx={{ width: "5%", minWidth: "47%" }}
+                              >
+                                <FormControl fullWidth>
+                                  <InputLabel
+                                    sx={{
+                                      fontFamily: "GmarketSansMedium",
+                                      fontWeight: "bold",
+                                    }}
+                                    id="demo-simple-select-helper-label"
+                                  >
+                                    혈액원 명
+                                  </InputLabel>
+                                  <Select
+                                    sx={{
+                                      fontFamily: "GmarketSansMedium",
+                                      fontWeight: "bold",
+                                    }}
+                                    labelId="demo-simple-select-helper-label"
+                                    id="demo-simple-select-helper"
+                                    value={hospital2}
+                                    label="Bank"
+                                    onChange={(event) =>
+                                      setHospital2(event.target.value)
+                                    }
+                                    // onChange={handleChange3}
+                                  >
+                                    <MenuItem value="">혈액원 명</MenuItem>
+                                    <MenuItem value={"서울중앙혈액원"}>
+                                      서울중앙혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"서울남부혈액원"}>
+                                      서울남부혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"서울동부혈액원"}>
+                                      서울동부혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"부산혈액원"}>
+                                      부산혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"대구경북혈액원"}>
+                                      대구경북혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"인천혈액원"}>
+                                      인천혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"울산혈액원"}>
+                                      울산혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"경기혈액원"}>
+                                      경기혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"강원혈액원"}>
+                                      강원혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"충북혈액원"}>
+                                      충북혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"대전세종충남혈액원"}>
+                                      대전세종충남혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"전북혈액원"}>
+                                      전북혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"광주·전남혈액원"}>
+                                      광주·전남혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"경남혈액원"}>
+                                      경남혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"제주혈액원"}>
+                                      제주혈액원
+                                    </MenuItem>
+                                    <MenuItem value={"중앙혈액검사센터"}>
+                                      중앙혈액검사센터
+                                    </MenuItem>
+                                    <MenuItem value={"혈액관리본부"}>
+                                      혈액관리본부
+                                    </MenuItem>
+                                    <MenuItem value={"혈장분획센터"}>
+                                      혈장분획센터
+                                    </MenuItem>
+                                    <MenuItem value={"중부혈액검사센터"}>
+                                      중부혈액검사센터
+                                    </MenuItem>
+                                    <MenuItem value={"남부혈액검사센터"}>
+                                      남부혈액검사센터
+                                    </MenuItem>
+                                  </Select>
+                                </FormControl>
+                              </Box>
+                              &nbsp;&nbsp;
+                              <Stack component="form" noValidate spacing={3}>
+                                <TextField
+                                  id="date"
+                                  label="헌혈일자"
+                                  type="date"
+                                  defaultValue="2022-01-01"
+                                  // sx={{ width: "5%", minWidth: "155%" }}
+                                  InputLabelProps={{
+                                    shrink: true,
+                                  }}
+                                  onChange={(event) =>
+                                    setBloodDate(event.target.value)
+                                  }
+                                />
+                              </Stack>
+                            </p>
+                            <br></br>
+                            <p id="BoardLicenceText">
+                              사랑의 헌혈에 동참하여 생명 나눔을 몸소 실천하신
+                              귀하에게<br></br>
+                              깊은 존경과 감사의 마음을 담아 이 증서를 드립니다.
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions
+                    sx={{
+                      fontFamily: "GmarketSansMedium",
+                      fontSize: "x-large",
+                      fontWeight: "bold",
+                      display: "flex",
+                      textAlign: "center",
+                      justifyContent: "center",
+                      marginBottom: "3%",
+                    }}
+                  >
+                    <button
+                      id="loginBtn"
+                      style={{ padding: "1%" }}
+                      onClick={() => {
+                        certificate();
                       }}
                     >
-                      <button
-                        id="loginBtn"
-                        style={{ padding: "1%" }}
-                        onClick={() => {
-                          certificate();
-                        }}
-                      >
-                        등록
-                      </button>
-                      <button
-                        id="loginBtn"
-                        style={{ padding: "1%" }}
-                        onClick={handleClose}
-                      >
-                        취소
-                      </button>
-                    </DialogActions>
-                  </Dialog>
+                      등록
+                    </button>
+                    <button
+                      id="loginBtn"
+                      style={{ padding: "1%" }}
+                      onClick={handleClose}
+                    >
+                      취소
+                    </button>
+                  </DialogActions>
+                </Dialog>
                 {/* ########################## 수혈자시점 ##########################*/}
                 <Button1 id={bloodCheck} onClick={handleClickOpen5}>
                   <FactCheckIcon></FactCheckIcon>헌혈증서
                 </Button1>
                 <div>
-
                   <Dialog
                     open={open5}
                     TransitionComponent={Transition}
@@ -1039,9 +1045,11 @@ function BoardView() {
                         fontWeight: "bold",
                       }}
                     >
-                       {"헌혈증서확인"}<br/>
-                    {"("}{endData.length}{"개)"}
-
+                      {"헌혈증서확인"}
+                      <br />
+                      {"("}
+                      {endData.length}
+                      {"개)"}
                     </DialogTitle>
                     <DialogContent>
                       <DialogContentText
@@ -1053,188 +1061,186 @@ function BoardView() {
                         }}
                       >
                         {endData.map((it) => (
-                    <div key={it.certificatekey}> 
-                    <div>
+                          <div key={it.certificatekey}>
+                            <div>
+                              <table id="bloodLicenceTable">
+                                <tr>
+                                  <td id="bloodLicence">
+                                    헌혈증서 &nbsp;
+                                    <td id="bloodLicence2">
+                                      증서번호:&nbsp;
+                                      <input
+                                        id="bloodLicenceNum1"
+                                        value="**"
+                                        onChange={(event) =>
+                                          setBloodNum(event.target.value)
+                                        }
+                                      ></input>
+                                      &nbsp;-&nbsp;
+                                      <input
+                                        id="bloodLicenceNum2"
+                                        value="**"
+                                        onChange={(event) =>
+                                          setBloodNum2(event.target.value)
+                                        }
+                                      ></input>
+                                      &nbsp;-&nbsp;
+                                      <input
+                                        id="bloodLicenceNum3"
+                                        value="******"
+                                        onChange={(event) =>
+                                          setBloodNum3(event.target.value)
+                                        }
+                                      ></input>
+                                      &nbsp;-&nbsp;
+                                      <input
+                                        id="bloodLicenceNum4"
+                                        value="**"
+                                        onChange={(event) =>
+                                          setBloodNum4(event.target.value)
+                                        }
+                                      ></input>
+                                    </td>
+                                  </td>{" "}
+                                </tr>
 
-                        <table id="bloodLicenceTable">
-                          <tr>
-                            <td id="bloodLicence">
-                              헌혈증서 &nbsp;
-                              <td id="bloodLicence2">
-                                증서번호:&nbsp;
-                                <input
-                                  id="bloodLicenceNum1"
-                                  value="**"
-                                  onChange={(event) =>
-                                    setBloodNum(event.target.value)
-                                  }
-                                ></input>
-                                &nbsp;-&nbsp;
-                                <input
-                                  id="bloodLicenceNum2"
-                                  value="**"
-                                  onChange={(event) =>
-                                    setBloodNum2(event.target.value)
-                                  }
-                                ></input>
-                                &nbsp;-&nbsp;
-                                <input
-                                  id="bloodLicenceNum3"
-                                  value="******"
-                                  onChange={(event) =>
-                                    setBloodNum3(event.target.value)
-                                  }
-                                ></input>
-                                &nbsp;-&nbsp;
-                                <input
-                                  id="bloodLicenceNum4"
-                                  value="**"
-                                  onChange={(event) =>
-                                    setBloodNum4(event.target.value)
-                                  }
-                                ></input>
-                              </td>
-                            </td>{" "}
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <br></br>
-                              <button id="BoardArrow">
-                                {/* <ArrowBackIosNewIcon></ArrowBackIosNewIcon> */}
-                              </button>
-                              <span
-                                style={{
-                                  marginRight: "20%",
-                                  marginLeft: "20%",
-                                }}
-                              >
-                                {window.localStorage.getItem("nickName")} 님
-                              </span>
-                              <button id="BoardArrow">
-                                {/* <ArrowForwardIosIcon></ArrowForwardIosIcon> */}
-                              </button>
-                              <br></br>
-                              <br></br>
-                              <p id="bloodLicenceBloodType">
-                                <Box sx={{ width: "5%", minWidth: "45%" }}>
-                                  <FormControl fullWidth>
-                                    <InputLabel
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
+                                <tr>
+                                  <td>
+                                    <br></br>
+                                    <button id="BoardArrow">
+                                      {/* <ArrowBackIosNewIcon></ArrowBackIosNewIcon> */}
+                                    </button>
+                                    <span
+                                      style={{
+                                        marginRight: "20%",
+                                        marginLeft: "20%",
                                       }}
-                                      id="demo-simple-select-helper-label"
                                     >
-                                      
-                                    </InputLabel>
-                                    <TextField
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      labelId="demo-simple-select-helper-label"
-                                      id="demo-simple-select-helper"
-                                      value={it.bloodType}
-                                      label="혈액형"
-                                      // onChange={(event) => setBloodType2(event.target.value)}
-                                      // onChange={handleChange}
-                                    >
-                                      
-                                    </TextField>
-                                  </FormControl>
-                                </Box>
-                                &nbsp;&nbsp;
-                                <Box sx={{ width: "5%", minWidth: "45%" }}>
-                                  <FormControl fullWidth>
-                                    <InputLabel
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      id="demo-simple-select-helper-label"
-                                    >
-                                      
-                                    </InputLabel>
-                                    <TextField
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      labelId="demo-simple-select-helper-label"
-                                      id="demo-simple-select-helper"
-                                      value={it.bloodKind}
-                                      label="헌혈종류"
-                                      onChange={(event) =>
-                                        setBloodKind2(event.target.value)
-                                      }
-                                      // onChange={handleChange2}
-                                    >
-                                      
-                                    </TextField>
-                                  </FormControl>
-                                </Box>
-                              </p>
-                              <p id="bloodLicenceBloodType2">
-                                <Box sx={{ width: "5%", minWidth: "47%" }}>
-                                  <FormControl fullWidth>
-                                    <InputLabel
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      id="demo-simple-select-helper-label"
-                                    >
-                                      
-                                    </InputLabel>
-                                    <TextField
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      labelId="demo-simple-select-helper-label"
-                                      id="demo-simple-select-helper"
-                                      value={hospital2}
-                                      label="혈액원 명"
-                                      onChange={(event) =>
-                                        setHospital2(event.target.value)
-                                      }
-                                      // onChange={handleChange3}
-                                    >
-                                      
-                                    </TextField>
-                                  </FormControl>
-                                </Box>
-                                &nbsp;&nbsp;
-                                <Stack component="form" noValidate spacing={3}>
-                                  <TextField
-                                    id="date"
-                                    label="헌혈일자"
-                                    type="date"
-                                    value={it.bloodDate}
-                                    sx={{ width: "5%", minWidth: "155%" }}
-                                    InputLabelProps={{
-                                      shrink: true,
-                                    }}
-                                    onChange={(event) =>
-                                      setBloodDate(event.target.value)
-                                    }
-                                  />
-                                </Stack>
-                              </p>
-                              <br></br>
-                              <p id="BoardLicenceText">
-                                사랑의 헌혈에 동참하여 생명 나눔을 몸소 실천하신
-                                귀하에게<br></br>
-                                깊은 존경과 감사의 마음을 담아 이 증서를
-                                드립니다.
-                              </p>
-                            </td>
-                          </tr>
-                        </table>
-                        <br/>
-                        </div>
-                        </div>
+                                      {window.localStorage.getItem("nickName")}{" "}
+                                      님
+                                    </span>
+                                    <button id="BoardArrow">
+                                      {/* <ArrowForwardIosIcon></ArrowForwardIosIcon> */}
+                                    </button>
+                                    <br></br>
+                                    <br></br>
+                                    <p id="bloodLicenceBloodType">
+                                      <Box
+                                      // sx={{ width: "5%", minWidth: "45%" }}
+                                      >
+                                        <FormControl fullWidth>
+                                          <InputLabel
+                                            sx={{
+                                              fontFamily: "GmarketSansMedium",
+                                              fontWeight: "bold",
+                                            }}
+                                            id="demo-simple-select-helper-label"
+                                          ></InputLabel>
+                                          <TextField
+                                            sx={{
+                                              fontFamily: "GmarketSansMedium",
+                                              fontWeight: "bold",
+                                            }}
+                                            labelId="demo-simple-select-helper-label"
+                                            id="demo-simple-select-helper"
+                                            value={it.bloodType}
+                                            label="혈액형"
+                                            // onChange={(event) => setBloodType2(event.target.value)}
+                                            // onChange={handleChange}
+                                          ></TextField>
+                                        </FormControl>
+                                      </Box>
+                                      &nbsp;&nbsp;
+                                      <Box
+                                      // sx={{ width: "5%", minWidth: "45%" }}
+                                      >
+                                        <FormControl fullWidth>
+                                          <InputLabel
+                                            sx={{
+                                              fontFamily: "GmarketSansMedium",
+                                              fontWeight: "bold",
+                                            }}
+                                            id="demo-simple-select-helper-label"
+                                          ></InputLabel>
+                                          <TextField
+                                            sx={{
+                                              fontFamily: "GmarketSansMedium",
+                                              fontWeight: "bold",
+                                            }}
+                                            labelId="demo-simple-select-helper-label"
+                                            id="demo-simple-select-helper"
+                                            value={it.bloodKind}
+                                            label="헌혈종류"
+                                            onChange={(event) =>
+                                              setBloodKind2(event.target.value)
+                                            }
+                                            // onChange={handleChange2}
+                                          ></TextField>
+                                        </FormControl>
+                                      </Box>
+                                    </p>
+                                    <p id="bloodLicenceBloodType">
+                                      <Box
+                                      // sx={{ width: "5%", minWidth: "47%" }}
+                                      >
+                                        <FormControl fullWidth>
+                                          <InputLabel
+                                            sx={{
+                                              fontFamily: "GmarketSansMedium",
+                                              fontWeight: "bold",
+                                            }}
+                                            id="demo-simple-select-helper-label"
+                                          ></InputLabel>
+                                          <TextField
+                                            sx={{
+                                              fontFamily: "GmarketSansMedium",
+                                              fontWeight: "bold",
+                                            }}
+                                            labelId="demo-simple-select-helper-label"
+                                            id="demo-simple-select-helper"
+                                            value={hospital2}
+                                            label="혈액원 명"
+                                            onChange={(event) =>
+                                              setHospital2(event.target.value)
+                                            }
+                                            // onChange={handleChange3}
+                                          ></TextField>
+                                        </FormControl>
+                                      </Box>
+                                      &nbsp;&nbsp;
+                                      <Stack
+                                        component="form"
+                                        noValidate
+                                        spacing={3}
+                                      >
+                                        <TextField
+                                          id="date"
+                                          label="헌혈일자"
+                                          type="date"
+                                          value={it.bloodDate}
+                                          // sx={{ width: "5%", minWidth: "155%" }}
+                                          InputLabelProps={{
+                                            shrink: true,
+                                          }}
+                                          onChange={(event) =>
+                                            setBloodDate(event.target.value)
+                                          }
+                                        />
+                                      </Stack>
+                                    </p>
+                                    <br></br>
+                                    <p id="BoardLicenceText">
+                                      사랑의 헌혈에 동참하여 생명 나눔을 몸소
+                                      실천하신 귀하에게<br></br>
+                                      깊은 존경과 감사의 마음을 담아 이 증서를
+                                      드립니다.
+                                    </p>
+                                  </td>
+                                </tr>
+                              </table>
+                              <br />
+                            </div>
+                          </div>
                         ))}
                       </DialogContentText>
                     </DialogContent>
@@ -1350,12 +1356,21 @@ function BoardView() {
                         <table id="bloodLicenceTable3">
                           <tr>
                             <td id="bloodLicence">
-                              헌혈증서 &nbsp;
+                              <span
+                                style={{
+                                  fontSize: "large",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                헌혈증서
+                              </span>{" "}
+                              &nbsp;
                               <td id="bloodLicence2">
-                                증서번호:&nbsp;
+                                증서번호<br></br>
                                 <input
                                   id="bloodLicenceNum1"
                                   value="**"
+                                  style={{ width: "12%" }}
                                   onChange={(event) =>
                                     setBloodNum(event.target.value)
                                   }
@@ -1364,6 +1379,7 @@ function BoardView() {
                                 <input
                                   id="bloodLicenceNum2"
                                   value="**"
+                                  style={{ width: "12%" }}
                                   onChange={(event) =>
                                     setBloodNum2(event.target.value)
                                   }
@@ -1380,6 +1396,7 @@ function BoardView() {
                                 <input
                                   id="bloodLicenceNum4"
                                   value="**"
+                                  style={{ width: "12%" }}
                                   onChange={(event) =>
                                     setBloodNum4(event.target.value)
                                   }
@@ -1393,7 +1410,9 @@ function BoardView() {
                               {it.nickName} 님<br></br>
                               <br></br>
                               <p id="bloodLicenceBloodType">
-                                <Box sx={{ width: "5%", minWidth: "45%" }}>
+                                <Box
+                                // sx={{ width: "5%", minWidth: "45%" }}
+                                >
                                   <FormControl fullWidth>
                                     <InputLabel
                                       sx={{
@@ -1401,11 +1420,9 @@ function BoardView() {
                                         fontWeight: "bold",
                                       }}
                                       id="demo-simple-select-helper-label"
-                                    >
-                                      
-                                    </InputLabel>
+                                    ></InputLabel>
                                     <TextField
-                                    disabled
+                                      disabled
                                       sx={{
                                         fontFamily: "GmarketSansMedium",
                                         fontWeight: "bold",
@@ -1416,13 +1433,13 @@ function BoardView() {
                                       label="혈액형"
                                       // onChange={(event) => setBloodType2(event.target.value)}
                                       // onChange={handleChange}
-                                    >
-                           
-                                    </TextField>
+                                    ></TextField>
                                   </FormControl>
                                 </Box>
                                 &nbsp;&nbsp;
-                                <Box sx={{ width: "5%", minWidth: "45%" }}>
+                                <Box
+                                // sx={{ width: "5%", minWidth: "45%" }}
+                                >
                                   <FormControl fullWidth>
                                     <InputLabel
                                       sx={{
@@ -1430,11 +1447,9 @@ function BoardView() {
                                         fontWeight: "bold",
                                       }}
                                       id="demo-simple-select-helper-label"
-                                    >
-                                      
-                                    </InputLabel>
+                                    ></InputLabel>
                                     <TextField
-                                    disabled
+                                      disabled
                                       sx={{
                                         fontFamily: "GmarketSansMedium",
                                         fontWeight: "bold",
@@ -1447,43 +1462,41 @@ function BoardView() {
                                         setBloodKind2(event.target.value)
                                       }
                                       // onChange={handleChange2}
-                                    >
-                              
-                                    </TextField>
+                                    ></TextField>
                                   </FormControl>
                                 </Box>
                               </p>
                               <p id="bloodLicenceBloodType2">
-                                <Box sx={{ width: "5%", minWidth: "47%" }}>
-                                  <FormControl fullWidth>
-                                    <InputLabel
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      id="demo-simple-select-helper-label"
-                                    >
-                                      
-                                    </InputLabel>
-                                    <TextField
-                                    disabled
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      labelId="demo-simple-select-helper-label"
-                                      id="demo-simple-select-helper"
-                                      value={it.hospital}
-                                      label="혈액원 명"
-                                      onChange={(event) =>
-                                        setHospital2(event.target.value)
-                                      }
-                                      // onChange={handleChange3}
-                                    >
-                                     
-                                    </TextField>
-                                  </FormControl>
-                                </Box>
+                                <span id="nonQueryType">
+                                  <Box
+                                  // sx={{ width: "5%", minWidth: "106%" }}
+                                  >
+                                    <FormControl fullWidth>
+                                      <InputLabel
+                                        sx={{
+                                          fontFamily: "GmarketSansMedium",
+                                          fontWeight: "bold",
+                                        }}
+                                        id="demo-simple-select-helper-label"
+                                      ></InputLabel>
+                                      <TextField
+                                        disabled
+                                        sx={{
+                                          fontFamily: "GmarketSansMedium",
+                                          fontWeight: "bold",
+                                        }}
+                                        labelId="demo-simple-select-helper-label"
+                                        id="demo-simple-select-helper"
+                                        value={it.hospital}
+                                        label="혈액원 명"
+                                        onChange={(event) =>
+                                          setHospital2(event.target.value)
+                                        }
+                                        // onChange={handleChange3}
+                                      ></TextField>
+                                    </FormControl>
+                                  </Box>
+                                </span>
                                 &nbsp;&nbsp;
                                 <Stack component="form" noValidate spacing={3}>
                                   <TextField
@@ -1492,7 +1505,7 @@ function BoardView() {
                                     type="date"
                                     defaultValue="2022-01-01"
                                     value={it.bloodDate}
-                                    sx={{ width: "5%", minWidth: "104%" }}
+                                    // sx={{ marginLeft: "10%", width: "150%" }}
                                     InputLabelProps={{
                                       shrink: true,
                                     }}
@@ -1503,7 +1516,173 @@ function BoardView() {
                                 </Stack>
                               </p>
                               <br></br>
-                              
+                            </td>
+                          </tr>
+                        </table>
+
+                        <table id="QbloodLicenceTable3">
+                          <tr>
+                            <td id="bloodLicence">
+                              <span
+                                style={{
+                                  fontSize: "large",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                헌혈증서
+                              </span>{" "}
+                              &nbsp;
+                              <td id="bloodLicence2">
+                                증서번호<br></br>
+                                <input
+                                  id="bloodLicenceNum1"
+                                  value="**"
+                                  style={{ width: "12%" }}
+                                  onChange={(event) =>
+                                    setBloodNum(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum2"
+                                  value="**"
+                                  style={{ width: "12%" }}
+                                  onChange={(event) =>
+                                    setBloodNum2(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum3"
+                                  value="******"
+                                  onChange={(event) =>
+                                    setBloodNum3(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum4"
+                                  value="**"
+                                  style={{ width: "12%" }}
+                                  onChange={(event) =>
+                                    setBloodNum4(event.target.value)
+                                  }
+                                ></input>
+                              </td>
+                            </td>{" "}
+                          </tr>
+                          <br />
+                          <tr>
+                            <td>
+                              {it.nickName} 님<br></br>
+                              <br></br>
+                              <p id="bloodLicenceBloodType">
+                                <Box
+                                // sx={{ width: "5%", minWidth: "45%" }}
+                                >
+                                  <FormControl fullWidth>
+                                    <InputLabel
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      id="demo-simple-select-helper-label"
+                                    ></InputLabel>
+                                    <TextField
+                                      disabled
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      labelId="demo-simple-select-helper-label"
+                                      id="demo-simple-select-helper"
+                                      value={it.bloodType}
+                                      label="혈액형"
+                                      // onChange={(event) => setBloodType2(event.target.value)}
+                                      // onChange={handleChange}
+                                    ></TextField>
+                                  </FormControl>
+                                </Box>
+                                &nbsp;&nbsp;
+                                <Box
+                                // sx={{ width: "5%", minWidth: "45%" }}
+                                >
+                                  <FormControl fullWidth>
+                                    <InputLabel
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      id="demo-simple-select-helper-label"
+                                    ></InputLabel>
+                                    <TextField
+                                      disabled
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      labelId="demo-simple-select-helper-label"
+                                      id="demo-simple-select-helper"
+                                      value={it.bloodKind}
+                                      label="헌혈종류"
+                                      onChange={(event) =>
+                                        setBloodKind2(event.target.value)
+                                      }
+                                      // onChange={handleChange2}
+                                    ></TextField>
+                                  </FormControl>
+                                </Box>
+                              </p>
+                              <p id="bloodLicenceBloodType2">
+                                <span id="nonQueryType">
+                                  <Box
+                                  // sx={{ width: "5%", minWidth: "310%" }}
+                                  >
+                                    <FormControl fullWidth>
+                                      <InputLabel
+                                        sx={{
+                                          fontFamily: "GmarketSansMedium",
+                                          fontWeight: "bold",
+                                        }}
+                                        id="demo-simple-select-helper-label"
+                                      ></InputLabel>
+                                      <TextField
+                                        disabled
+                                        sx={{
+                                          fontFamily: "GmarketSansMedium",
+                                          fontWeight: "bold",
+                                        }}
+                                        labelId="demo-simple-select-helper-label"
+                                        id="demo-simple-select-helper"
+                                        value={it.hospital}
+                                        label="혈액원 명"
+                                        onChange={(event) =>
+                                          setHospital2(event.target.value)
+                                        }
+                                        // onChange={handleChange3}
+                                      ></TextField>
+                                    </FormControl>
+                                  </Box>
+                                </span>
+                                &nbsp;&nbsp;
+                                <Stack component="form" noValidate spacing={3}>
+                                  <TextField
+                                    id="date"
+                                    label="헌혈일자"
+                                    type="date"
+                                    defaultValue="2022-01-01"
+                                    value={it.bloodDate}
+                                    // sx={{ marginLeft: "34%", width: "58%" }}
+                                    InputLabelProps={{
+                                      shrink: true,
+                                    }}
+                                    onChange={(event) =>
+                                      setBloodDate(event.target.value)
+                                    }
+                                  />
+                                </Stack>
+                              </p>
+                              <br></br>
                             </td>
                           </tr>
                         </table>
@@ -1524,12 +1703,21 @@ function BoardView() {
                         <table id="bloodLicenceTable3">
                           <tr>
                             <td id="bloodLicence">
-                              헌혈증서 &nbsp;
+                              <span
+                                style={{
+                                  fontSize: "large",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                헌혈증서
+                              </span>{" "}
+                              &nbsp;
                               <td id="bloodLicence2">
-                                증서번호:&nbsp;
+                                증서번호<br></br>
                                 <input
                                   id="bloodLicenceNum1"
                                   value="**"
+                                  style={{ width: "12%" }}
                                   onChange={(event) =>
                                     setBloodNum(event.target.value)
                                   }
@@ -1538,6 +1726,7 @@ function BoardView() {
                                 <input
                                   id="bloodLicenceNum2"
                                   value="**"
+                                  style={{ width: "12%" }}
                                   onChange={(event) =>
                                     setBloodNum2(event.target.value)
                                   }
@@ -1554,6 +1743,7 @@ function BoardView() {
                                 <input
                                   id="bloodLicenceNum4"
                                   value="**"
+                                  style={{ width: "12%" }}
                                   onChange={(event) =>
                                     setBloodNum4(event.target.value)
                                   }
@@ -1567,7 +1757,9 @@ function BoardView() {
                               {it.nickName} 님<br></br>
                               <br></br>
                               <p id="bloodLicenceBloodType">
-                                <Box sx={{ width: "5%", minWidth: "45%" }}>
+                                <Box
+                                // sx={{ width: "5%", minWidth: "45%" }}
+                                >
                                   <FormControl fullWidth>
                                     <InputLabel
                                       sx={{
@@ -1575,11 +1767,9 @@ function BoardView() {
                                         fontWeight: "bold",
                                       }}
                                       id="demo-simple-select-helper-label"
-                                    >
-                                      
-                                    </InputLabel>
+                                    ></InputLabel>
                                     <TextField
-                                    disabled
+                                      disabled
                                       sx={{
                                         fontFamily: "GmarketSansMedium",
                                         fontWeight: "bold",
@@ -1590,13 +1780,13 @@ function BoardView() {
                                       label="혈액형"
                                       // onChange={(event) => setBloodType2(event.target.value)}
                                       // onChange={handleChange}
-                                    >
-                           
-                                    </TextField>
+                                    ></TextField>
                                   </FormControl>
                                 </Box>
                                 &nbsp;&nbsp;
-                                <Box sx={{ width: "5%", minWidth: "45%" }}>
+                                <Box
+                                // sx={{ width: "5%", minWidth: "45%" }}
+                                >
                                   <FormControl fullWidth>
                                     <InputLabel
                                       sx={{
@@ -1604,11 +1794,9 @@ function BoardView() {
                                         fontWeight: "bold",
                                       }}
                                       id="demo-simple-select-helper-label"
-                                    >
-                                      
-                                    </InputLabel>
+                                    ></InputLabel>
                                     <TextField
-                                    disabled
+                                      disabled
                                       sx={{
                                         fontFamily: "GmarketSansMedium",
                                         fontWeight: "bold",
@@ -1621,43 +1809,41 @@ function BoardView() {
                                         setBloodKind2(event.target.value)
                                       }
                                       // onChange={handleChange2}
-                                    >
-                              
-                                    </TextField>
+                                    ></TextField>
                                   </FormControl>
                                 </Box>
                               </p>
                               <p id="bloodLicenceBloodType2">
-                                <Box sx={{ width: "5%", minWidth: "47%" }}>
-                                  <FormControl fullWidth>
-                                    <InputLabel
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      id="demo-simple-select-helper-label"
-                                    >
-                                      
-                                    </InputLabel>
-                                    <TextField
-                                    disabled
-                                      sx={{
-                                        fontFamily: "GmarketSansMedium",
-                                        fontWeight: "bold",
-                                      }}
-                                      labelId="demo-simple-select-helper-label"
-                                      id="demo-simple-select-helper"
-                                      value={it.hospital}
-                                      label="혈액원 명"
-                                      onChange={(event) =>
-                                        setHospital2(event.target.value)
-                                      }
-                                      // onChange={handleChange3}
-                                    >
-                                     
-                                    </TextField>
-                                  </FormControl>
-                                </Box>
+                                <span id="nonQueryType">
+                                  <Box
+                                  // sx={{ width: "5%", minWidth: "106%" }}
+                                  >
+                                    <FormControl fullWidth>
+                                      <InputLabel
+                                        sx={{
+                                          fontFamily: "GmarketSansMedium",
+                                          fontWeight: "bold",
+                                        }}
+                                        id="demo-simple-select-helper-label"
+                                      ></InputLabel>
+                                      <TextField
+                                        disabled
+                                        sx={{
+                                          fontFamily: "GmarketSansMedium",
+                                          fontWeight: "bold",
+                                        }}
+                                        labelId="demo-simple-select-helper-label"
+                                        id="demo-simple-select-helper"
+                                        value={it.hospital}
+                                        label="혈액원 명"
+                                        onChange={(event) =>
+                                          setHospital2(event.target.value)
+                                        }
+                                        // onChange={handleChange3}
+                                      ></TextField>
+                                    </FormControl>
+                                  </Box>
+                                </span>
                                 &nbsp;&nbsp;
                                 <Stack component="form" noValidate spacing={3}>
                                   <TextField
@@ -1666,7 +1852,7 @@ function BoardView() {
                                     type="date"
                                     defaultValue="2022-01-01"
                                     value={it.bloodDate}
-                                    sx={{ width: "5%", minWidth: "104%" }}
+                                    // sx={{ marginLeft: "10%", width: "150%" }}
                                     InputLabelProps={{
                                       shrink: true,
                                     }}
@@ -1677,7 +1863,173 @@ function BoardView() {
                                 </Stack>
                               </p>
                               <br></br>
-                              
+                            </td>
+                          </tr>
+                        </table>
+
+                        <table id="QbloodLicenceTable3">
+                          <tr>
+                            <td id="bloodLicence">
+                              <span
+                                style={{
+                                  fontSize: "large",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                헌혈증서
+                              </span>{" "}
+                              &nbsp;
+                              <td id="bloodLicence2">
+                                증서번호<br></br>
+                                <input
+                                  id="bloodLicenceNum1"
+                                  value="**"
+                                  style={{ width: "12%" }}
+                                  onChange={(event) =>
+                                    setBloodNum(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum2"
+                                  value="**"
+                                  style={{ width: "12%" }}
+                                  onChange={(event) =>
+                                    setBloodNum2(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum3"
+                                  value="******"
+                                  onChange={(event) =>
+                                    setBloodNum3(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum4"
+                                  value="**"
+                                  style={{ width: "12%" }}
+                                  onChange={(event) =>
+                                    setBloodNum4(event.target.value)
+                                  }
+                                ></input>
+                              </td>
+                            </td>{" "}
+                          </tr>
+                          <br />
+                          <tr>
+                            <td>
+                              {it.nickName} 님<br></br>
+                              <br></br>
+                              <p id="bloodLicenceBloodType">
+                                <Box
+                                // sx={{ width: "5%", minWidth: "45%" }}
+                                >
+                                  <FormControl fullWidth>
+                                    <InputLabel
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      id="demo-simple-select-helper-label"
+                                    ></InputLabel>
+                                    <TextField
+                                      disabled
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      labelId="demo-simple-select-helper-label"
+                                      id="demo-simple-select-helper"
+                                      value={it.bloodType}
+                                      label="혈액형"
+                                      // onChange={(event) => setBloodType2(event.target.value)}
+                                      // onChange={handleChange}
+                                    ></TextField>
+                                  </FormControl>
+                                </Box>
+                                &nbsp;&nbsp;
+                                <Box
+                                // sx={{ width: "5%", minWidth: "45%" }}
+                                >
+                                  <FormControl fullWidth>
+                                    <InputLabel
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      id="demo-simple-select-helper-label"
+                                    ></InputLabel>
+                                    <TextField
+                                      disabled
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      labelId="demo-simple-select-helper-label"
+                                      id="demo-simple-select-helper"
+                                      value={it.bloodKind}
+                                      label="헌혈종류"
+                                      onChange={(event) =>
+                                        setBloodKind2(event.target.value)
+                                      }
+                                      // onChange={handleChange2}
+                                    ></TextField>
+                                  </FormControl>
+                                </Box>
+                              </p>
+                              <p id="bloodLicenceBloodType2">
+                                <span id="nonQueryType">
+                                  <Box
+                                  // sx={{ width: "5%", minWidth: "310%" }}
+                                  >
+                                    <FormControl fullWidth>
+                                      <InputLabel
+                                        sx={{
+                                          fontFamily: "GmarketSansMedium",
+                                          fontWeight: "bold",
+                                        }}
+                                        id="demo-simple-select-helper-label"
+                                      ></InputLabel>
+                                      <TextField
+                                        disabled
+                                        sx={{
+                                          fontFamily: "GmarketSansMedium",
+                                          fontWeight: "bold",
+                                        }}
+                                        labelId="demo-simple-select-helper-label"
+                                        id="demo-simple-select-helper"
+                                        value={it.hospital}
+                                        label="혈액원 명"
+                                        onChange={(event) =>
+                                          setHospital2(event.target.value)
+                                        }
+                                        // onChange={handleChange3}
+                                      ></TextField>
+                                    </FormControl>
+                                  </Box>
+                                </span>
+                                &nbsp;&nbsp;
+                                <Stack component="form" noValidate spacing={3}>
+                                  <TextField
+                                    id="date"
+                                    label="헌혈일자"
+                                    type="date"
+                                    defaultValue="2022-01-01"
+                                    value={it.bloodDate}
+                                    // sx={{ marginLeft: "34%", width: "58%" }}
+                                    InputLabelProps={{
+                                      shrink: true,
+                                    }}
+                                    onChange={(event) =>
+                                      setBloodDate(event.target.value)
+                                    }
+                                  />
+                                </Stack>
+                              </p>
+                              <br></br>
                             </td>
                           </tr>
                         </table>
@@ -1701,9 +2053,10 @@ function BoardView() {
                 <PhotoIcon></PhotoIcon>사진
               </button>
             </div>
-            <div id="replyRight">
+            <div id="replyRight" style={{ whiteSpace: "pre-wrap" }}>
               <textarea
                 id="replyBoard"
+                style={{ whiteSpace: "pre-wrap" }}
                 onChange={(event) => setReplyContent(event.target.value)}
               ></textarea>
             </div>
