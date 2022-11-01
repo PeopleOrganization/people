@@ -2,6 +2,39 @@
 import title from "../imgs/title_icon.png";
 import React, { useEffect } from "react";
 import { useState } from "react";
+import styled from "styled-components";
+import { IoIosMenu } from "react-icons/io";
+
+const Common = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    @media screen and (max-width: 500px) {
+        flex-direction: column;
+    }
+`;
+const Home = styled.a`
+    display: flex;
+    align-items:center;
+    font-size: 30px;
+    margin 10px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    @media screen and (max-width: 500px) {
+    display: none;
+    }
+`;
+const ContlorBox = styled.div`
+    display: flex;
+    align-items:center;
+    @media screen and (max-width: 500px) {
+        
+        flex-direction: column;
+        align-items:flex-end;
+        display: none;
+    }
+`;
 
 function Menu() {
   const [login,setLogin] = useState("login1");
@@ -184,7 +217,7 @@ function Menu() {
           </li>
         </div>
       </div>
-
+<Common>
       <div id="right">
         <a id={login} href="Login">
           Login
@@ -199,6 +232,7 @@ function Menu() {
           MyPage
         </a>
       </div>
+      </Common>
     </div>
   );
 }
