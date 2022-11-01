@@ -19,9 +19,10 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
+import styled from "styled-components";
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -29,6 +30,27 @@ const scrollToTop = () => {
     behavior: "smooth",
   });
 };
+
+const Button1 = styled.button`
+&:hover{
+  background: rgb(28, 61, 101);
+    color: #fff;
+    font-weight: bold;
+}
+
+background: rgb(63, 120, 190);
+color: #fff;
+font-weight: bold;
+`;
+
+const oneCheckBox = (checkThis) =>{
+  const box = document.getElementsByName("box");
+  for(let i=0; i<box.length; i++){
+    if(box[i]!==checkThis){
+      box[i].checked = false;
+    }
+  }
+}
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -121,7 +143,6 @@ function BoardView() {
   const [postHour, setPostHour] = useState("");
   const [postMinute, setPostMinute] = useState("");
 
-
   //이 아래는 헌혈 등록자가 입력하는 정보
   const [bloodNum, setBloodNum] = useState("");
   const [bloodNum2, setBloodNum2] = useState("");
@@ -130,16 +151,36 @@ function BoardView() {
   const [bloodType2, setBloodType2] = useState("");
   const [bloodKind2, setBloodKind2] = useState("");
   const [hospital2, setHospital2] = useState("");
-  const [bloodDate, setBloodDate] = useState("");
+  const [bloodDate, setBloodDate] = useState("2022-01-01");
 
   //현재 날짜
   const dateTotal = new Date();
   const nowYear = dateTotal.getFullYear();
-  const nowMonth = dateTotal.getMonth()+1;
+  const nowMonth = dateTotal.getMonth() + 1;
   const nowDay = dateTotal.getDate();
 
+  const [bloodCheck, setBloodCheck] = useState("boardDelete"); //헌혈증서 확인용(작성자 시점)
+  const [bloodCheck2, setBloodCheck2] = useState("boardDelete2");//헌혈증서 작성용(헌혈자 시점)
+
+  const [endData, setEndData] = useState([]); //헌혈 목록 저장
 
   let [scrapCheck2, setScrapCheck2] = useState("");
+
+  useEffect(() => {
+    axios
+    .post("http://localhost:3001/certificateShow", null, {
+      params: {
+        postkey : postkey2
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      setEndData(res.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }, []);
 
   useEffect(() => {
     axios
@@ -160,8 +201,7 @@ function BoardView() {
         setPostMonth(res.data[0]["month"]);
         setPostDay(res.data[0]["day"]);
         setPostHour(res.data[0]["hour"]);
-        setPostMinute(res.data[0]["minute"])
-
+        setPostMinute(res.data[0]["minute"]);
       });
   }, []);
 
@@ -215,24 +255,26 @@ function BoardView() {
     setOpen5(false);
   };
 
-   //삭제버튼이 보일지 안 보일지 결정
-   useEffect(() => {
+  //삭제버튼이 보일지 안 보일지 결정
+  useEffect(() => {
     axios
       .post("http://localhost:3001/deleteNick", null, {
         params: {
-          postkey: postkey2
+          postkey: postkey2,
         },
       })
       .then((res) => {
         window.localStorage.setItem("postkey", postkey2);
-        
+
         // eslint-disable-next-line array-callback-return
         console.log("이메일확인하러옴");
         console.log(res.data[0]["email"]);
         setEmail3(res.data[0]["email"]);
         console.log(window.localStorage.getItem("email"));
-        if(res.data[0]["email"] === window.localStorage.getItem("email")) {
-          setDeleteShow("boardDelete2")
+        if (res.data[0]["email"] === window.localStorage.getItem("email")) {
+          setDeleteShow("boardDelete2");
+          setBloodCheck("boardDelete2");
+          setBloodCheck2("boardDelete");
         }
       });
   }, []);
@@ -258,13 +300,13 @@ function BoardView() {
     axios
       .post("http://localhost:3001/postView", null, {
         params: {
-          postkey: postkey2
+          postkey: postkey2,
         },
       })
       .then((res) => {
         setContent(res.data[0]["content"]);
       });
-  }, );
+  });
 
   const modify2 = () => {
     document.location.href = "/BoardModify";
@@ -279,6 +321,7 @@ function BoardView() {
           email: window.localStorage.getItem("email"),
           nickName: window.localStorage.getItem("nickName"),
           replyContent: replyContent,
+          replyType: "true"
         },
       })
       .then((res) => {
@@ -289,164 +332,166 @@ function BoardView() {
         console.log(error);
       });
   };
-  
-//헌혈증서 등록
-const certificate = () => {
-  if (validation()) {
+
+  //헌혈증서 등록
+  const certificate = () => {
+    if (validation()) {
+      axios
+        .post("http://localhost:3001/certificate", null, {
+          params: {
+            postkey: postkey2,
+            bloodNum: bloodNum,
+            bloodNum2: bloodNum2,
+            bloodNum3: bloodNum3,
+            bloodNum4: bloodNum4,
+            email: window.localStorage.getItem("email"),
+            nickName: window.localStorage.getItem("nickName"),
+            bloodType: bloodType2,
+            bloodKind: bloodKind2,
+            hospital: hospital2,
+            bloodDate: bloodDate,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data === 0) {
+            // 0을 받으면 헌혈증서 등록에 성공했다는 댓글 생성
+            axios
+              .post("http://localhost:3001/reply2", null, {
+                params: {
+                  postkey: postkey2,
+                  email: window.localStorage.getItem("email"),
+                  nickName: window.localStorage.getItem("nickName"),
+                  replyContent: "<지정 헌혈을 완료했어요!>",
+                  bloodType: bloodType2,
+                  bloodKind: bloodKind2,
+                  hospital: hospital2,
+                  bloodDate: bloodDate,
+                },
+              })
+              .then((res) => {
+                console.log("1증가");
+                axios.post("http://localhost:3001/responsePlus", null, {
+                  params: {
+                    postkey: postkey2,
+                  },
+                });
+              })
+              .then((res) => {
+                console.log("등록완료 후 새로고침");
+                alert("헌혈 증서가 등록 되었습니다.");
+                window.location.reload();
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          } else {
+            // 0이외의 값이면 이미 스크랩 했다는 것
+            alert("헌혈 증서 등록에 실패하였습니다.").catch(function (error) {
+              console.log(error);
+            });
+          }
+        });
+    }
+  };
+
+  //헌혈증서 유효성 검사
+  const validation = () => {
+    if (!/^\d{2}$/.test(bloodNum)) {
+      alert("헌혈 증서번호를 정확히 입력해주세요");
+      return false;
+    }
+    if (!/^\d{2}$/.test(bloodNum2)) {
+      alert("헌혈 증서번호를 정확히 입력해주세요");
+      return false;
+    }
+    if (!/^\d{6}$/.test(bloodNum3)) {
+      alert("헌혈 증서번호를 정확히 입력해주세요");
+      return false;
+    }
+    if (!/^\d{2}$/.test(bloodNum4)) {
+      alert("헌혈 증서번호를 정확히 입력해주세요");
+      return false;
+    }
+
+    handleClose();
+    return true;
+  };
+
+  //스크랩 했는지, 안 했는지
+  const scrapCheck = () => {
     axios
-      .post("http://localhost:3001/certificate", null, {
+      .post("http://localhost:3001/scrapCheck", null, {
         params: {
-          bloodNum: bloodNum,
-          bloodNum2: bloodNum2,
-          bloodNum3: bloodNum3,
-          bloodNum4: bloodNum4,
+          postkey: postkey2,
           email: window.localStorage.getItem("email"),
-          bloodType: bloodType2,
-          bloodKind: bloodKind2,
-          hospital: hospital2,
-          bloodDate: bloodDate,
+          nickName: window.localStorage.getItem("nickName"),
         },
       })
       .then((res) => {
         console.log(res.data);
+        console.log("순서 1");
         if (res.data === 0) {
-          // 0을 받으면 헌혈증서 등록에 성공했다는 댓글 생성
+          // 0을 받으면 아직 스크랩을 안 했다는 것
+          console.log("아직 스크랩 안 했음!! 0");
           axios
-            .post("http://localhost:3001/reply", null, {
+            .post("http://localhost:3001/scrap", null, {
               params: {
                 postkey: postkey2,
                 email: window.localStorage.getItem("email"),
                 nickName: window.localStorage.getItem("nickName"),
-                replyContent: "<지정 헌혈을 완료했어요!>",
               },
             })
             .then((res) => {
-              console.log("1증가");
-              axios.post("http://localhost:3001/responsePlus", null, {
-                params: {
-                  postkey: postkey2,
-                },
-              });
-            })
-            .then((res) => {
-              console.log("등록완료 후 새로고침");
-              alert("헌혈 증서가 등록 되었습니다.");
-              window.location.reload();
+              // console("값0: "+scrapCheck2)
+              console.log(res.data);
+              alert("스크랩 되었습니다.");
             })
             .catch(function (error) {
               console.log(error);
             });
         } else {
           // 0이외의 값이면 이미 스크랩 했다는 것
-          alert("헌혈 증서 등록에 실패하였습니다.").catch(function (error) {
-            console.log(error);
-          });
+          console.log("이미 스크랩 했음!! 1");
+          axios
+            .post("http://localhost:3001/scrapDelete", null, {
+              params: {
+                postkey: postkey2,
+                email: window.localStorage.getItem("email"),
+                nickName: window.localStorage.getItem("nickName"),
+              },
+            })
+            .then((res) => {
+              // console.log(res.data)
+              // console("값1: "+scrapCheck2)
+              alert("스크랩을 취소하였습니다.");
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         }
       });
-  }
-};
-
-//헌혈증서 유효성 검사
-const validation = () => {
-  if (!/^\d{2}$/.test(bloodNum)) {
-    alert("헌혈 증서번호를 정확히 입력해주세요");
-    return false;
-  }
-  if (!/^\d{2}$/.test(bloodNum2)) {
-    alert("헌혈 증서번호를 정확히 입력해주세요");
-    return false;
-  }
-  if (!/^\d{6}$/.test(bloodNum3)) {
-    alert("헌혈 증서번호를 정확히 입력해주세요");
-    return false;
-  }
-  if (!/^\d{2}$/.test(bloodNum4)) {
-    alert("헌혈 증서번호를 정확히 입력해주세요");
-    return false;
-  }
-
-  handleClose();
-  return true;
-};
-
-  //스크랩 했는지, 안 했는지
-  const scrapCheck = () => {
-    axios.post('http://localhost:3001/scrapCheck', null, {
-      params: { 
-        postkey: postkey2,
-        email: window.localStorage.getItem("email"),
-        nickName: window.localStorage.getItem("nickName")
-      }
-    })
-      .then(res => {
-        console.log(res.data)
-        console.log("순서 1");
-        if(res.data === 0) { // 0을 받으면 아직 스크랩을 안 했다는 것
-          console.log("아직 스크랩 안 했음!! 0")
-          axios.post('http://localhost:3001/scrap', null, {
-        params: { 
-          postkey: postkey2,
-          email: window.localStorage.getItem("email"),
-          nickName: window.localStorage.getItem("nickName")
-        }
-      })
-        .then(res => {  
-          // console("값0: "+scrapCheck2)
-          console.log(res.data)
-          alert("스크랩 되었습니다.")
-        })
-        .catch(function(error){
-         console.log(error);
-      })
-        }else { // 0이외의 값이면 이미 스크랩 했다는 것
-          console.log("이미 스크랩 했음!! 1")
-          axios.post('http://localhost:3001/scrapDelete', null, {
-        params: { 
-          postkey: postkey2,
-          email: window.localStorage.getItem("email"),
-          nickName: window.localStorage.getItem("nickName")
-        }
-      })
-        .then(res => {  
-          // console.log(res.data)
-          // console("값1: "+scrapCheck2)
-          alert("스크랩을 취소하였습니다.")
-        })
-        .catch(function(error){
-         console.log(error);
-      })
-        }
-
-      })
- 
-
-
-   
-  }
-
-
-
-
+  };
 
   //게시글 삭제
   const delete2 = () => {
     console.log("글 삭제 하러 옴");
 
-
-    axios.post('http://localhost:3001/delete', null, {
-      params: { 
-        postkey: postkey2
-      }
-    })
-      .then(res => {  
-        console.log(res.data)
-        alert("게시글이 삭제되었습니다.")
-        document.location.href = '/Board'
+    axios
+      .post("http://localhost:3001/delete", null, {
+        params: {
+          postkey: postkey2,
+        },
       })
-      .catch(function(error){
-       console.log(error);
-    })
-  }
+      .then((res) => {
+        console.log(res.data);
+        alert("게시글이 삭제되었습니다.");
+        document.location.href = "/Board";
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const [Type, setType] = React.useState("");
   const [Kind, setKind] = React.useState("");
@@ -467,7 +512,7 @@ const validation = () => {
   return (
     <div id="bigContainer">
       <div id="sideLeft">
-      <ul className="sidebarList2">
+        <ul className="sidebarList2">
           <a className="href" href="Board">
             {" "}
             <li className="sidebarListItem2 active">전체게시판</li>
@@ -655,10 +700,9 @@ const validation = () => {
                 </Dialog>
                 &nbsp;
                 {/*########################## 헌혈자 시점 ##########################*/}
-                <button id="boardBtn3" onClick={handleClickOpen}>
+                <Button1 id={bloodCheck2} onClick={handleClickOpen}>
                   <FactCheckIcon></FactCheckIcon>헌혈증서
-                </button>
-                <div>
+                </Button1>
                   <Dialog
                     open={open}
                     TransitionComponent={Transition}
@@ -697,26 +741,49 @@ const validation = () => {
                         </p>
                         <hr></hr>
                         <br></br>
-                        <span id="bloodLicence">
-                          헌혈증서 &nbsp;
-                          <span id="bloodLicence2">
-                            증서번호:&nbsp;
-                            <input id="bloodLicenceNum1" onChange={(event) => setBloodNum(event.target.value)}></input>
-                            &nbsp;-&nbsp;
-                            <input id="bloodLicenceNum2" onChange={(event) => setBloodNum2(event.target.value)}></input>
-                            &nbsp;-&nbsp;
-                            <input id="bloodLicenceNum3" onChange={(event) => setBloodNum3(event.target.value)}></input>
-                            &nbsp;-&nbsp;
-                            <input id="bloodLicenceNum4" onChange={(event) => setBloodNum4(event.target.value)}></input>
-
-                          </span>{" "}
-                        </span>
-                        <br />
                         <table id="bloodLicenceTable">
+                          <tr>
+                            <td id="bloodLicence">
+                              헌혈증서 &nbsp;
+                              <td id="bloodLicence2">
+                                증서번호:&nbsp;
+                                <input
+                                  id="bloodLicenceNum1"
+                                  onChange={(event) =>
+                                    setBloodNum(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum2"
+                                  onChange={(event) =>
+                                    setBloodNum2(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum3"
+                                  onChange={(event) =>
+                                    setBloodNum3(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum4"
+                                  onChange={(event) =>
+                                    setBloodNum4(event.target.value)
+                                  }
+                                ></input>
+                              </td>
+                            </td>
+                          </tr>{" "}
                           <tr>
                             <td>
                               <br></br>
-                              &nbsp;<span>{window.localStorage.getItem("nickName")} 님</span>
+                              &nbsp;
+                              <span>
+                                {window.localStorage.getItem("nickName")} 님
+                              </span>
                               <br></br>
                               <br></br>
                               <p id="bloodLicenceBloodType">
@@ -740,12 +807,12 @@ const validation = () => {
                                       id="demo-simple-select-helper"
                                       value={bloodType2}
                                       label="Type"
-                                      onChange={(event) => setBloodType2(event.target.value)}
+                                      onChange={(event) =>
+                                        setBloodType2(event.target.value)
+                                      }
                                       // onChange={handleChange}
                                     >
-                                      <MenuItem value="">
-                                        혈액형
-                                      </MenuItem>
+                                      <MenuItem value="">혈액형</MenuItem>
                                       <MenuItem value={"A"}>A+</MenuItem>
                                       <MenuItem value={"B"}>B+</MenuItem>
                                       <MenuItem value={"AB"}>AB+</MenuItem>
@@ -754,7 +821,6 @@ const validation = () => {
                                       <MenuItem value={"B-"}>B-</MenuItem>
                                       <MenuItem value={"AB-"}>AB-</MenuItem>
                                       <MenuItem value={"O-"}>O-</MenuItem>
-                                      
                                     </Select>
                                   </FormControl>
                                 </Box>
@@ -779,12 +845,12 @@ const validation = () => {
                                       id="demo-simple-select-helper"
                                       value={bloodKind2}
                                       label="Kind"
-                                      onChange={(event) => setBloodKind2(event.target.value) } 
+                                      onChange={(event) =>
+                                        setBloodKind2(event.target.value)
+                                      }
                                       // onChange={handleChange2}
                                     >
-                                      <MenuItem value="">
-                                        혈액종류
-                                      </MenuItem>
+                                      <MenuItem value="">혈액종류</MenuItem>
                                       <MenuItem value={"전혈"}>전혈</MenuItem>
                                       <MenuItem value={"성분채혈 혈소판"}>
                                         성분채혈 혈소판
@@ -824,12 +890,12 @@ const validation = () => {
                                       id="demo-simple-select-helper"
                                       value={hospital2}
                                       label="Bank"
-                                      onChange={(event) => setHospital2(event.target.value)}
+                                      onChange={(event) =>
+                                        setHospital2(event.target.value)
+                                      }
                                       // onChange={handleChange3}
                                     >
-                                      <MenuItem value="">
-                                        혈액원 명
-                                      </MenuItem>
+                                      <MenuItem value="">혈액원 명</MenuItem>
                                       <MenuItem value={"서울중앙혈액원"}>
                                         서울중앙혈액원
                                       </MenuItem>
@@ -900,13 +966,14 @@ const validation = () => {
                                     label="헌혈일자"
                                     type="date"
                                     defaultValue="2022-01-01"
-                                    sx={{ width: "5%", minWidth: "158%" }}
+                                    sx={{ width: "5%", minWidth: "155%" }}
                                     InputLabelProps={{
                                       shrink: true,
                                     }}
-                                    onChange={(event) => setBloodDate(event.target.value)}
+                                    onChange={(event) =>
+                                      setBloodDate(event.target.value)
+                                    }
                                   />
-
                                 </Stack>
                               </p>
                               <br></br>
@@ -935,11 +1002,9 @@ const validation = () => {
                       <button
                         id="loginBtn"
                         style={{ padding: "1%" }}
-
-                       onClick={ () => {
-                          certificate()  
-                        }
-                        }
+                        onClick={() => {
+                          certificate();
+                        }}
                       >
                         등록
                       </button>
@@ -952,14 +1017,12 @@ const validation = () => {
                       </button>
                     </DialogActions>
                   </Dialog>
-                </div>
-                &nbsp;
-
                 {/* ########################## 수혈자시점 ##########################*/}
-                <button id="boardBtn4" onClick={handleClickOpen5}>
+                <Button1 id={bloodCheck} onClick={handleClickOpen5}>
                   <FactCheckIcon></FactCheckIcon>헌혈증서
-                </button>
+                </Button1>
                 <div>
+
                   <Dialog
                     open={open5}
                     TransitionComponent={Transition}
@@ -976,7 +1039,9 @@ const validation = () => {
                         fontWeight: "bold",
                       }}
                     >
-                      {"헌혈증서확인"}
+                       {"헌혈증서확인"}<br/>
+                    {"("}{endData.length}{"개)"}
+
                     </DialogTitle>
                     <DialogContent>
                       <DialogContentText
@@ -987,28 +1052,68 @@ const validation = () => {
                           fontWeight: "bold",
                         }}
                       >
-                        
-                        <br></br>
-                        <span id="bloodLicence">
-                          헌혈증서 &nbsp;
-                          <span id="bloodLicence2">
-                            증서번호:&nbsp;
-                            <input id="bloodLicenceNum1" value="**" onChange={(event) => setBloodNum(event.target.value)}></input>
-                            &nbsp;-&nbsp;
-                            <input id="bloodLicenceNum2" value="**" onChange={(event) => setBloodNum2(event.target.value)}></input>
-                            &nbsp;-&nbsp;
-                            <input id="bloodLicenceNum3" value="******" onChange={(event) => setBloodNum3(event.target.value)}></input>
-                            &nbsp;-&nbsp;
-                            <input id="bloodLicenceNum4" value="**" onChange={(event) => setBloodNum4(event.target.value)}></input>
+                        {endData.map((it) => (
+                    <div key={it.certificatekey}> 
+                    <div>
 
-                          </span>{" "}
-                        </span>
-                        <br />
                         <table id="bloodLicenceTable">
+                          <tr>
+                            <td id="bloodLicence">
+                              헌혈증서 &nbsp;
+                              <td id="bloodLicence2">
+                                증서번호:&nbsp;
+                                <input
+                                  id="bloodLicenceNum1"
+                                  value="**"
+                                  onChange={(event) =>
+                                    setBloodNum(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum2"
+                                  value="**"
+                                  onChange={(event) =>
+                                    setBloodNum2(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum3"
+                                  value="******"
+                                  onChange={(event) =>
+                                    setBloodNum3(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum4"
+                                  value="**"
+                                  onChange={(event) =>
+                                    setBloodNum4(event.target.value)
+                                  }
+                                ></input>
+                              </td>
+                            </td>{" "}
+                          </tr>
+
                           <tr>
                             <td>
                               <br></br>
-                              <button id="BoardArrow"><ArrowBackIosNewIcon></ArrowBackIosNewIcon></button><span style={{marginRight:"20%",marginLeft:"20%"}} >{window.localStorage.getItem("nickName")} 님</span><button  id="BoardArrow"><ArrowForwardIosIcon></ArrowForwardIosIcon></button>
+                              <button id="BoardArrow">
+                                {/* <ArrowBackIosNewIcon></ArrowBackIosNewIcon> */}
+                              </button>
+                              <span
+                                style={{
+                                  marginRight: "20%",
+                                  marginLeft: "20%",
+                                }}
+                              >
+                                {window.localStorage.getItem("nickName")} 님
+                              </span>
+                              <button id="BoardArrow">
+                                {/* <ArrowForwardIosIcon></ArrowForwardIosIcon> */}
+                              </button>
                               <br></br>
                               <br></br>
                               <p id="bloodLicenceBloodType">
@@ -1021,33 +1126,22 @@ const validation = () => {
                                       }}
                                       id="demo-simple-select-helper-label"
                                     >
-                                      혈액형
+                                      
                                     </InputLabel>
-                                    <Select
+                                    <TextField
                                       sx={{
                                         fontFamily: "GmarketSansMedium",
                                         fontWeight: "bold",
                                       }}
                                       labelId="demo-simple-select-helper-label"
                                       id="demo-simple-select-helper"
-                                      value={bloodType2}
-                                      label="Type"
+                                      value={it.bloodType}
+                                      label="혈액형"
                                       // onChange={(event) => setBloodType2(event.target.value)}
                                       // onChange={handleChange}
                                     >
-                                      <MenuItem value="">
-                                        혈액형
-                                      </MenuItem>
-                                      <MenuItem value={"A"}>A+</MenuItem>
-                                      <MenuItem value={"B"}>B+</MenuItem>
-                                      <MenuItem value={"AB"}>AB+</MenuItem>
-                                      <MenuItem value={"O"}>O+</MenuItem>
-                                      <MenuItem value={"A-"}>A-</MenuItem>
-                                      <MenuItem value={"B-"}>B-</MenuItem>
-                                      <MenuItem value={"AB-"}>AB-</MenuItem>
-                                      <MenuItem value={"O-"}>O-</MenuItem>
                                       
-                                    </Select>
+                                    </TextField>
                                   </FormControl>
                                 </Box>
                                 &nbsp;&nbsp;
@@ -1060,38 +1154,24 @@ const validation = () => {
                                       }}
                                       id="demo-simple-select-helper-label"
                                     >
-                                      헌혈종류
+                                      
                                     </InputLabel>
-                                    <Select
+                                    <TextField
                                       sx={{
                                         fontFamily: "GmarketSansMedium",
                                         fontWeight: "bold",
                                       }}
                                       labelId="demo-simple-select-helper-label"
                                       id="demo-simple-select-helper"
-                                      value={bloodKind2}
-                                      label="Kind"
-                                      onChange={(event) => setBloodKind2(event.target.value) } 
+                                      value={it.bloodKind}
+                                      label="헌혈종류"
+                                      onChange={(event) =>
+                                        setBloodKind2(event.target.value)
+                                      }
                                       // onChange={handleChange2}
                                     >
-                                      <MenuItem value="">
-                                        혈액종류
-                                      </MenuItem>
-                                      <MenuItem value={"전혈"}>전혈</MenuItem>
-                                      <MenuItem value={"성분채혈 혈소판"}>
-                                        성분채혈 혈소판
-                                      </MenuItem>
-                                      <MenuItem value={"혈장"}>혈장</MenuItem>
-                                      <MenuItem value={"농축적혈구"}>
-                                        농축적혈구
-                                      </MenuItem>
-                                      <MenuItem value={"성분채혈 백혈구"}>
-                                        성분채혈 백혈구
-                                      </MenuItem>
-                                      <MenuItem value={"백혈구여과제거적혈구"}>
-                                        백혈구여과제거적혈구
-                                      </MenuItem>
-                                    </Select>
+                                      
+                                    </TextField>
                                   </FormControl>
                                 </Box>
                               </p>
@@ -1105,9 +1185,9 @@ const validation = () => {
                                       }}
                                       id="demo-simple-select-helper-label"
                                     >
-                                      혈액원 명
+                                      
                                     </InputLabel>
-                                    <Select
+                                    <TextField
                                       sx={{
                                         fontFamily: "GmarketSansMedium",
                                         fontWeight: "bold",
@@ -1115,74 +1195,14 @@ const validation = () => {
                                       labelId="demo-simple-select-helper-label"
                                       id="demo-simple-select-helper"
                                       value={hospital2}
-                                      label="Bank"
-                                      onChange={(event) => setHospital2(event.target.value)}
+                                      label="혈액원 명"
+                                      onChange={(event) =>
+                                        setHospital2(event.target.value)
+                                      }
                                       // onChange={handleChange3}
                                     >
-                                      <MenuItem value="">
-                                        혈액원 명
-                                      </MenuItem>
-                                      <MenuItem value={"서울중앙혈액원"}>
-                                        서울중앙혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"서울남부혈액원"}>
-                                        서울남부혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"서울동부혈액원"}>
-                                        서울동부혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"부산혈액원"}>
-                                        부산혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"대구경북혈액원"}>
-                                        대구경북혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"인천혈액원"}>
-                                        인천혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"울산혈액원"}>
-                                        울산혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"경기혈액원"}>
-                                        경기혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"강원혈액원"}>
-                                        강원혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"충북혈액원"}>
-                                        충북혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"대전세종충남혈액원"}>
-                                        대전세종충남혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"전북혈액원"}>
-                                        전북혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"광주·전남혈액원"}>
-                                        광주·전남혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"경남혈액원"}>
-                                        경남혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"제주혈액원"}>
-                                        제주혈액원
-                                      </MenuItem>
-                                      <MenuItem value={"중앙혈액검사센터"}>
-                                        중앙혈액검사센터
-                                      </MenuItem>
-                                      <MenuItem value={"혈액관리본부"}>
-                                        혈액관리본부
-                                      </MenuItem>
-                                      <MenuItem value={"혈장분획센터"}>
-                                        혈장분획센터
-                                      </MenuItem>
-                                      <MenuItem value={"중부혈액검사센터"}>
-                                        중부혈액검사센터
-                                      </MenuItem>
-                                      <MenuItem value={"남부혈액검사센터"}>
-                                        남부혈액검사센터
-                                      </MenuItem>
-                                    </Select>
+                                      
+                                    </TextField>
                                   </FormControl>
                                 </Box>
                                 &nbsp;&nbsp;
@@ -1191,15 +1211,15 @@ const validation = () => {
                                     id="date"
                                     label="헌혈일자"
                                     type="date"
-                                    defaultValue="2022-01-01"
-                                    value={bloodDate}
-                                    sx={{ width: "5%", minWidth: "158%" }}
+                                    value={it.bloodDate}
+                                    sx={{ width: "5%", minWidth: "155%" }}
                                     InputLabelProps={{
                                       shrink: true,
                                     }}
-                                    onChange={(event) => setBloodDate(event.target.value)}
+                                    onChange={(event) =>
+                                      setBloodDate(event.target.value)
+                                    }
                                   />
-
                                 </Stack>
                               </p>
                               <br></br>
@@ -1212,6 +1232,10 @@ const validation = () => {
                             </td>
                           </tr>
                         </table>
+                        <br/>
+                        </div>
+                        </div>
+                        ))}
                       </DialogContentText>
                     </DialogContent>
                     <DialogActions
@@ -1232,7 +1256,6 @@ const validation = () => {
                       >
                         확인
                       </button>
-                      
                     </DialogActions>
                   </Dialog>
                 </div>
@@ -1241,19 +1264,23 @@ const validation = () => {
             {/* 수혈자 */}
             <br />
             <div id="receive">
-              <label id="receiveNick">
-                {nickName}
-              </label>
+              <label id="receiveNick">{nickName}</label>
               <br />
               <label id="receiveChat">
                 {content} <br></br>
-              </label><br></br>
-              {postYear === nowYear && postMonth === nowMonth && postDay === nowDay ? (
-
-                <label id="receiveDate">{postHour}:{postMinute}</label>
-              ) :
-              <label id="receiveDate">{postYear}/{postMonth}/{postDay}</label>
-              }
+              </label>
+              <br></br>
+              {postYear === nowYear &&
+              postMonth === nowMonth &&
+              postDay === nowDay ? (
+                <label id="receiveDate">
+                  {postHour}:{postMinute}
+                </label>
+              ) : (
+                <label id="receiveDate">
+                  {postYear}/{postMonth}/{postDay}
+                </label>
+              )}
             </div>
             <br />
             {/* 수혈자 여기까지 */}
@@ -1261,70 +1288,412 @@ const validation = () => {
               <div key={it.replykey}>
                 <div>
                   {it.email === email3 ? ( //자신의 게시글에 댓글을 다는 경우
-                    (it.year === nowYear && it.month === nowMonth && it.day === nowDay) ? (
-                    <div id="receive">
-                      <label id="receiveNick">{it.nickName}</label>
+                    it.year === nowYear &&
+                    it.month === nowMonth &&
+                    it.day === nowDay ? (
+                      <div id="receive">
+                        <label id="receiveNick">{it.nickName}</label>
+                        <br />
+                        <label id="receiveChat">{it.replyContent}</label>
+                        <br></br>{" "}
+                        <label id="receiveDate">
+                          {it.hour}:{it.minute}
+                        </label>{" "}
+                      </div>
+                    ) : (
+                      <div id="receive">
+                        <label id="receiveNick">{it.nickName}</label>
+                        <br />
+                        <label id="receiveChat">{it.replyContent}</label>
+                        <br></br>{" "}
+                        <label id="receiveDate">
+                          {it.year}/{it.month}/{it.day}
+                        </label>{" "}
+                      </div>
+                    )
+                  ) : it.replyType === "true" ? ( // 일반 댓글일 경우
+                    it.year === nowYear &&
+                    it.month === nowMonth &&
+                    it.day === nowDay ? (
+                      <div id="give">
+                        {" "}
+                        <label id="giveNick">{it.nickName}</label>
+                        <br />
+                        <label id="giveChat">{it.replyContent}</label>
+                        <br></br>{" "}
+                        <label id="giveDate">
+                          {it.hour}:{it.minute}
+                        </label>{" "}
+                      </div>
+                    ) : (
+                      <div id="give">
+                        {" "}
+                        <label id="giveNick">{it.nickName}</label>
+                        <br />
+                        <label id="giveChat">{it.replyContent}</label>
+                        <br></br>{" "}
+                        <label id="giveDate">
+                          {it.year}/{it.month}/{it.day}
+                        </label>{" "}
+                      </div>
+                    )
+                  ) : //헌혈증서 댓글일 경우
+                  it.year === nowYear &&
+                    it.month === nowMonth &&
+                    it.day === nowDay ? (
+                    <div id="give">
+                      {" "}
+                      <label id="giveNick">{it.nickName}</label>
                       <br />
-                      <label id="receiveChat">{it.replyContent}</label>
-                      <br></br> <label id="receiveDate">{it.hour}:{it.minute}</label>{" "}
-                    </div>
-                    ) :
-                    <div id="receive">
-                      <label id="receiveNick">{it.nickName}</label>
-                      <br />
-                      <label id="receiveChat">{it.replyContent}</label>
-                      <br></br> <label id="receiveDate">{it.year}/{it.month}/{it.day}</label>{" "}
+                      {/* start */}
+                      <label id="giveChat2">
+                        <table id="bloodLicenceTable3">
+                          <tr>
+                            <td id="bloodLicence">
+                              헌혈증서 &nbsp;
+                              <td id="bloodLicence2">
+                                증서번호:&nbsp;
+                                <input
+                                  id="bloodLicenceNum1"
+                                  value="**"
+                                  onChange={(event) =>
+                                    setBloodNum(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum2"
+                                  value="**"
+                                  onChange={(event) =>
+                                    setBloodNum2(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum3"
+                                  value="******"
+                                  onChange={(event) =>
+                                    setBloodNum3(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum4"
+                                  value="**"
+                                  onChange={(event) =>
+                                    setBloodNum4(event.target.value)
+                                  }
+                                ></input>
+                              </td>
+                            </td>{" "}
+                          </tr>
+                          <br />
+                          <tr>
+                            <td>
+                              {it.nickName} 님<br></br>
+                              <br></br>
+                              <p id="bloodLicenceBloodType">
+                                <Box sx={{ width: "5%", minWidth: "45%" }}>
+                                  <FormControl fullWidth>
+                                    <InputLabel
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      id="demo-simple-select-helper-label"
+                                    >
+                                      
+                                    </InputLabel>
+                                    <TextField
+                                    disabled
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      labelId="demo-simple-select-helper-label"
+                                      id="demo-simple-select-helper"
+                                      value={it.bloodType}
+                                      label="혈액형"
+                                      // onChange={(event) => setBloodType2(event.target.value)}
+                                      // onChange={handleChange}
+                                    >
+                           
+                                    </TextField>
+                                  </FormControl>
+                                </Box>
+                                &nbsp;&nbsp;
+                                <Box sx={{ width: "5%", minWidth: "45%" }}>
+                                  <FormControl fullWidth>
+                                    <InputLabel
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      id="demo-simple-select-helper-label"
+                                    >
+                                      
+                                    </InputLabel>
+                                    <TextField
+                                    disabled
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      labelId="demo-simple-select-helper-label"
+                                      id="demo-simple-select-helper"
+                                      value={it.bloodKind}
+                                      label="헌혈종류"
+                                      onChange={(event) =>
+                                        setBloodKind2(event.target.value)
+                                      }
+                                      // onChange={handleChange2}
+                                    >
+                              
+                                    </TextField>
+                                  </FormControl>
+                                </Box>
+                              </p>
+                              <p id="bloodLicenceBloodType2">
+                                <Box sx={{ width: "5%", minWidth: "47%" }}>
+                                  <FormControl fullWidth>
+                                    <InputLabel
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      id="demo-simple-select-helper-label"
+                                    >
+                                      
+                                    </InputLabel>
+                                    <TextField
+                                    disabled
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      labelId="demo-simple-select-helper-label"
+                                      id="demo-simple-select-helper"
+                                      value={it.hospital}
+                                      label="혈액원 명"
+                                      onChange={(event) =>
+                                        setHospital2(event.target.value)
+                                      }
+                                      // onChange={handleChange3}
+                                    >
+                                     
+                                    </TextField>
+                                  </FormControl>
+                                </Box>
+                                &nbsp;&nbsp;
+                                <Stack component="form" noValidate spacing={3}>
+                                  <TextField
+                                    id="date"
+                                    label="헌혈일자"
+                                    type="date"
+                                    defaultValue="2022-01-01"
+                                    value={it.bloodDate}
+                                    sx={{ width: "5%", minWidth: "104%" }}
+                                    InputLabelProps={{
+                                      shrink: true,
+                                    }}
+                                    onChange={(event) =>
+                                      setBloodDate(event.target.value)
+                                    }
+                                  />
+                                </Stack>
+                              </p>
+                              <br></br>
+                              
+                            </td>
+                          </tr>
+                        </table>
+                      </label>
+                      {/* end */}
+                      <br></br>{" "}
+                      <label id="giveDate">
+                        {it.hour}:{it.minute}
+                      </label>{" "}
                     </div>
                   ) : (
-                    (it.replyType === "true") ? ( // 일반 댓글일 경우
-                    (it.year === nowYear && it.month === nowMonth && it.day === nowDay) ? (
                     <div id="give">
                       {" "}
                       <label id="giveNick">{it.nickName}</label>
                       <br />
-                      <label id="giveChat">{it.replyContent}</label>
-                      <br></br> <label id="giveDate">{it.hour}:{it.minute}</label>{" "}
+                      {/* start */}
+                      <label id="giveChat2">
+                        <table id="bloodLicenceTable3">
+                          <tr>
+                            <td id="bloodLicence">
+                              헌혈증서 &nbsp;
+                              <td id="bloodLicence2">
+                                증서번호:&nbsp;
+                                <input
+                                  id="bloodLicenceNum1"
+                                  value="**"
+                                  onChange={(event) =>
+                                    setBloodNum(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum2"
+                                  value="**"
+                                  onChange={(event) =>
+                                    setBloodNum2(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum3"
+                                  value="******"
+                                  onChange={(event) =>
+                                    setBloodNum3(event.target.value)
+                                  }
+                                ></input>
+                                &nbsp;-&nbsp;
+                                <input
+                                  id="bloodLicenceNum4"
+                                  value="**"
+                                  onChange={(event) =>
+                                    setBloodNum4(event.target.value)
+                                  }
+                                ></input>
+                              </td>
+                            </td>{" "}
+                          </tr>
+                          <br />
+                          <tr>
+                            <td>
+                              {it.nickName} 님<br></br>
+                              <br></br>
+                              <p id="bloodLicenceBloodType">
+                                <Box sx={{ width: "5%", minWidth: "45%" }}>
+                                  <FormControl fullWidth>
+                                    <InputLabel
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      id="demo-simple-select-helper-label"
+                                    >
+                                      
+                                    </InputLabel>
+                                    <TextField
+                                    disabled
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      labelId="demo-simple-select-helper-label"
+                                      id="demo-simple-select-helper"
+                                      value={it.bloodType}
+                                      label="혈액형"
+                                      // onChange={(event) => setBloodType2(event.target.value)}
+                                      // onChange={handleChange}
+                                    >
+                           
+                                    </TextField>
+                                  </FormControl>
+                                </Box>
+                                &nbsp;&nbsp;
+                                <Box sx={{ width: "5%", minWidth: "45%" }}>
+                                  <FormControl fullWidth>
+                                    <InputLabel
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      id="demo-simple-select-helper-label"
+                                    >
+                                      
+                                    </InputLabel>
+                                    <TextField
+                                    disabled
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      labelId="demo-simple-select-helper-label"
+                                      id="demo-simple-select-helper"
+                                      value={it.bloodKind}
+                                      label="헌혈종류"
+                                      onChange={(event) =>
+                                        setBloodKind2(event.target.value)
+                                      }
+                                      // onChange={handleChange2}
+                                    >
+                              
+                                    </TextField>
+                                  </FormControl>
+                                </Box>
+                              </p>
+                              <p id="bloodLicenceBloodType2">
+                                <Box sx={{ width: "5%", minWidth: "47%" }}>
+                                  <FormControl fullWidth>
+                                    <InputLabel
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      id="demo-simple-select-helper-label"
+                                    >
+                                      
+                                    </InputLabel>
+                                    <TextField
+                                    disabled
+                                      sx={{
+                                        fontFamily: "GmarketSansMedium",
+                                        fontWeight: "bold",
+                                      }}
+                                      labelId="demo-simple-select-helper-label"
+                                      id="demo-simple-select-helper"
+                                      value={it.hospital}
+                                      label="혈액원 명"
+                                      onChange={(event) =>
+                                        setHospital2(event.target.value)
+                                      }
+                                      // onChange={handleChange3}
+                                    >
+                                     
+                                    </TextField>
+                                  </FormControl>
+                                </Box>
+                                &nbsp;&nbsp;
+                                <Stack component="form" noValidate spacing={3}>
+                                  <TextField
+                                    id="date"
+                                    label="헌혈일자"
+                                    type="date"
+                                    defaultValue="2022-01-01"
+                                    value={it.bloodDate}
+                                    sx={{ width: "5%", minWidth: "104%" }}
+                                    InputLabelProps={{
+                                      shrink: true,
+                                    }}
+                                    onChange={(event) =>
+                                      setBloodDate(event.target.value)
+                                    }
+                                  />
+                                </Stack>
+                              </p>
+                              <br></br>
+                              
+                            </td>
+                          </tr>
+                        </table>
+                      </label>
+                      {/* end */}
+                      <br></br>{" "}
+                      <label id="giveDate">
+                        {it.year}/{it.month}/{it.day}
+                      </label>{" "}
                     </div>
-                    ) :
-                    <div id="give">
-                      {" "}
-                      <label id="giveNick">{it.nickName}</label>
-                      <br />
-                      <label id="giveChat">{it.replyContent}</label>
-                      <br></br> <label id="giveDate">{it.year}/{it.month}/{it.day}</label>{" "}
-                    </div>
-                    ) : //헌혈증서 댓글일 경우
-                    (it.year === nowYear && it.month === nowMonth && it.day === nowDay) ? (
-                      <div id="give">
-                        {" "}
-                        <label id="giveNick">{it.nickName}</label>
-                        <br />
-                        <label id="giveChat2" >{it.replyContent}<br/>
-                        헌혈자 닉네임: {it.nickName} <br/>
-                        혈액형: {it.bloodType}형 혈액종류: {it.bloodKind} <br/>
-                        병원: {it.hospital} 헌혈일자: {it.bloodDate}
-                        </label>
-                        <br></br> <label id="giveDate">{it.hour}:{it.minute}</label>{" "}
-                      </div>
-                      ) :
-                      <div id="give">
-                        {" "}
-                        <label id="giveNick">{it.nickName}</label>
-                        <br />
-                        <label id="giveChat2" >{it.replyContent}<br/>
-                        헌혈자 닉네임: {it.nickName} <br/>
-                        혈액형: {it.bloodType}형 혈액종류: {it.bloodKind} <br/>
-                        병원: {it.hospital} 헌혈일자: {it.bloodDate}
-                        </label>
-                        <br></br> <label id="giveDate">{it.year}/{it.month}/{it.day}</label>{" "}
-                      </div>
                   )}
                 </div>
                 <br />
               </div>
             ))}
           </div>
-
           <div id="boardReply">
             <div id="replyLeft">
               <button id="replyImage">
@@ -1348,70 +1717,74 @@ const validation = () => {
         </div>
         <br></br> <br></br>
         <div align="center">
-        <button className="modifyBtn" id={deleteShow} onClick={modify2}>
-          수정
-        </button>
-        &nbsp;&nbsp;&nbsp;
-        <button className="deleteBtn" id={deleteShow} onClick={handleClickOpen4}>
-          삭제
-        </button>
-        <Dialog
-                  open={open4}
-                  TransitionComponent={Transition}
-                  keepMounted
-                  onClose={handleClose4}
-                  aria-describedby="alert-dialog-slide-description"
-                >
-                  <DialogTitle
-                    align="center"
-                    color="red"
-                    sx={{
-                      fontFamily: "GmarketSansMedium",
-                      fontSize: "x-large",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {"삭제"}
-                  </DialogTitle>
-                  <DialogContent>
-                    <DialogContentText
-                      id="alert-dialog-slide-description"
-                      sx={{
-                        fontFamily: "GmarketSansMedium",
-                        fontSize: "large",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      정말 삭제하시겠습니까?
-                    </DialogContentText>
-                  </DialogContent>
-                  <DialogActions
-                    sx={{
-                      fontFamily: "GmarketSansMedium",
-                      fontSize: "x-large",
-                      fontWeight: "bold",
-                      display: "flex",
-                      textAlign: "center",
-                      justifyContent: "center",
-                      marginBottom: "3%",
-                    }}
-                  >
-                    <button
-                      id="loginBtn"
-                      style={{ padding: "1%", width: "30%" }}
-                      onClick={delete2}
-                    >
-                      확인
-                    </button>
-                    <button
-                      id="loginBtn"
-                      style={{ padding: "1%", width: "30%" }}
-                      onClick={handleClose4}
-                    >
-                      취소
-                    </button>
-                  </DialogActions>
-                </Dialog>
+          <button className="modifyBtn" id={deleteShow} onClick={modify2}>
+            수정
+          </button>
+          &nbsp;&nbsp;&nbsp;
+          <button
+            className="deleteBtn"
+            id={deleteShow}
+            onClick={handleClickOpen4}
+          >
+            삭제
+          </button>
+          <Dialog
+            open={open4}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleClose4}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogTitle
+              align="center"
+              color="red"
+              sx={{
+                fontFamily: "GmarketSansMedium",
+                fontSize: "x-large",
+                fontWeight: "bold",
+              }}
+            >
+              {"삭제"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText
+                id="alert-dialog-slide-description"
+                sx={{
+                  fontFamily: "GmarketSansMedium",
+                  fontSize: "large",
+                  fontWeight: "bold",
+                }}
+              >
+                정말 삭제하시겠습니까?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions
+              sx={{
+                fontFamily: "GmarketSansMedium",
+                fontSize: "x-large",
+                fontWeight: "bold",
+                display: "flex",
+                textAlign: "center",
+                justifyContent: "center",
+                marginBottom: "3%",
+              }}
+            >
+              <button
+                id="loginBtn"
+                style={{ padding: "1%", width: "30%" }}
+                onClick={delete2}
+              >
+                확인
+              </button>
+              <button
+                id="loginBtn"
+                style={{ padding: "1%", width: "30%" }}
+                onClick={handleClose4}
+              >
+                취소
+              </button>
+            </DialogActions>
+          </Dialog>
         </div>
         <br /> <br />
         <br /> <br />

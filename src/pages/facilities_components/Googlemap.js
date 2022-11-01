@@ -112,14 +112,12 @@ function Googlemap(props) {
       })
       .then((res) => {
         setGooglemap(res.gmap);
-        return res.data.map((loc) => {
-          const element = loc["address"];
-          if (element !== undefined) return element;
-          else return "undefined";
-        });
-      })
-      .then((res) => {
-        setList(res);
+        //console.log(res.data);
+        setList(
+          res.data.map((loc) => {
+            return loc["address"] !== undefined ? loc["address"] : "";
+          })
+        );
       })
       .catch(function (error) {
         console.log(error);
@@ -161,6 +159,9 @@ function Googlemap(props) {
                     new URLSearchParams(window.location.search).get("blood")
                   ]
                 }
+                onClick={(e) => {
+                  e.target.value = "";
+                }}
               />
             )}
           />
