@@ -55,6 +55,26 @@ function QnAKnowledge(props) {
                   <br></br>사랑의 실천이자 생명을 나누는 고귀한 행위입니다.
           </span>
           <hr />
+          
+          <ui className="sidebarCircle">
+                  <ul className="sidebarList">
+                    <a className="href" href="QnAKnowledge">
+                      {" "}
+                      <li className="sidebarListItem active">헌혈지식</li>
+                    </a>
+                    &nbsp;
+                    <a className="href" href="QnADesignated">
+                      <li className="sidebarListItem">지정헌혈이란?</li>
+                    </a>
+                    &nbsp;
+                    <a className="href" href="QnAQuestion">
+                      <li className="sidebarListItem">자주묻는 질문</li>
+                    </a>
+                  </ul>
+                </ui>
+
+
+
           <div className="others">
             <Fade bottom>
               <IntroBlock>
@@ -452,6 +472,7 @@ function QnAKnowledge(props) {
                 <br></br>의료기관(병원)은 해당 혈액을 필요한<br></br> 환자에게 수혈전 적합검사를 거쳐<br></br> 수혈하게 됩니다.</div>
             </div>
           </div>
+          <button id="top2" onClick={scrollToTop} type="button" > Top</button>
           <br></br><br></br>
         </div>
       </div>

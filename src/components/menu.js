@@ -225,7 +225,7 @@ function Menu() {
         <div id="left2">
           <span QEmpty></span>
           <Menubar id="Qdrop">
-            <div>
+            <div id="Qdrop">
               <span id="QdropListTitle">
                 Q&A<hr></hr>
                 <li>

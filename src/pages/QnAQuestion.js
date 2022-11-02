@@ -47,6 +47,24 @@ function QnAQuestion(props) {
                   </span>
                   <hr />
 
+                  <ui className="sidebarCircle">
+                  <ul className="sidebarList">
+                    <a className="href" href="QnAKnowledge">
+                      {" "}
+                      <li className="sidebarListItem">헌혈지식</li>
+                    </a>
+                    &nbsp;
+                    <a className="href" href="QnADesignated">
+                      <li className="sidebarListItem">지정헌혈이란?</li>
+                    </a>
+                    &nbsp;
+                    <a className="href" href="QnAQuestion">
+                      <li className="sidebarListItem active">자주묻는 질문</li>
+                    </a>
+                  </ul>
+                </ui>
+
+
             <div className="others"></div>
             <Fade bottom>
               <IntroBlock>
@@ -409,6 +427,7 @@ function QnAQuestion(props) {
               </div>
             </div>
             <hr style={{ height: "5px", color: "#000" }}></hr>
+            <button id="top2" onClick={scrollToTop} type="button" > Top</button>
             <br></br><br></br>
           </div>
         </div>

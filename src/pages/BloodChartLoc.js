@@ -68,12 +68,38 @@ export default function App() {
       <div className="container">
         <h1 className="sidebarTitle">알아볼까요?</h1>
         <span align="center" className="hello">
-          작년의 지역별 헌혈 통계 데이터 현황을 확인 할 수 있습니다.
+          지역별 헌혈 통계 데이터 현황을 확인 할 수 있습니다.
         </span>
         <hr />
-        <div className="others">
+        <div className="others3">
           <BarChart
             width={1200}
+            height={600}
+            data={data}
+            margin={{
+              top: 30,
+              right: 30,
+              left: 30,
+              bottom: 5,
+            }}
+            barSize={20}
+          >
+            <XAxis
+              dataKey="C1_NM"
+              scale="point"
+              padding={{ left: 10, right: 10 }}
+            />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Bar dataKey="DT" name='지역별(%)' fill="#F4A460" background={{ fill: "#eee" }} />
+          </BarChart>
+        </div>
+
+        <div className="others2">
+          <BarChart
+            width={500}
             height={600}
             data={data}
             margin={{

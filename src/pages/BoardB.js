@@ -29,7 +29,7 @@ function Board() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/bloodBs")
+      .post("http://localhost:3001/bloodB")
       .then((response) => {
         setData(response.data);
       })

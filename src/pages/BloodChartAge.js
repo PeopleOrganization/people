@@ -68,10 +68,10 @@ export default function App() {
     <div className="container">
       <h1 className="sidebarTitle">알아볼까요?</h1>
       <span align="center" className="hello">
-        작년의 연령별 헌혈 통계 데이터 현황을 확인 할 수 있습니다.
+        연령별 헌혈 통계 데이터 현황을 확인 할 수 있습니다.
       </span>
       <hr />
-        <div className="others"></div>
+        <div className="others3">
         <BarChart
           width={1200}
           height={600}
@@ -95,6 +95,34 @@ export default function App() {
           <CartesianGrid strokeDasharray="3 3" />
           <Bar dataKey="DT" name='연령별(%)' fill="#DC143C" background={{ fill: "#eee" }} />
         </BarChart>
+      </div>
+
+      <div className="others2">
+        <BarChart
+          width={500}
+          height={600}
+          data={data}
+          margin={{
+            top: 30,
+            right: 30,
+            left: 0,
+            bottom: 5,
+          }}
+          barSize={20}
+        >
+          <XAxis
+            dataKey="C2_NM"
+            scale="point"
+            padding={{ left: 10, right: 10 }}
+          />
+          <YAxis type="number" domain={[0, 50]} />
+          <Tooltip />
+          <Legend />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Bar dataKey="DT" name='연령별(%)' fill="#DC143C" background={{ fill: "#eee" }} />
+        </BarChart>
+      </div>
+
       </div>
     </div>
   );
