@@ -1198,7 +1198,7 @@ function BoardView() {
                                             }}
                                             labelId="demo-simple-select-helper-label"
                                             id="demo-simple-select-helper"
-                                            value={hospital2}
+                                            value={it.hospital}
                                             label="혈액원 명"
                                             onChange={(event) =>
                                               setHospital2(event.target.value)
