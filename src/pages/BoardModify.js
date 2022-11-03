@@ -59,7 +59,7 @@ const [registNum, setRegistNum] = useState("");
 
 useEffect(() => {
   axios
-    .post("http://localhost:3001/modifyInfo", null, {
+    .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/modifyInfo", null, {
       params: {
         postkey: window.localStorage.getItem("postkey"),
       },

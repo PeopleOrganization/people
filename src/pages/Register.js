@@ -87,7 +87,7 @@ function Register(props) {
       blood = blood+'-';
     }
 
-    axios.post('http://localhost:3001/join', null, {
+    axios.post('http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/join', null, {
       params: { 
         email: email,
         pw: pw,
@@ -131,7 +131,7 @@ function Register(props) {
     console.log("중복체크 하러 옴");
 
 
-    axios.post('http://localhost:3001/overlap', null, {
+    axios.post('http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/overlap', null, {
       params: { 
         nickName: nickName,
       }
@@ -163,7 +163,7 @@ function Register(props) {
     console.log("중복체크 하러 옴");
 
 
-    axios.post('http://localhost:3001/emailOverlap', null, {
+    axios.post('http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/emailOverlap', null, {
       params: { 
         email: email,
       }

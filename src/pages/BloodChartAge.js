@@ -27,7 +27,7 @@ export default function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/age")
+      .get("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/age")
       .then((res) => {
         setData(res.data);
         console.log(res.data);

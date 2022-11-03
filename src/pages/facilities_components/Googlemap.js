@@ -79,7 +79,7 @@ function Googlemap(props) {
 
     const infoWindow = new google.maps.InfoWindow();
     axios
-      .get("http://localhost:3001/blooddata", {
+      .get("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/blooddata", {
         params: {
           req: new URLSearchParams(window.location.search).get("blood"),
         },

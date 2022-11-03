@@ -25,7 +25,7 @@ export default function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/total")
+      .get("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/total")
       .then((res) => {
         setData(res.data);
         console.log(res.data);

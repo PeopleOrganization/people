@@ -59,7 +59,7 @@ function MyPage2(props) {
       blood = blood+'-';
     }
 
-    axios.post('http://localhost:3001/userModify', null, {
+    axios.post('http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/userModify', null, {
       params: { 
         email: window.localStorage.getItem("email"),
         nickName : nickName,
@@ -85,7 +85,7 @@ function MyPage2(props) {
     console.log("중복체크 하러 옴");
 
 
-    axios.post('http://localhost:3001/overlap', null, {
+    axios.post('http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/overlap', null, {
       params: { 
         nickName: nickName,
       }

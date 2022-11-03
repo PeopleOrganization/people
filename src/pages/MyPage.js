@@ -69,7 +69,7 @@ function MyPage(props) {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/userInfo", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/userInfo", null, {
         params: {
           email: window.localStorage.getItem("email"),
         },
@@ -84,7 +84,7 @@ function MyPage(props) {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/Myblood", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/Myblood", null, {
         params: {
           email: window.localStorage.getItem("email"),
         },

@@ -28,7 +28,7 @@ function Board() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/searchAB", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/searchAB", null, {
         params: {
           search: "%" + window.localStorage.getItem("search") + "%",
         },

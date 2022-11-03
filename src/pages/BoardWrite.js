@@ -75,7 +75,7 @@ function BoardWrite() {
 
   const postSave = () => {
     axios
-      .post("http://localhost:3001/post", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/post", null, {
         params: {
           nickName: window.localStorage.getItem("nickName"),
           bloodType: bloodType,

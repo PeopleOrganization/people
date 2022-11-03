@@ -5,7 +5,6 @@ import "./BoardView.css";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 import PhotoIcon from "@mui/icons-material/Photo";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -69,7 +68,7 @@ function GetData(vocId) {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/postView", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/postView", null, {
         params: {
           postkey: postkey2,
         },
@@ -166,7 +165,7 @@ function BoardView() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/certificateShow", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/certificateShow", null, {
         params: {
           postkey: postkey2,
         },
@@ -182,7 +181,7 @@ function BoardView() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/postView", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/postView", null, {
         params: {
           postkey: postkey2,
         },
@@ -262,7 +261,7 @@ function BoardView() {
   //삭제버튼이 보일지 안 보일지 결정
   useEffect(() => {
     axios
-      .post("http://localhost:3001/deleteNick", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/deleteNick", null, {
         params: {
           postkey: postkey2,
         },
@@ -286,7 +285,7 @@ function BoardView() {
   //댓글 불러오기
   useEffect(() => {
     axios
-      .post("http://localhost:3001/replyShow", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/replyShow", null, {
         params: {
           postkey: postkey2,
         },
@@ -302,7 +301,7 @@ function BoardView() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/postView", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/postView", null, {
         params: {
           postkey: postkey2,
         },
@@ -319,7 +318,7 @@ function BoardView() {
   //댓글 등록
   const replySave = () => {
     axios
-      .post("http://localhost:3001/reply", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/reply", null, {
         params: {
           postkey: postkey2,
           email: window.localStorage.getItem("email"),
@@ -341,7 +340,7 @@ function BoardView() {
   const certificate = () => {
     if (validation()) {
       axios
-        .post("http://localhost:3001/certificate", null, {
+        .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/certificate", null, {
           params: {
             postkey: postkey2,
             bloodNum: bloodNum,
@@ -361,7 +360,7 @@ function BoardView() {
           if (res.data === 0) {
             // 0을 받으면 헌혈증서 등록에 성공했다는 댓글 생성
             axios
-              .post("http://localhost:3001/reply2", null, {
+              .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/reply2", null, {
                 params: {
                   postkey: postkey2,
                   email: window.localStorage.getItem("email"),
@@ -375,7 +374,7 @@ function BoardView() {
               })
               .then((res) => {
                 console.log("1증가");
-                axios.post("http://localhost:3001/responsePlus", null, {
+                axios.post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/responsePlus", null, {
                   params: {
                     postkey: postkey2,
                   },
@@ -425,7 +424,7 @@ function BoardView() {
   //스크랩 했는지, 안 했는지
   const scrapCheck = () => {
     axios
-      .post("http://localhost:3001/scrapCheck", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/scrapCheck", null, {
         params: {
           postkey: postkey2,
           email: window.localStorage.getItem("email"),
@@ -439,7 +438,7 @@ function BoardView() {
           // 0을 받으면 아직 스크랩을 안 했다는 것
           console.log("아직 스크랩 안 했음!! 0");
           axios
-            .post("http://localhost:3001/scrap", null, {
+            .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/scrap", null, {
               params: {
                 postkey: postkey2,
                 email: window.localStorage.getItem("email"),
@@ -458,7 +457,7 @@ function BoardView() {
           // 0이외의 값이면 이미 스크랩 했다는 것
           console.log("이미 스크랩 했음!! 1");
           axios
-            .post("http://localhost:3001/scrapDelete", null, {
+            .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/scrapDelete", null, {
               params: {
                 postkey: postkey2,
                 email: window.localStorage.getItem("email"),
@@ -482,7 +481,7 @@ function BoardView() {
     console.log("글 삭제 하러 옴");
 
     axios
-      .post("http://localhost:3001/delete", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/delete", null, {
         params: {
           postkey: postkey2,
         },

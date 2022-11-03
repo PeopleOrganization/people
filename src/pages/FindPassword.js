@@ -8,7 +8,7 @@ function Login(props) {
 
   const find = () => {
     axios
-      .post("http://localhost:3001/findPassword", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/findPassword", null, {
         params: {
           email: email,
         },

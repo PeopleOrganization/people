@@ -39,7 +39,7 @@ function MyPage3(props) {
     }
 
 
-    axios.post('http://localhost:3001/userPw', null, {
+    axios.post('http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/userPw', null, {
       params: { 
         email: window.localStorage.getItem("email"),
         pw: pw

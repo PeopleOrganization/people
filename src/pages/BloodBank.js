@@ -68,7 +68,7 @@ function BloodBank(props) {
 
     const infoWindow = new google.maps.InfoWindow();
     axios
-      .get("http://localhost:3001/blooddata", { params: { req: "bank" } })
+      .get("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/blooddata", { params: { req: "bank" } })
       .then((res) => {
         let num = 1;
         console.log(res["data"].length);

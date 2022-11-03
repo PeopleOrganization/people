@@ -23,7 +23,7 @@ function Login(props) {
   const login2 = () => {
     console.log("로그인 하러 옴");
     axios
-      .post("http://localhost:3001/login", null, {
+      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/login", null, {
         params: {
           email: email,
           pw: pw,

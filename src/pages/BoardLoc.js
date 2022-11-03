@@ -12,7 +12,7 @@ const scrollToTop = () => {
 function BoardLoc() {
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios.post("http://localhost:3001/postList").then((response) => {
+    axios.post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/postList").then((response) => {
       setData(response.data);
     })
     .catch(function (error) {
