@@ -322,7 +322,7 @@ axios.post('http://localhost:3001/modify', null, {
          <TextField
                 sx={{ minWidth: "100%" }}
                 name="email"
-                label="연락처"
+                label="연락처 (ex:01012345678)"
                 value={phonNum}
                 id="outlined-basic"
                 variant="outlined"
@@ -333,7 +333,7 @@ axios.post('http://localhost:3001/modify', null, {
         <TextField
                 sx={{ minWidth: "100%" }}
                 name="email"
-                label="수혈자 등록번호"
+                label="수혈자 등록번호 (10자리)"
                 value={registNum}
                 id="outlined-basic"
                 variant="outlined"

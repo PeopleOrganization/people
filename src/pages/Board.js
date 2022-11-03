@@ -29,7 +29,9 @@ function Board() {
 
   useEffect(() => {
     axios
-      .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/postList")
+      .post(
+        "http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/postList"
+      )
       .then((response) => {
         setData(response.data);
       })
@@ -86,7 +88,7 @@ function Board() {
         <hr />
         <br></br>
         <div id="postContainer0" align="center">
-          <div id="searchSize"align="end" style={{ padding: "1%" }}>
+          <div id="searchSize" align="end" style={{ padding: "1%" }}>
             <TextField
               sx={{ width: "25%" }}
               name="search"
@@ -100,8 +102,10 @@ function Board() {
           <br />
           <table id="boardSize">
             <div>
-            <div>
-                <td className="noneMenu" id="boardItemSize1">Tb</td>
+              <div>
+                <td className="noneMenu" id="boardItemSize1">
+                  Tb
+                </td>
                 <td id="boardItemSize2">혈액형</td>
                 <td id="boardItemSize3">혈액종류</td>
                 <td id="boardItemSize4">제목</td>
@@ -109,71 +113,82 @@ function Board() {
                 <td id="boardItemSize6">병원</td>
                 <td id="boardItemSize7">등록일</td>
                 <td id="boardItemSize8">수량</td>
-                </div>
+              </div>
               <br />
               <hr />
             </div>
             {data.map((it) => (
-                <Link key={it.postkey} to={`/BoardView${it.postkey}`}>
-              <div id ="boardLink">
-                <tr id="boardLink2" style={{textDecoration: "none"}}>
-                  <td id="boardItemSize1">{it.postkey}</td>
-                  <td id="boardItemSize2">{it.bloodType} </td>
-                  <td id="boardItemSize3">{it.bloodKind} </td>
-                  <td id="boardItemSize4">{it.title}</td>
-                  <td id="boardItemSize5">{it.patientName} </td>
-                  <td id="boardItemSize6">{it.hospital} </td>
-                  <td id="boardItemSize7">{it.year}/{it.month}/{it.day}</td>
-                  <td id="boardItemSize8">
-                    {it.responseB}/{it.requestB}
-                  </td>
-                </tr>
-                <br />
-                <hr />
-              </div>
-                </Link>
+              <Link key={it.postkey} to={`/BoardView${it.postkey}`}>
+                <div id="boardLink">
+                  <tr id="boardLink2" style={{ textDecoration: "none" }}>
+                    <td id="boardItemSize1">{it.postkey}</td>
+                    <td id="boardItemSize2">{it.bloodType} </td>
+                    <td id="boardItemSize3">{it.bloodKind} </td>
+                    <td id="boardItemSize4">{it.title}</td>
+                    <td id="boardItemSize5">{it.patientName} </td>
+                    <td id="boardItemSize6">{it.hospital} </td>
+                    <td id="boardItemSize7">
+                      {it.year}/{it.month}/{it.day}
+                    </td>
+                    <td id="boardItemSize8">
+                      {it.responseB}/{it.requestB}
+                    </td>
+                  </tr>
+                  <br />
+                  <hr />
+                </div>
+              </Link>
             ))}
           </table>
 
           <table id="queryBoardSize">
             <div>
-            <div>
-                <td className="noneMenu" id="queryboardItemSize1">Tb</td>
+              <div>
+                <td className="noneMenu" id="queryboardItemSize1">
+                  Tb
+                </td>
+
                 <td id="queryboardItemSize2">혈액형</td>
                 <td id="queryboardItemSize3">혈액종류</td>
                 <td id="queryboardItemSize4">제목</td>
                 <td id="queryboardItemSize5">환자성명</td>
                 <td id="queryboardItemSize6">병원</td>
-                </div>
+              </div>
               <br />
               <hr />
             </div>
             {data.map((it) => (
-                <Link key={it.postkey} to={`/BoardView${it.postkey}`}>
-              <div id ="boardLink">
-                <tr id="boardLink2" style={{textDecoration: "none"}}>
-                  <td id="queryboardItemSize1">{it.postkey}</td>
-                  <td id="queryboardItemSize2">{it.bloodType} </td>
-                  <td id="queryboardItemSize3">{it.bloodKind} </td>
-                  <td id="queryboardItemSize4">{it.title}</td>
-                  <td id="queryboardItemSize5">{it.patientName} </td>
-                  <td id="queryboardItemSize6">{it.hospital} </td>
-                </tr>
-                <br />
-                <hr />
-              </div>
-                </Link>
+              <Link key={it.postkey} to={`/BoardView${it.postkey}`}>
+                <div id="boardLink">
+                  <tr id="boardLink2" style={{ textDecoration: "none" }}>
+                    <td id="queryboardItemSize1">{it.postkey}</td>
+                    <td id="queryboardItemSize2">{it.bloodType} </td>
+                    <td id="queryboardItemSize3">{it.bloodKind} </td>
+                    <td id="queryboardItemSize4">{it.title}</td>
+                    <td id="queryboardItemSize5">{it.patientName} </td>
+                    <td id="queryboardItemSize6">{it.hospital} </td>
+                  </tr>
+                  <br />
+                  <hr />
+                </div>
+              </Link>
             ))}
           </table>
 
           <br></br>
           <Link to="/BoardWrite">
-            <button id="loginBtn" style={{marginTop:"15%", marginBottom:"5%"}}>글쓰기</button>
+            <button
+              id="loginBtn"
+              style={{ marginTop: "15%", marginBottom: "5%" }}
+            >
+              글쓰기
+            </button>
           </Link>
           <br></br>
           <br></br>
         </div>
-        <br></br><br></br>
+        <br></br>
+        <br></br>
       </div>
     </div>
   );

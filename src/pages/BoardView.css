@@ -685,6 +685,13 @@ border: none;
 }
   
 @media (max-width: 800px) {
+
+    #chatIcon {
+        text-align: center;
+        justify-content: center;
+        width: 100%
+    }
+
     #right{
       display: none;
     }
@@ -713,37 +720,37 @@ border: none;
       #queryboardItemSize1 {
         width: 1%;
         text-decoration: none;
-        font-size: small;
+        font-size: x-small;
     }
     
     #queryboardItemSize2 {
         width: 10%;
         text-decoration: none;
-        font-size: small;
+        font-size: x-small;
     }
     
     #queryboardItemSize3 {
         width: 10%;
         text-decoration: none;
-        font-size: small;
+        font-size: x-small;
     }
     
     #queryboardItemSize4 {
-        width: 30%;
+        width: 49%;
         text-decoration: none;
-        font-size: small;
+        font-size: x-small;
     }
     
     #queryboardItemSize5 {
-        width: 10%;
+        width: 15%;
         text-decoration: none;
-        font-size: small;
+        font-size: x-small;
     }
     
     #queryboardItemSize6 {
         width: 15%;
         text-decoration: none;
-        font-size: small;
+        font-size: x-small;
     }
     
     .mainButton{

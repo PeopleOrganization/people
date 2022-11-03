@@ -276,7 +276,7 @@ function BoardWrite() {
               <TextField
                 sx={{ minWidth: "100%" }}
                 name="email"
-                label="연락처"
+                label="연락처 (ex:01012345678)"
                 id="outlined-basic"
                 variant="outlined"
                 onChange={(event) => setPhonNum(event.target.value)}
@@ -286,7 +286,7 @@ function BoardWrite() {
               <TextField
                 sx={{ minWidth: "100%" }}
                 name="email"
-                label="수혈자 등록번호"
+                label="수혈자 등록번호 (10자리)"
                 id="outlined-basic"
                 variant="outlined"
                 onChange={(event) => setRegistNum(event.target.value)}

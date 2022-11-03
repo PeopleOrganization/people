@@ -1389,6 +1389,9 @@ li {
   #container2:hover {
     min-height: 300px;
   }
+  #container2:hover #QMenu {
+    display: none;
+  }
   #container2:hover #QdropList {
     display: block;
     z-index: 2;

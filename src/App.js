@@ -9,7 +9,6 @@ import BoardView from "./pages/BoardView";
 import BoardWrite from "./pages/BoardWrite";
 import Site from "./pages/Site";
 import Login from "./pages/Login";
-import LogOut from "./pages/LogOut";
 import Register from "./pages/Register";
 import BloodChartTotal from "./pages/BloodChartTotal";
 import BloodChartMonth from "./pages/BloodChartMonth";
@@ -38,7 +37,7 @@ import BoardSearchB from "./pages/BoardSearchB";
 import BoardSearchAB from "./pages/BoardSearchAB";
 import BoardSearchO from "./pages/BoardSearchO";
 import MyBlood from "./pages/MyBlood";
-import FindPassword from "./pages/FindPassword";
+import FindPassword from "./pages/FindPassword.js";
 
 function App() {
   return (
@@ -71,7 +70,6 @@ function App() {
           <Route path="/BoardWrite" element={<BoardWrite />} />
           <Route path="/Site" element={<Site />}></Route>
           <Route path="/Login" element={<Login />}></Route>
-          <Route path="/LogOut" element={<LogOut />}></Route>
           <Route path="/Register" element={<Register />}></Route>
           <Route path="/BloodChartTotal" element={<BloodChartTotal />}></Route>
           <Route path="/BloodChartLoc" element={<BloodChartLoc />}></Route>

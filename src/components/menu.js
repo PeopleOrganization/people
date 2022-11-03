@@ -7,6 +7,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 function Menu() {
   const [login, setLogin] = useState("login1");
@@ -223,7 +224,8 @@ function Menu() {
 
       <div id="container2">
         <div id="left2">
-          <span QEmpty></span>
+          <div id="QMenu" align="center" >Menu▼</div>
+          
           <Menubar id="Qdrop">
             <div id="Qdrop">
               <span id="QdropListTitle">
