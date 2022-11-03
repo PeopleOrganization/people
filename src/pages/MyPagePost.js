@@ -45,7 +45,7 @@ function Board() {
 
 
   return (
-    <div id="bigContainer">
+    <div id="bigContainer" style={{backgroundColor:"#F0F0F0"}}>
       <div id="sideLeft">
         <ul className="sidebarList2">
           <a className="href2" href="MyPage">
@@ -105,6 +105,30 @@ function Board() {
               </div>
               <br />
               <hr />
+              <ui className="sidebarCircle">
+          <ul className="sidebarList">
+          <a className="href" href="MyPage">
+            {" "}
+            <li className="sidebarListItem">내 정보</li>
+          </a>
+            &nbsp;
+            <a className="href" href="MyPagePost">
+            {" "}
+            <li className="sidebarListItem active">내 게시글</li>
+          </a>
+            &nbsp;
+            <a className="href" href="MyPageReply">
+            {" "}
+            <li className="sidebarListItem">내 댓글</li>
+          </a>
+            &nbsp;
+            <a className="href" href="MyPageScrap">
+            {" "}
+            <li className="sidebarListItem">내 스크랩</li>
+          </a>
+            &nbsp;
+          </ul>
+        </ui>
             </div>
             {data.map((it) => (
               <Link key={it.postkey} to={`/BoardView${it.postkey}`}>

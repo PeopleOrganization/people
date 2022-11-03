@@ -44,6 +44,7 @@ function App() {
     <div id="wrapper">
       <BrowserRouter>
         <Menu />
+        <div style={{marginTop:"0.2%",}}></div>
         <div id="center"></div>
         <Routes>
           <Route path="/BoardSearchA" element={<BoardSearchA />}></Route>
@@ -86,7 +87,7 @@ function App() {
         </Routes>
         <ScrollToTop />
       </BrowserRouter>
-
+      <div style={{marginBottom:"0.2%",}}></div>
       <Footer />
     </div>
   );

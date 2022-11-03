@@ -3,11 +3,11 @@ import title from "../imgs/title_icon.png";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 function Menu() {
   const [login, setLogin] = useState("login1");
@@ -224,8 +224,10 @@ function Menu() {
 
       <div id="container2">
         <div id="left2">
-          <div id="QMenu" align="center" >Menu▼</div>
-          
+          <div id="QMenu" align="center">
+            Menu▼
+          </div>
+
           <Menubar id="Qdrop">
             <div id="Qdrop">
               <span id="QdropListTitle">
@@ -247,8 +249,8 @@ function Menu() {
                 </li>
               </span>
             </div>
-            &nbsp;&nbsp;&nbsp;
-            <div>
+            
+            <div id="Qdrop">
               <span id="QdropListTitle">
                 Stats<hr></hr>
                 <li>
@@ -278,8 +280,8 @@ function Menu() {
                 </li>
               </span>
             </div>
-            &nbsp;&nbsp;&nbsp;
-            <div>
+            
+            <div id="Qdrop">
               <span id="QdropListTitle">
                 Loc<hr></hr>
                 <li>
@@ -304,8 +306,8 @@ function Menu() {
                 </li>
               </span>
             </div>
-            &nbsp;&nbsp;&nbsp;
-            <div>
+            
+            <div id="Qdrop">
               <span id="QdropListTitle">
                 Board<hr></hr>
                 <li>
@@ -335,23 +337,41 @@ function Menu() {
                 </li>
               </span>
             </div>
-            <div>
-            <span id="QdropListTitle">
-              <div id="QLogin">
-                <p>
-              <a id={login} href="Login">
-                <LoginIcon>&nbsp;<span id="QFont">Login</span></LoginIcon>
-              </a></p>&nbsp;<p>
-              <a id={logout} onClick={check3} href="Login">
-                <LogoutIcon>&nbsp;<span id="QFont">LogOut</span></LogoutIcon>
-              </a></p>&nbsp;<p>
-              <a id={login} href="Register">
-                <HowToRegIcon>&nbsp;<span id="QFont">Join</span></HowToRegIcon>
-              </a></p>&nbsp;<p>
-              <a id="login3" onClick={checkMy}>
-                <AccountCircleIcon>&nbsp;<span id="QFont">MyPage</span></AccountCircleIcon>
-              </a></p>
-              </div>
+            <div id="Qdrop">
+              <span id="QdropListTitle">
+                <div id="QLogin">
+                  <p>
+                    <a id={login} href="Login">
+                      <LoginIcon>
+                        &nbsp;<span id="QFont">Login</span>
+                      </LoginIcon>
+                    </a>
+                  </p>
+                  &nbsp;
+                  <p>
+                    <a id={logout} onClick={check3} href="Login">
+                      <LogoutIcon>
+                        &nbsp;<span id="QFont">LogOut</span>
+                      </LogoutIcon>
+                    </a>
+                  </p>
+                  &nbsp;
+                  <p>
+                    <a id={login} href="Register">
+                      <HowToRegIcon>
+                        &nbsp;<span id="QFont">Join</span>
+                      </HowToRegIcon>
+                    </a>
+                  </p>
+                  &nbsp;
+                  <p>
+                    <a id="login3" onClick={checkMy}>
+                      <AccountCircleIcon>
+                        &nbsp;<span id="QFont">MyPage</span>
+                      </AccountCircleIcon>
+                    </a>
+                  </p>
+                </div>
               </span>
             </div>
           </Menubar>

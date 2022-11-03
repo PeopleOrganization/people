@@ -160,7 +160,32 @@ function MyPage2(props) {
       <span align="center" className="hello">
         사용자 계정을 수정할 수 있는 공간입니다.
       </span>
-      <hr /><br></br>
+      <hr />
+      <ui className="sidebarCircle">
+          <ul className="sidebarList">
+          <a className="href" href="MyPage">
+            {" "}
+            <li className="sidebarListItem active">내 정보</li>
+          </a>
+            &nbsp;
+            <a className="href" href="MyPagePost">
+            {" "}
+            <li className="sidebarListItem">내 게시글</li>
+          </a>
+            &nbsp;
+            <a className="href" href="MyPageReply">
+            {" "}
+            <li className="sidebarListItem">내 댓글</li>
+          </a>
+            &nbsp;
+            <a className="href" href="MyPageScrap">
+            {" "}
+            <li className="sidebarListItem">내 스크랩</li>
+          </a>
+            &nbsp;
+          </ul>
+        </ui>
+      <br></br>
         <div align="center">
           <p>
             <Box 

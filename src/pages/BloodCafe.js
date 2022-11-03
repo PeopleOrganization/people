@@ -4,10 +4,10 @@ import axios from "axios";
 
 const scrollToTop = () => {
   window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-  })
-}
+    top: 0,
+    behavior: "smooth",
+  });
+};
 
 function BloodCafe(props) {
   const mapElement = useRef(null);
@@ -68,7 +68,10 @@ function BloodCafe(props) {
 
     const infoWindow = new google.maps.InfoWindow();
     axios
-      .get("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/blooddata", { params: { req: "cafe" } })
+      .get(
+        "http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/blooddata",
+        { params: { req: "cafe" } }
+      )
       .then((res) => {
         let num = 1;
         console.log(res["data"].length);
@@ -150,6 +153,28 @@ function BloodCafe(props) {
           공간입니다.
         </span>
         <hr />
+
+        <ui className="sidebarCircle">
+          <ul className="sidebarList">
+            <a className="href" href="BloodHouse">
+              {" "}
+              <li className="sidebarListItem">헌혈의집</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BloodCafe">
+              <li className="sidebarListItem active">헌혈카페</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BloodBank">
+              <li className="sidebarListItem">혈액원</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BloodHospital">
+              <li className="sidebarListItem">지정병원</li>
+            </a>
+          </ul>
+        </ui>
+
         <div className="others"></div>
         <div id="mapT">
           <div id="hosMap" ref={mapElement} style={{ minHeight: "600px" }} />

@@ -42,7 +42,7 @@ function Board() {
   }, []);
 
   return (
-    <div id="bigContainer">
+    <div id="bigContainer" style={{backgroundColor:"#F0F0F0"}}>
       <div id="sideLeft">
         <ul className="sidebarList2">
           <a className="href" href="Board">
@@ -135,6 +135,69 @@ function Board() {
                 <hr />
               </div>
                 </Link>
+            ))}
+          </table>
+
+          <table id="queryBoardSize">
+            <div>
+              <div>
+                <td className="noneMenu" id="queryboardItemSize1">
+                  Tb
+                </td>
+
+                <td id="queryboardItemSize2">혈액형</td>
+                <td id="queryboardItemSize3">혈액종류</td>
+                <td id="queryboardItemSize4">제목</td>
+                <td id="queryboardItemSize5">환자성명</td>
+                <td id="queryboardItemSize6">병원</td>
+              </div>
+              <br />
+              <hr />
+              <ui className="sidebarCircle">
+          <ul className="sidebarList">
+            <a className="href" href="Board">
+              {" "}
+              <li className="sidebarListItem active">전체게시판</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardA">
+              {" "}
+              <li className="sidebarListItem">A혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardB">
+              {" "}
+              <li className="sidebarListItem">B혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardAB">
+              {" "}
+              <li className="sidebarListItem">AB혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardO">
+              {" "}
+              <li className="sidebarListItem">O혈액형</li>
+            </a>
+            &nbsp;
+          </ul>
+        </ui>
+            </div>
+            {data.map((it) => (
+              <Link key={it.postkey} to={`/BoardView${it.postkey}`}>
+                <div id="boardLink">
+                  <tr id="boardLink2" style={{ textDecoration: "none" }}>
+                    <td id="queryboardItemSize1">{it.postkey}</td>
+                    <td id="queryboardItemSize2">{it.bloodType} </td>
+                    <td id="queryboardItemSize3">{it.bloodKind} </td>
+                    <td id="queryboardItemSize4">{it.title}</td>
+                    <td id="queryboardItemSize5">{it.patientName} </td>
+                    <td id="queryboardItemSize6">{it.hospital} </td>
+                  </tr>
+                  <br />
+                  <hr />
+                </div>
+              </Link>
             ))}
           </table>
 

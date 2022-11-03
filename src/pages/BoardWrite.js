@@ -146,7 +146,37 @@ function BoardWrite() {
         <span align="center" className="hello">
           도움을 요청하세요.
         </span>
-        <hr /><br></br>
+        <hr />
+        <ui className="sidebarCircle">
+          <ul className="sidebarList">
+            <a className="href" href="Board">
+              {" "}
+              <li className="sidebarListItem active">전체게시판</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardA">
+              {" "}
+              <li className="sidebarListItem">A혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardB">
+              {" "}
+              <li className="sidebarListItem">B혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardAB">
+              {" "}
+              <li className="sidebarListItem">AB혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardO">
+              {" "}
+              <li className="sidebarListItem">O혈액형</li>
+            </a>
+            &nbsp;
+          </ul>
+        </ui>
+        <br></br>
         <div id="postContainer2" align="center">
           <br />
           {/* <div>{item}</div> */}

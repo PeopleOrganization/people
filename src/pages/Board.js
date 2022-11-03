@@ -41,7 +41,7 @@ function Board() {
   }, []);
 
   return (
-    <div id="bigContainer">
+    <div id="bigContainer" style={{backgroundColor:"#F0F0F0"}}>
       <div id="sideLeft">
         <ul className="sidebarList2">
           <a className="href" href="Board">
@@ -86,6 +86,36 @@ function Board() {
           모든사람과 소통을 할 수 있는 게시판입니다.
         </span>
         <hr />
+        <ui className="sidebarCircle">
+          <ul className="sidebarList">
+            <a className="href" href="Board">
+              {" "}
+              <li className="sidebarListItem active">전체게시판</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardA">
+              {" "}
+              <li className="sidebarListItem">A혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardB">
+              {" "}
+              <li className="sidebarListItem">B혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardAB">
+              {" "}
+              <li className="sidebarListItem">AB혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardO">
+              {" "}
+              <li className="sidebarListItem">O혈액형</li>
+            </a>
+            &nbsp;
+          </ul>
+        </ui>
+
         <br></br>
         <div id="postContainer0" align="center">
           <div id="searchSize" align="end" style={{ padding: "1%" }}>

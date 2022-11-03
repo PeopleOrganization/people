@@ -45,7 +45,7 @@ function Board() {
 
 
   return (
-    <div id="bigContainer">
+    <div id="bigContainer" style={{backgroundColor:"#F0F0F0"}}>
       <div id="sideLeft">
       <ul className="sidebarList2">
           <a className="href2" href="MyPage">
@@ -85,6 +85,30 @@ function Board() {
         내가 스크랩한 게시글을 확인할 수 있는 공간입니다.
         </span>
         <hr />
+        <ui className="sidebarCircle">
+          <ul className="sidebarList">
+          <a className="href" href="MyPage">
+            {" "}
+            <li className="sidebarListItem">내 정보</li>
+          </a>
+            &nbsp;
+            <a className="href" href="MyPagePost">
+            {" "}
+            <li className="sidebarListItem">내 게시글</li>
+          </a>
+            &nbsp;
+            <a className="href" href="MyPageReply">
+            {" "}
+            <li className="sidebarListItem">내 댓글</li>
+          </a>
+            &nbsp;
+            <a className="href" href="MyPageScrap">
+            {" "}
+            <li className="sidebarListItem active">내 스크랩</li>
+          </a>
+            &nbsp;
+          </ul>
+        </ui>
           <br></br>
         <div id="postContainer0" align="center">
         <div align="end" style={{padding:"1%"}}>

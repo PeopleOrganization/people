@@ -558,13 +558,39 @@ function BoardView() {
           헌혈하는 당신이 진정한 영웅입니다.
         </span>
         <hr />
+        <ui className="sidebarCircle">
+          <ul className="sidebarList">
+            <a className="href" href="Board">
+              {" "}
+              <li className="sidebarListItem active">전체게시판</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardA">
+              {" "}
+              <li className="sidebarListItem">A혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardB">
+              {" "}
+              <li className="sidebarListItem">B혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardAB">
+              {" "}
+              <li className="sidebarListItem">AB혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardO">
+              {" "}
+              <li className="sidebarListItem">O혈액형</li>
+            </a>
+            &nbsp;
+          </ul>
+        </ui>
         <div id="postContainer" align="center">
           <br />
-          <div>{item.jsx}</div>
-          <br />
-          <br />
-          <div id="chatRoom" ref={scrollRef}>
-            <div id="chatIcon">
+          <div>{item.jsx}
+          <div id="chatIcon">
               <span id="boardButton">
                 <button id="boardBtn1" onClick={handleClickOpen2}>
                   {" "}
@@ -1266,6 +1292,14 @@ function BoardView() {
                 </div>
               </span>
             </div>
+          
+          
+          
+          </div>
+          <br />
+          <br />
+          <div id="chatRoom" ref={scrollRef}>
+
             {/* 수혈자 */}
             <br />
             <div id="receive">

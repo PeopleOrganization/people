@@ -15,17 +15,19 @@ import {
 
 const scrollToTop = () => {
   window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-  })
-}
+    top: 0,
+    behavior: "smooth",
+  });
+};
 
 export default function App() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/total")
+      .get(
+        "http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/total"
+      )
       .then((res) => {
         setData(res.data);
         console.log(res.data);
@@ -72,6 +74,31 @@ export default function App() {
           인구별 헌혈 통계 데이터 현황을 확인 할 수 있습니다.
         </span>
         <hr />
+        <ui className="sidebarCircle">
+          <ul className="sidebarList">
+            <a className="href" href="BloodChartTotal">
+              {" "}
+              <li className="sidebarListItem active">인구별</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BloodChartLoc">
+              <li className="sidebarListItem">지역별</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BloodChartMonth">
+              <li className="sidebarListItem">월별</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BloodChartBloodType">
+              <li className="sidebarListItem">혈액형별</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BloodChartAge">
+              <li className="sidebarListItem">연령별</li>
+            </a>
+          </ul>
+        </ui>
+
         <div className="others3">
           {" "}
           <BarChart
@@ -106,7 +133,7 @@ export default function App() {
         <div className="others2">
           {" "}
           <BarChart
-            width={500}
+            width={300}
             height={600}
             data={data}
             margin={{

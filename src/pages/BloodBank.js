@@ -149,6 +149,26 @@ function BloodBank(props) {
           기관입니다.
         </span>
         <hr />
+        <ui className="sidebarCircle">
+          <ul className="sidebarList">
+            <a className="href" href="BloodHouse">
+              {" "}
+              <li className="sidebarListItem">헌혈의집</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BloodCafe">
+              <li className="sidebarListItem">헌혈카페</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BloodBank">
+              <li className="sidebarListItem active">혈액원</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BloodHospital">
+              <li className="sidebarListItem">지정병원</li>
+            </a>
+          </ul>
+        </ui>
         <div className="others"></div>
         <div id="mapT">
           <div id="hosMap" ref={mapElement} style={{ minHeight: "600px" }} />

@@ -72,9 +72,6 @@ function QnAKnowledge(props) {
                     </a>
                   </ul>
                 </ui>
-
-
-
           <div className="others">
             <Fade bottom>
               <IntroBlock>

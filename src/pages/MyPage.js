@@ -138,7 +138,32 @@ function MyPage(props) {
         <span align="center" className="hello">
           내 정보를 확인할 수 있습니다.
         </span>
-        <hr /><br></br><br></br>
+        <hr />
+        <ui className="sidebarCircle">
+          <ul className="sidebarList">
+          <a className="href" href="MyPage">
+            {" "}
+            <li className="sidebarListItem active">내 정보</li>
+          </a>
+            &nbsp;
+            <a className="href" href="MyPagePost">
+            {" "}
+            <li className="sidebarListItem">내 게시글</li>
+          </a>
+            &nbsp;
+            <a className="href" href="MyPageReply">
+            {" "}
+            <li className="sidebarListItem">내 댓글</li>
+          </a>
+            &nbsp;
+            <a className="href" href="MyPageScrap">
+            {" "}
+            <li className="sidebarListItem">내 스크랩</li>
+          </a>
+            &nbsp;
+          </ul>
+        </ui>
+        <br></br><br></br>
         이메일:{" "}
         <input type={"text"} disabled value={email} name="nickName" /> <br />
         <br />

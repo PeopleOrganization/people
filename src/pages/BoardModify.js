@@ -188,7 +188,35 @@ axios.post('http://localhost:3001/modify', null, {
           게시글을 수정할 수 있는 공간입니다.
         </span>
         <hr />
-        
+        <ui className="sidebarCircle">
+          <ul className="sidebarList">
+            <a className="href" href="Board">
+              {" "}
+              <li className="sidebarListItem active">전체게시판</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardA">
+              {" "}
+              <li className="sidebarListItem">A혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardB">
+              {" "}
+              <li className="sidebarListItem">B혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardAB">
+              {" "}
+              <li className="sidebarListItem">AB혈액형</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BoardO">
+              {" "}
+              <li className="sidebarListItem">O혈액형</li>
+            </a>
+            &nbsp;
+          </ul>
+        </ui>
         <div id="postContainer2" align="center">
           
           <br />

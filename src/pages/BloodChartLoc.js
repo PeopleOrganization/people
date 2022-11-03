@@ -71,6 +71,30 @@ export default function App() {
           지역별 헌혈 통계 데이터 현황을 확인 할 수 있습니다.
         </span>
         <hr />
+        <ui className="sidebarCircle">
+          <ul className="sidebarList">
+            <a className="href" href="BloodChartTotal">
+              {" "}
+              <li className="sidebarListItem">인구별</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BloodChartLoc">
+              <li className="sidebarListItem active">지역별</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BloodChartMonth">
+              <li className="sidebarListItem">월별</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BloodChartBloodType">
+              <li className="sidebarListItem">혈액형별</li>
+            </a>
+            &nbsp;
+            <a className="href" href="BloodChartAge">
+              <li className="sidebarListItem">연령별</li>
+            </a>
+          </ul>
+        </ui>
         <div className="others3">
           <BarChart
             width={1200}
@@ -99,7 +123,7 @@ export default function App() {
 
         <div className="others2">
           <BarChart
-            width={500}
+            width={300}
             height={600}
             data={data}
             margin={{
