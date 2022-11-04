@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./pages/Main";
+import  {useEffect} from "react";
 //<Route path="/product/*" element={<Product />}></Route>
 import Menu from "./components/menu";
 import Footer from "./components/footer";
@@ -40,6 +41,7 @@ import MyBlood from "./pages/MyBlood";
 import FindPassword from "./pages/FindPassword.js";
 
 function App() {
+  
   return (
     <div id="wrapper">
       <BrowserRouter>
