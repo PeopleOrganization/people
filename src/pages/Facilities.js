@@ -6,7 +6,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import House_des from "./facilities_components/house_des";
 import Cafe_des from "./facilities_components/Cafe_des";
 import Sidebar from "./facilities_components/Sidebar";
-import Googlemap from "./facilities_components/Googlemap";
+import Googlemap2 from "./facilities_components/Googlemap2";
 
 const components = {
   house: <House_des />,
@@ -46,7 +46,7 @@ function Facilities(props) {
           {components[new URLSearchParams(window.location.search).get("blood")]}
         </span>
         <hr />
-        <Googlemap />
+        <Googlemap2 />
         <br></br>
         <br></br>
         <br></br>

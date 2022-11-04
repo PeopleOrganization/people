@@ -117,7 +117,7 @@ function validation(post) {
 }
 
 const postModify = () => {
-axios.post('http://localhost:3001/modify', null, {
+axios.post('http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/modify', null, {
       params: { 
         postkey: window.localStorage.getItem("postkey"),
         bloodType: bloodType,
