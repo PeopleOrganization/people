@@ -17,21 +17,21 @@ function Googlemap(props) {
     hospital: "지정병원",
   };
 
-  function geo() {
-    //동기 처리로 위치정보 세팅 후 구글맵을 띄우도록 함
-    const promise = new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log("위도 : " + position.coords.latitude);
-        console.log("경도: " + position.coords.longitude);
-        const location = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        resolve(location);
-      });
-    });
-    return promise;
-  }
+  // function geo() {
+  //   //동기 처리로 위치정보 세팅 후 구글맵을 띄우도록 함
+  //   const promise = new Promise((resolve, reject) => {
+  //     navigator.geolocation.getCurrentPosition((position) => {
+  //       console.log("위도 : " + position.coords.latitude);
+  //       console.log("경도: " + position.coords.longitude);
+  //       const location = {
+  //         lat: position.coords.latitude,
+  //         lng: position.coords.longitude,
+  //       };
+  //       resolve(location);
+  //     });
+  //   });
+  //   return promise;
+  // }
 
   //자동완성 창에서 주소 클릭하면 그 주소로 구글맵 이동
   function goAddress(address) {
@@ -58,24 +58,14 @@ function Googlemap(props) {
   const initMap = useCallback(async () => {
     const { google } = window;
     if (!mapElement.current || !google) return;
-    const location = await geo();
     const map = new google.maps.Map(mapElement.current, {
       zoom: 17,
-      center: location,
-    });
-    const marker = new google.maps.Marker({
-      icon: {
-        url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+      center: {
+        lat: 37.5558368,
+        lng: 126.922818,
       },
-      position: location,
-      map,
     });
-    //현재위치 마커
-    marker.addListener("click", () => {
-      infoWindow.close();
-      infoWindow.setContent("<h3>현재위치</h3>");
-      infoWindow.open(map, marker);
-    });
+  
 
     const infoWindow = new google.maps.InfoWindow();
     axios

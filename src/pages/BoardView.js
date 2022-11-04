@@ -2080,12 +2080,7 @@ function BoardView() {
             ))}
           </div>
           <div id="boardReply">
-            <div id="replyLeft">
-              <button id="replyImage">
-                {" "}
-                <PhotoIcon></PhotoIcon>사진
-              </button>
-            </div>
+           
             <div id="replyRight" style={{ whiteSpace: "pre-wrap" }}>
               <textarea
                 id="replyBoard"

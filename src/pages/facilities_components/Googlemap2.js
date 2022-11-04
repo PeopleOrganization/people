@@ -28,22 +28,6 @@ function Googlemap2(props) {
     hospital: "지정병원",
   };
 
-  function geo() {
-    //동기 처리로 위치정보 세팅 후 구글맵을 띄우도록 함
-    const promise = new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log("위도 : " + position.coords.latitude);
-        console.log("경도: " + position.coords.longitude);
-        const location = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        resolve(location);
-      });
-    });
-    return promise;
-  }
-
   //자동완성 창에서 주소 클릭하면 그 주소로 구글맵 이동
   function goAddress(address) {
     resData.forEach((data) => {
@@ -149,20 +133,15 @@ function Googlemap2(props) {
   //   }, [initMap, loadScript]);
   const mymarker = (
     <Marker
-      position={{ lat: 36.8089615, lng: 127.0722199 }}
+      position={{
+        lat: 37.5558368,
+        lng: 126.922818,
+      }}
       icon={"http://maps.google.com/mapfiles/ms/icons/green-dot.png"}
     />
   );
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      console.log("위도 : " + position.coords.latitude);
-      console.log("경도: " + position.coords.longitude);
-      setCenter({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      });
-    });
 
     axios
       .get("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/blooddata", {
@@ -243,7 +222,10 @@ function Googlemap2(props) {
                 width: "90%",
                 height: "600px",
               }}
-              center={center}
+              center={{
+                lat: 37.5558368,
+                lng: 126.922818,
+              }}
               zoom={zoom}
             >
               {mymarker}
