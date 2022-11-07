@@ -85,27 +85,7 @@ function Board() {
           내가 올린 게시글을 확인할 수 있는 공간입니다.
         </span>
         <hr />
-          <br></br>
-        <div id="postContainer0" align="center">
-        <div align="end" style={{padding:"1%"}}>
-        
-          </div>
-          <br />
-          <table id="boardSize">
-            <div>
-              <div>
-              <td className="noneMenu" id="boardItemSize1">게</td>
-                <td id="boardItemSize2">혈액형</td>
-                <td id="boardItemSize3">혈액종류</td>
-                <td id="boardItemSize4">제목</td>
-                <td id="boardItemSize5">환자성명</td>
-                <td id="boardItemSize6">병원</td>
-                <td id="boardItemSize7">등록일</td>
-                <td id="boardItemSize8">수량</td>
-              </div>
-              <br />
-              <hr />
-              <ui className="sidebarCircle">
+        <ui className="sidebarCircle">
           <ul className="sidebarList">
           <a className="href" href="MyPage">
             {" "}
@@ -129,6 +109,27 @@ function Board() {
             &nbsp;
           </ul>
         </ui>
+          <br></br>
+        <div id="postContainer0" align="center">
+        <div align="end" style={{padding:"1%"}}>
+        
+          </div>
+          <br />
+          <table id="boardSize">
+            <div>
+              <div>
+              <td className="noneMenu" id="boardItemSize1">게</td>
+                <td id="boardItemSize2">혈액형</td>
+                <td id="boardItemSize3">혈액종류</td>
+                <td id="boardItemSize4">제목</td>
+                <td id="boardItemSize5">환자성명</td>
+                <td id="boardItemSize6">병원</td>
+                <td id="boardItemSize7">등록일</td>
+                <td id="boardItemSize8">수량</td>
+              </div>
+              <br />
+              <hr />
+              
             </div>
             {data.map((it) => (
               <Link key={it.postkey} to={`/BoardView${it.postkey}`}>
