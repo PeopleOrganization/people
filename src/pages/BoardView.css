@@ -820,7 +820,7 @@ border: none;
         margin-right: 8%;
         text-align: center;
         justify-content: center;
-        width: 95%;
+        width: 85%;
     }
     
     #bloodLicenceBloodType2 {
@@ -828,11 +828,11 @@ border: none;
         margin-right: 8%;
         text-align: center;
         justify-content: center;
-        width: 95%;
+        width: 85%;
     }
 
     #giveChat2 {
-        width: 80%;
+        width: 100%;
         background: #fff;
     }
   }
