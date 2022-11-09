@@ -1142,7 +1142,7 @@ function BoardView() {
                                         marginLeft: "20%",
                                       }}
                                     >
-                                      {window.localStorage.getItem("nickName")}{" "}
+                                      {it.nickName}{" "}
                                       님
                                     </span>
                                     <button id="BoardArrow">
