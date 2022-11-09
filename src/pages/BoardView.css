@@ -150,13 +150,6 @@
 }
 
 
-#receiveNick {
-    margin-left: 3%;
-    justify-content: left;
-    text-align: start;
-    font-size: large;
-    color: #000;
-}
 
 #receiveNick2 {
     margin-left: 3%;
@@ -165,6 +158,14 @@
     font-size: large;
     font-weight: bold;
     color: #000000;
+}
+
+#receiveNick {
+    margin-left: 3%;
+    justify-content: left;
+    text-align: start;
+    font-size: large;
+    color: #000;
 }
 
 #giveNick {
@@ -834,5 +835,60 @@ border: none;
     #giveChat2 {
         width: 100%;
         background: #fff;
+    }
+
+    #receiveChat {
+        margin-left: 2%;
+        margin-right: 2%;
+        padding: 1%;
+        border: 1px solid;
+        border-radius: 18px;
+        font-weight: bold;
+        font-size: small;
+        text-align: start;
+        background: #fff;
+    }
+    
+    #giveChat {
+        margin-left: 2%;
+        margin-right: 2%;
+        padding: 1%;
+        border: 1px solid;
+        border-radius: 18px;
+        font-size: small;
+        font-weight: bold;
+        text-align: start;
+        background: rgb(250, 203, 194);
+    }
+    #receiveNick {
+        margin-left: 3%;
+        justify-content: left;
+        text-align: start;
+        font-size: small;
+        color: #000;
+    }
+    
+    #giveNick {
+        margin-right: 3%;
+        justify-content: right;
+        text-align: end;
+        font-size: small;
+        color: #000;
+    }
+    
+    #receiveDate {
+        font-size: small;
+        margin-left: 3%;
+        justify-content: right;
+        text-align: end;
+        color: #000;
+    }
+    
+    #giveDate {
+        font-size: small;
+        margin-right: 3%;
+        justify-content: left;
+        text-align: start;
+        color: #000;
     }
   }
