@@ -70,6 +70,7 @@ function MyPage2(props) {
     })
       .then(res => {  
         console.log(res.data)
+        window.localStorage.setItem("nickName", setNickName);
         alert("회원정보가 수정되었습니다.")
         document.location.href = '/myPage'
       })
