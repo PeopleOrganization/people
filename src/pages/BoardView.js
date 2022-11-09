@@ -1603,11 +1603,11 @@ function BoardView() {
                               </td>
                             </td>{" "}
                           </tr>
-                          <br />
+                          
                           <tr>
                             <td>
-                              {it.nickName} 님<br></br>
-                              <br></br>
+                              {it.nickName} 님<br></br><br></br>
+                              
                               <p id="bloodLicenceBloodType">
                                 <Box
                                 // sx={{ width: "5%", minWidth: "45%" }}
@@ -1948,11 +1948,11 @@ function BoardView() {
                               </td>
                             </td>{" "}
                           </tr>
-                          <br />
+                          
                           <tr>
                             <td>
-                              {it.nickName} 님<br></br>
-                              <br></br>
+                              {it.nickName} 님<br></br><br></br>
+                              
                               <p id="bloodLicenceBloodType">
                                 <Box
                                 // sx={{ width: "5%", minWidth: "45%" }}

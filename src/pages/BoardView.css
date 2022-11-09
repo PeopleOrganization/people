@@ -814,4 +814,25 @@ border: none;
         border: 1px solid;
         display: block;
     }
+
+    #bloodLicenceBloodType {
+        margin-left: 8%;
+        margin-right: 8%;
+        text-align: center;
+        justify-content: center;
+        width: 85%;
+    }
+    
+    #bloodLicenceBloodType2 {
+        margin-left: 8%;
+        margin-right: 8%;
+        text-align: center;
+        justify-content: center;
+        width: 85%;
+    }
+
+    #giveChat2 {
+        width: 70%;
+        background: #fff;
+    }
   }
