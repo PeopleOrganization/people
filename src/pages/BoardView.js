@@ -20,6 +20,7 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import styled from "styled-components";
+import { StoreMallDirectory } from "@mui/icons-material";
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -1441,7 +1442,7 @@ function BoardView() {
                           <tr>
                             <td>
                               {it.nickName} 님<br></br>
-                              <br></br>
+                              
                               <p id="bloodLicenceBloodType">
                                 <Box
                                 // sx={{ width: "5%", minWidth: "45%" }}
@@ -1538,7 +1539,6 @@ function BoardView() {
                                     type="date"
                                     defaultValue="2022-01-01"
                                     value={it.bloodDate}
-                                    // sx={{ marginLeft: "10%", width: "150%" }}
                                     InputLabelProps={{
                                       shrink: true,
                                     }}
@@ -1548,7 +1548,6 @@ function BoardView() {
                                   />
                                 </Stack>
                               </p>
-                              <br></br>
                             </td>
                           </tr>
                         </table>
@@ -1788,7 +1787,7 @@ function BoardView() {
                           <tr>
                             <td>
                               {it.nickName} 님<br></br>
-                              <br></br>
+                              
                               <p id="bloodLicenceBloodType">
                                 <Box
                                 // sx={{ width: "5%", minWidth: "45%" }}
@@ -1885,7 +1884,6 @@ function BoardView() {
                                     type="date"
                                     defaultValue="2022-01-01"
                                     value={it.bloodDate}
-                                    // sx={{ marginLeft: "10%", width: "150%" }}
                                     InputLabelProps={{
                                       shrink: true,
                                     }}
@@ -1895,7 +1893,6 @@ function BoardView() {
                                   />
                                 </Stack>
                               </p>
-                              <br></br>
                             </td>
                           </tr>
                         </table>

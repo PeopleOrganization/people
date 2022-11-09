@@ -255,7 +255,7 @@
 }
 
 #giveChat2 {
-    width: 70%;
+    width: 50%;
     background: #fff;
 }
 
@@ -525,6 +525,7 @@
     margin-right: 8%;
     text-align: center;
     justify-content: center;
+    width: 85%;
 }
 
 #bloodLicenceBloodType2 {
@@ -532,6 +533,7 @@
     margin-right: 8%;
     text-align: center;
     justify-content: center;
+    width: 85%;
 }
 
 
@@ -560,6 +562,7 @@
 
 #bloodLicenceTable3 {
     width: 100%;
+    max-height: 300px;
     text-align: center;
     justify-content: center;
     border: 1px solid;
