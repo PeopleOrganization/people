@@ -1404,7 +1404,7 @@ li {
     margin-top: 6%;
   }
   #Qdrop {
-    margin-left: 7%;
+    margin-left: 3%;
   }
   #container2:hover #QdropList {
     display: block;
@@ -1420,7 +1420,8 @@ li {
   }
   #QdropListTitle {
     margin-top: 50%;
-    margin-bottom: 50%;
+    margin: auto;
+    padding: 10px;
     display: none;
     font-size: medium;
     position: relative;
@@ -1428,12 +1429,23 @@ li {
   }
   #QHiddenList {
     visibility: hidden;
+    color: #000;
+    font-size: x-small;
+    font-weight: bold;
+    padding: 10px;
+    padding-top: 6%;
+    padding-bottom: 6%;
+    text-decoration: none;
+    margin-top: 1px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
   }
   #QdropList {
     color: #000;
     font-size: x-small;
     font-weight: bold;
-    padding: 3px;
     padding-top: 6%;
     padding-bottom: 6%;
     display: none;
