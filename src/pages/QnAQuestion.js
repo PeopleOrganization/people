@@ -34,6 +34,10 @@ function QnAQuestion(props) {
               <a className="href2" href="QnAQuestion">
                 <li className="sidebarListItem2 active">자주묻는 질문</li>
               </a>
+              &nbsp;
+                    <a className="href" href="CPR">
+                      <li className="sidebarListItem2">심폐소생술</li>
+                    </a>
               <br></br>
             <button id="top" onClick={scrollToTop} type="button" > Top</button>
             </ul>
@@ -60,6 +64,10 @@ function QnAQuestion(props) {
                     &nbsp;
                     <a className="href" href="QnAQuestion">
                       <li className="sidebarListItem active">자주묻는 질문</li>
+                    </a>
+                    &nbsp;
+                    <a className="href" href="CPR">
+                      <li className="sidebarListItem">심폐소생술</li>
                     </a>
                   </ul>
                 </ui>

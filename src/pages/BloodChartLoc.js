@@ -123,7 +123,7 @@ export default function App() {
 
         <div className="others2">
           <BarChart
-            width={300}
+            width={400}
             height={600}
             data={data}
             margin={{

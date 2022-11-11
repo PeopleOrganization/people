@@ -6,6 +6,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import House_des from "./facilities_components/house_des";
 import Cafe_des from "./facilities_components/Cafe_des";
 import Sidebar from "./facilities_components/Sidebar";
+import Sidebar2 from "./facilities_components/Sidebar2";
 import Googlemap from "./facilities_components/Googlemap";
 
 const components = {
@@ -46,6 +47,11 @@ function Facilities(props) {
           {components[new URLSearchParams(window.location.search).get("blood")]}
         </span>
         <hr />
+        <div>
+          <Sidebar2
+            facility={new URLSearchParams(window.location.search).get("blood")}
+          />
+<br></br> </div>
         <Googlemap />
         <br></br>
         <br></br>

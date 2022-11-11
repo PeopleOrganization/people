@@ -23,6 +23,7 @@ import MyPage from "./pages/MyPage";
 import ScrollToTop from "./components/ScrollToTop";
 import MyPage2 from "./pages/MyPage2";
 import MyPage3 from "./pages/MyPage3";
+import CPR from "./pages/CPR";
 import BoardModify from "./pages/BoardModify";
 import BoardSearch from "./pages/BoardSearch";
 import BoardA from "./pages/BoardA";
@@ -54,6 +55,7 @@ function App() {
           <Route path="/BoardSearchAB" element={<BoardSearchAB />}></Route>
           <Route path="/BoardSearchO" element={<BoardSearchO />}></Route>
           <Route path="MyBlood" element={<MyBlood />}></Route>
+          <Route path="CPR" element={<CPR />}></Route>
           <Route path="/FindPassword" element={<FindPassword />}></Route>
           <Route path="/MyPage2" element={<MyPage2 />}></Route>
           <Route path="/MyPage3" element={<MyPage3 />}></Route>

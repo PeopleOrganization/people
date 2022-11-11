@@ -149,8 +149,9 @@ function BloodBank(props) {
           기관입니다.
         </span>
         <hr />
-        <ui className="sidebarCircle">
-          <ul className="sidebarList">
+        
+        <ui className="sidebarCircle" align="center">
+          <ul className="sidebarList" align="center">
             <a className="href" href="BloodHouse">
               {" "}
               <li className="sidebarListItem">헌혈의집</li>

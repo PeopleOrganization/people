@@ -266,7 +266,7 @@ body {
   padding-bottom: 6%;
   display: none;
   text-decoration: none;
-  margin-top: 1px;
+  margin-top: 2px;
   border-radius: 5px;
   align-items: center;
   justify-content: center;
@@ -1343,7 +1343,7 @@ li {
   padding: 15px;
   border-radius: 100px;
   color: #555;
-  font-size: large;
+  font-size: small;
   font-weight: bold;
   background: #fff;
   margin-left: 25%;
@@ -1358,7 +1358,7 @@ li {
   align-items: center;
   border-radius: 10px;
   color: #555;
-  font-size: large;
+  font-size: small;
   font-weight: bold;
 }
 
@@ -1368,7 +1368,16 @@ li {
   color: white;
 }
 
+#cprVideo {
+  width: "100%";
+  height: "700px";
+}
+
 @media (max-width: 800px) {
+  #cprVideo {
+    width: "60%";
+    height: "300px";
+  }
   #right {
     display: none;
   }

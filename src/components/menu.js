@@ -69,6 +69,11 @@ function Menu() {
                   자주묻는 질문
                 </a>
               </li>
+              <li>
+                <a id="dropList" href="CPR">
+                  심폐소생술
+                </a>
+              </li>
             </li>
           </div>
 
@@ -247,6 +252,11 @@ function Menu() {
                     자주묻는 질문
                   </a>
                 </li>
+                <li>
+                <a id="QdropList" href="CPR">
+                  심폐소생술
+                </a>
+              </li>
               </span>
             </div>
             

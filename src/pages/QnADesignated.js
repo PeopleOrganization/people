@@ -50,6 +50,10 @@ function QnADesignated(props) {
             <a className="href2" href="QnAQuestion">
               <li className="sidebarListItem2">자주묻는 질문</li>
             </a>
+            &nbsp;
+            <a className="href2" href="CPR">
+              <li className="sidebarListItem2">심폐소생술</li>
+            </a>
             <br></br>
             <button id="top" onClick={scrollToTop} type="button" > Top</button>
           </ul>
@@ -63,8 +67,8 @@ function QnADesignated(props) {
           포함합니다.
         </span>
         <hr />
-        <ui className="sidebarCircle">
-                  <ul className="sidebarList">
+        <ui className="sidebarCircle" >
+          <ul className="sidebarList" >
                     <a className="href" href="QnAKnowledge">
                       {" "}
                       <li className="sidebarListItem">헌혈지식</li>
@@ -76,6 +80,10 @@ function QnADesignated(props) {
                     &nbsp;
                     <a className="href" href="QnAQuestion">
                       <li className="sidebarListItem">자주묻는 질문</li>
+                    </a>
+                    &nbsp;
+                    <a className="href" href="CPR">
+                      <li className="sidebarListItem">심폐소생술</li>
                     </a>
                   </ul>
                 </ui>

@@ -126,7 +126,7 @@ function BoardView() {
   const params = useParams();
   const postkey2 = params.postkey;
   const [email3, setEmail3] = useState(""); // 게시글 작성자의 이메일
-  const [replyContent, setReplyContent] = useState(""); // 댓글 내용
+  const [replyContent, setReplyContent] = useState(); // 댓글 내용
 
   const [nickName, setNickName] = useState("");
   const [bloodType, setBloodType] = useState("");
@@ -337,65 +337,86 @@ function BoardView() {
       });
   };
 
+  
   //헌혈증서 등록
   const certificate = () => {
     if (validation()) {
-      axios
-        .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/certificate", null, {
-          params: {
-            postkey: postkey2,
-            bloodNum: bloodNum,
-            bloodNum2: bloodNum2,
-            bloodNum3: bloodNum3,
-            bloodNum4: bloodNum4,
-            email: window.localStorage.getItem("email"),
-            nickName: window.localStorage.getItem("nickName"),
-            bloodType: bloodType2,
-            bloodKind: bloodKind2,
-            hospital: hospital2,
-            bloodDate: bloodDate,
-          },
-        })
-        .then((res) => {
-          console.log(res.data);
-          if (res.data === 0) {
-            // 0을 받으면 헌혈증서 등록에 성공했다는 댓글 생성
-            axios
-              .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/reply2", null, {
-                params: {
-                  postkey: postkey2,
-                  email: window.localStorage.getItem("email"),
-                  nickName: window.localStorage.getItem("nickName"),
-                  replyContent: "<지정 헌혈을 완료했어요!>",
-                  bloodType: bloodType2,
-                  bloodKind: bloodKind2,
-                  hospital: hospital2,
-                  bloodDate: bloodDate,
-                },
-              })
-              .then((res) => {
-                console.log("1증가");
-                axios.post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/responsePlus", null, {
+      axios.post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/resCheck", null, {
                   params: {
                     postkey: postkey2,
                   },
+                })
+      .then((res) => {
+        if(res.data === 0) {
+          axios
+          .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/certificate", null, {
+            params: {
+              postkey: postkey2,
+              bloodNum: bloodNum,
+              bloodNum2: bloodNum2,
+              bloodNum3: bloodNum3,
+              bloodNum4: bloodNum4,
+              email: window.localStorage.getItem("email"),
+              nickName: window.localStorage.getItem("nickName"),
+              bloodType: bloodType2,
+              bloodKind: bloodKind2,
+              hospital: hospital2,
+              bloodDate: bloodDate,
+            },
+          })
+          .then((res) => {
+            console.log(res.data);
+            if (res.data === 0) {
+              // 0을 받으면 헌혈증서 등록에 성공했다는 댓글 생성
+              axios
+                .post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/reply2", null, {
+                  params: {
+                    postkey: postkey2,
+                    email: window.localStorage.getItem("email"),
+                    nickName: window.localStorage.getItem("nickName"),
+                    replyContent: "<지정 헌혈을 완료했어요!>",
+                    bloodType: bloodType2,
+                    bloodKind: bloodKind2,
+                    hospital: hospital2,
+                    bloodDate: bloodDate,
+                  },
+                })
+                .then((res) => {
+                  console.log("이메일 발송하러 감");
+                  axios.post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/reply3", null, {
+                    params: {
+                      email: email3,
+                      postkey: postkey2,
+                    },
+                  });
+                })
+                .then((res) => {
+                  console.log("1증가");
+                  axios.post("http://people-env.eba-35362bbh.ap-northeast-2.elasticbeanstalk.com:3001/responsePlus", null, {
+                    params: {
+                      postkey: postkey2,
+                    },
+                  });
+                })
+                .then((res) => {
+                  console.log("등록완료 후 새로고침");
+                  alert("헌혈 증서가 등록 되었습니다.");
+                  window.location.reload();
+                })
+                .catch(function (error) {
+                  console.log(error);
                 });
-              })
-              .then((res) => {
-                console.log("등록완료 후 새로고침");
-                alert("헌혈 증서가 등록 되었습니다.");
-                window.location.reload();
-              })
-              .catch(function (error) {
+            } else {
+              alert("헌혈 증서 등록에 실패하였습니다.").catch(function (error) {
                 console.log(error);
               });
-          } else {
-            // 0이외의 값이면 이미 스크랩 했다는 것
-            alert("헌혈 증서 등록에 실패하였습니다.").catch(function (error) {
-              console.log(error);
-            });
-          }
-        });
+            }
+          });
+        }else {
+          alert("이미 혈액 필요수량이 확보된 게시물입니다.")
+        }
+      })
+
     }
   };
 
