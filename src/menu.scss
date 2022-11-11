@@ -90,6 +90,8 @@ body {
   width: 100%;
   align-items: center;
   justify-content: center;
+  display: flex;
+  margin: auto;
 }
 
 #center {
@@ -1432,11 +1434,18 @@ li {
   }
 
   #QMenu {
-    margin-top: 6%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin: auto;
+    width: 100%;
   }
 
   #Qdrop {
-    margin-left: 3%;
+    margin-left: 2%;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
   }
 
   #container2:hover #QdropList {
@@ -1462,6 +1471,8 @@ li {
     font-size: medium;
     position: relative;
     font-weight: bold;
+    align-items: center;
+    justify-content: center;
   }
 
   #QHiddenList {
