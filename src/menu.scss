@@ -1424,7 +1424,7 @@ li {
   }
 
   #container2:hover {
-    min-height: 350px;
+    min-height: 300px;
   }
 
   #container2:hover #QMenu{
@@ -1436,7 +1436,7 @@ li {
   }
 
   #Qdrop{
-    margin-left: 3%;
+    margin-left: 7%;
   }
 
   #container2:hover #QdropList {
@@ -1455,16 +1455,21 @@ li {
   }
 
   #QdropListTitle {
-    margin-top: 10%;
+    margin-top: 50%;
+    margin-bottom: 50%;
     display: none;
     font-size: medium;
     position: relative;
     font-weight: bold;
   }
 
+#QHiddenList{
+  visibility: hidden;
+}
+  
   #QdropList {
     color: #000;
-    font-size: small;
+    font-size: x-small;
     font-weight: bold;
     padding: 3px;
     padding-top: 6%;

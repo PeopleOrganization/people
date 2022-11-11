@@ -235,7 +235,7 @@ function Menu() {
 
           <Menubar id="Qdrop">
             <div id="Qdrop">
-              <span id="QdropListTitle">
+              <p id="QdropListTitle">
                 Q&A<hr></hr>
                 <li>
                   <a id="QdropList" href="QnAKnowledge">
@@ -257,11 +257,16 @@ function Menu() {
                   심폐소생술
                 </a>
               </li>
-              </span>
+              <li>
+                <a id="QHiddenList" href="CPR">
+                  히든
+                </a>
+              </li>
+              </p>
             </div>
             
             <div id="Qdrop">
-              <span id="QdropListTitle">
+              <p id="QdropListTitle">
                 Stats<hr></hr>
                 <li>
                   <a id="QdropList" href="BloodChartTotal">
@@ -288,11 +293,11 @@ function Menu() {
                     연령별 통계
                   </a>
                 </li>
-              </span>
+              </p>
             </div>
             
             <div id="Qdrop">
-              <span id="QdropListTitle">
+              <p id="QdropListTitle">
                 Loc<hr></hr>
                 <li>
                   <a id="QdropList" href="Facilities?blood=house">
@@ -314,11 +319,16 @@ function Menu() {
                     지정병원 위치
                   </a>
                 </li>
-              </span>
+                <li>
+                <a id="QHiddenList" href="CPR">
+                  히든
+                </a>
+              </li>
+              </p>
             </div>
             
             <div id="Qdrop">
-              <span id="QdropListTitle">
+              <p id="QdropListTitle">
                 Board<hr></hr>
                 <li>
                   <a id="QdropList" href="Board">
@@ -345,10 +355,10 @@ function Menu() {
                     O형 게시판
                   </a>
                 </li>
-              </span>
+              </p>
             </div>
             <div id="Qdrop">
-              <span id="QdropListTitle">
+              <p id="QdropListTitle">
                 <div id="QLogin">
                   <p>
                     <a id={login} href="Login">
@@ -382,7 +392,7 @@ function Menu() {
                     </a>
                   </p>
                 </div>
-              </span>
+              </p>
             </div>
           </Menubar>
         </div>
