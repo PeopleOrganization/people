@@ -44,7 +44,7 @@
         </section>
     </main>
     <footer>
-        <p>지정 헌혈 프로젝트 © 2023</p>
+        <p>지정 헌혈 프로젝트 © 2022</p>
     </footer>
 </body>
 </html>
