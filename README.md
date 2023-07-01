@@ -17,6 +17,12 @@
             <h2>주제 선정 이유</h2>
             <img src="./15.PNG" alt="예시 이미지" width="1200" height="600"></img>
         </section>
+        <section id="preview">
+            <h2>미리보기</h2>
+            <p>
+                현재 도메인 주소 <a href="http://people-donate.surge.sh/" target="_blank">http://people-donate.surge.sh/</a> 에서 확인하실 수 있습니다.
+            </p>
+        </section>
         <section>
             <h2>시나리오</h2>
             <img src="./1.PNG" alt="예시 이미지" width="1200" height="600"></img>
